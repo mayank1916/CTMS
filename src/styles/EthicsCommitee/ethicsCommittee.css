@@ -1,0 +1,764 @@
+/* =========================================
+   ETHICS COMMITTEE DASHBOARD
+========================================= */
+
+.ec-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1f2937;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.ec-sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.ec-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 18px;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.ec-logo-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #7c3aed;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.ec-logo h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.ec-logo p {
+  margin: 3px 0 0;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+
+/* ROLE */
+
+.ec-role {
+  margin: 18px 14px;
+  padding: 12px;
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ec-role > span {
+  font-size: 22px;
+}
+
+.ec-role strong {
+  display: block;
+  font-size: 12px;
+}
+
+.ec-role small {
+  color: #6b7280;
+  font-size: 10px;
+}
+
+
+/* NAVIGATION */
+
+.ec-nav {
+  padding: 4px 12px;
+  flex: 1;
+}
+
+.ec-nav-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 13px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 13px;
+  color: #4b5563;
+  transition: 0.2s ease;
+}
+
+.ec-nav-item:hover {
+  background: #f3f4f6;
+  color: #7c3aed;
+}
+
+.ec-nav-item.active {
+  background: #f5f3ff;
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.ec-sidebar-bottom {
+  padding: 12px;
+  border-top: 1px solid #eef0f3;
+}
+
+.ec-nav-item.logout:hover {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.ec-main {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.ec-header {
+  background: white;
+  min-height: 82px;
+  padding: 18px 30px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ec-header h1 {
+  margin: 0;
+  font-size: 23px;
+}
+
+.ec-header p {
+  margin: 5px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.ec-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.ec-notification-btn {
+  position: relative;
+  border: none;
+  background: #f3f4f6;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4b5563;
+}
+
+.ec-notification-btn span {
+  position: absolute;
+  right: -4px;
+  top: -5px;
+  background: #dc2626;
+  color: white;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-profile {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ec-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #7c3aed;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ec-profile strong {
+  display: block;
+  font-size: 12px;
+}
+
+.ec-profile small {
+  font-size: 10px;
+  color: #6b7280;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.ec-content {
+  padding: 28px 30px 40px;
+}
+
+
+/* =========================================
+   KPI CARDS
+========================================= */
+
+.ec-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 17px;
+  margin-bottom: 22px;
+}
+
+.ec-kpi-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 11px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ec-kpi-icon {
+  width: 43px;
+  height: 43px;
+  border-radius: 10px;
+  background: #f5f3ff;
+  color: #7c3aed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-kpi-card span {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.ec-kpi-card h2 {
+  margin: 3px 0;
+  font-size: 23px;
+}
+
+.ec-kpi-card small {
+  color: #9ca3af;
+  font-size: 10px;
+}
+
+
+/* =========================================
+   PANELS
+========================================= */
+
+.ec-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.ec-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.ec-panel {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 11px;
+  padding: 20px;
+}
+
+.ec-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.ec-panel-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.ec-panel-header p {
+  margin: 4px 0 0;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.ec-panel-header button {
+  border: none;
+  background: transparent;
+  color: #7c3aed;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* =========================================
+   SUBMISSIONS
+========================================= */
+
+.ec-submission-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.ec-submission-row:last-child {
+  border-bottom: none;
+}
+
+.ec-submission-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #f5f3ff;
+  color: #7c3aed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-submission-info {
+  flex: 1;
+}
+
+.ec-submission-info strong {
+  display: block;
+  font-size: 12px;
+}
+
+.ec-submission-info span {
+  display: block;
+  margin-top: 3px;
+  color: #9ca3af;
+  font-size: 10px;
+}
+
+
+/* STATUS */
+
+.ec-status {
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.ec-status.pending-review {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.ec-status.under-review {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.ec-status.approved {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+
+/* =========================================
+   MEETINGS
+========================================= */
+
+.ec-meeting {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.ec-meeting:last-child {
+  border-bottom: none;
+}
+
+.ec-date {
+  width: 39px;
+  height: 42px;
+  border-radius: 8px;
+  background: #f5f3ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #7c3aed;
+}
+
+.ec-date strong {
+  font-size: 15px;
+  line-height: 15px;
+}
+
+.ec-date span {
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.ec-meeting > div:nth-child(2) {
+  flex: 1;
+}
+
+.ec-meeting > div:nth-child(2) strong {
+  display: block;
+  font-size: 11px;
+}
+
+.ec-meeting > div:nth-child(2) span {
+  display: block;
+  margin-top: 3px;
+  color: #9ca3af;
+  font-size: 9px;
+}
+
+.ec-meeting > svg {
+  color: #9ca3af;
+}
+
+
+/* =========================================
+   REVIEW QUEUE
+========================================= */
+
+.ec-review-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.ec-review-row:last-child {
+  border-bottom: none;
+}
+
+.ec-review-info {
+  flex: 1;
+}
+
+.ec-review-info strong {
+  display: block;
+  font-size: 11px;
+}
+
+.ec-review-info span {
+  display: block;
+  margin-top: 3px;
+  color: #9ca3af;
+  font-size: 9px;
+}
+
+.ec-review-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.ec-review-actions button {
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.ec-review-btn {
+  background: white;
+  border: 1px solid #7c3aed;
+  color: #7c3aed;
+}
+
+.ec-review-btn:hover {
+  background: #f5f3ff;
+}
+
+.ec-approve-btn {
+  background: #059669;
+  border: 1px solid #059669;
+  color: white;
+}
+
+.ec-approve-btn:hover {
+  background: #047857;
+}
+
+
+/* =========================================
+   ALERTS
+========================================= */
+
+.ec-alert {
+  display: flex;
+  gap: 11px;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.ec-alert:last-child {
+  margin-bottom: 0;
+}
+
+.ec-alert svg {
+  flex-shrink: 0;
+}
+
+.ec-alert strong {
+  display: block;
+  font-size: 11px;
+}
+
+.ec-alert span {
+  display: block;
+  margin-top: 4px;
+  font-size: 9px;
+  line-height: 14px;
+}
+
+.ec-alert.warning {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.ec-alert.info {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.ec-alert.success {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.ec-alert.danger {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+
+/* =========================================
+   QUICK ACTIONS
+========================================= */
+
+.ec-quick-actions {
+  margin-top: 22px;
+}
+
+.ec-quick-actions h2 {
+  margin: 0 0 13px;
+  font-size: 16px;
+}
+
+.ec-action-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.ec-action-grid button {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  padding: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #374151;
+  font-size: 11px;
+  transition: 0.2s ease;
+}
+
+.ec-action-grid button:hover {
+  border-color: #7c3aed;
+  color: #7c3aed;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
+.ec-placeholder {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ec-placeholder-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 15px;
+  background: #f5f3ff;
+  color: #7c3aed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.ec-placeholder h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.ec-placeholder p {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.ec-placeholder button {
+  margin-top: 10px;
+  border: none;
+  background: #7c3aed;
+  color: white;
+  border-radius: 7px;
+  padding: 9px 16px;
+  cursor: pointer;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .ec-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ec-action-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 800px) {
+
+  .ec-sidebar {
+    width: 210px;
+  }
+
+  .ec-main {
+    margin-left: 210px;
+    width: calc(100% - 210px);
+  }
+
+  .ec-dashboard-grid,
+  .ec-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ec-header {
+    padding: 16px 20px;
+  }
+
+  .ec-content {
+    padding: 20px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .ec-sidebar {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .ec-main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .ec-layout {
+    flex-direction: column;
+  }
+
+  .ec-nav {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .ec-sidebar-bottom {
+    display: flex;
+  }
+
+  .ec-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ec-action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ec-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+}

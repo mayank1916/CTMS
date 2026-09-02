@@ -1,0 +1,541 @@
+/* =========================================
+   COORDINATOR STUDIES
+========================================= */
+
+.cs-page {
+  padding: 28px 30px 40px;
+  min-height: calc(100vh - 82px);
+  background: #f5f7fb;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.cs-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.cs-page-header h1 {
+  margin: 0;
+  font-size: 23px;
+}
+
+.cs-page-header p {
+  margin: 5px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.cs-total {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   FILTER BAR
+========================================= */
+
+.cs-filter-bar {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 13px;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.cs-search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  padding: 0 11px;
+}
+
+.cs-search > svg {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.cs-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  font-size: 11px;
+  color: #374151;
+}
+
+.cs-search input::placeholder {
+  color: #9ca3af;
+}
+
+.cs-search button {
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+}
+
+.cs-status-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  padding: 0 11px;
+  color: #6b7280;
+}
+
+.cs-status-filter select {
+  border: none;
+  outline: none;
+  background: white;
+  padding: 10px 4px;
+  font-size: 11px;
+  color: #374151;
+  cursor: pointer;
+}
+
+
+/* =========================================
+   STUDY GRID
+========================================= */
+
+.cs-study-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+
+/* =========================================
+   STUDY CARD
+========================================= */
+
+.cs-study-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 11px;
+  padding: 20px;
+  transition: 0.2s ease;
+}
+
+.cs-study-card:hover {
+  border-color: #bfdbfe;
+  transform: translateY(-2px);
+}
+
+.cs-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-study-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  background: #eff6ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-status {
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.cs-status.active {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.cs-status.recruiting {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.cs-status.planning {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.cs-study-card h2 {
+  margin: 15px 0 3px;
+  font-size: 16px;
+}
+
+.cs-code {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 10px;
+}
+
+.cs-investigator {
+  margin: 13px 0 18px;
+  color: #6b7280;
+  font-size: 10px;
+}
+
+.cs-investigator strong {
+  color: #374151;
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.cs-progress-section {
+  margin-bottom: 18px;
+}
+
+.cs-progress-text {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.cs-progress-text span {
+  color: #6b7280;
+  font-size: 10px;
+}
+
+.cs-progress-text strong {
+  font-size: 10px;
+  color: #2563eb;
+}
+
+.cs-progress-bar {
+  width: 100%;
+  height: 7px;
+  background: #eef0f3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cs-progress-bar div {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.cs-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 13px 0;
+  border-top: 1px solid #f0f1f3;
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.cs-stats > div {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: center;
+  column-gap: 7px;
+}
+
+.cs-stats svg {
+  grid-row: span 2;
+  color: #2563eb;
+}
+
+.cs-stats span {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.cs-stats small {
+  color: #9ca3af;
+  font-size: 8px;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.cs-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.cs-card-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 7px;
+  padding: 8px 11px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.cs-view-btn {
+  flex: 1;
+  border: 1px solid #2563eb;
+  background: white;
+  color: #2563eb;
+}
+
+.cs-view-btn:hover {
+  background: #eff6ff;
+}
+
+.cs-active-btn {
+  border: 1px solid #059669;
+  background: #059669;
+  color: white;
+}
+
+.cs-active-btn:hover {
+  background: #047857;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.cs-empty {
+  grid-column: 1 / -1;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 11px;
+  padding: 60px 20px;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.cs-empty svg {
+  color: #2563eb;
+}
+
+.cs-empty h2 {
+  margin: 12px 0 5px;
+  color: #374151;
+  font-size: 18px;
+}
+
+.cs-empty p {
+  margin: 0;
+  font-size: 11px;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.cs-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.cs-modal {
+  width: min(600px, 100%);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.cs-modal-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.cs-modal-label {
+  color: #2563eb;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.cs-modal-header h2 {
+  margin: 6px 0 3px;
+  font-size: 19px;
+}
+
+.cs-modal-header p {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 10px;
+}
+
+.cs-modal-header > button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f3f4f6;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.cs-modal-header > button:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+
+/* =========================================
+   MODAL BODY
+========================================= */
+
+.cs-modal-body {
+  padding: 20px;
+}
+
+.cs-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.cs-detail-grid > div {
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.cs-detail-grid small {
+  display: block;
+  color: #9ca3af;
+  font-size: 9px;
+  margin-bottom: 5px;
+}
+
+.cs-detail-grid strong {
+  font-size: 11px;
+  color: #374151;
+}
+
+.cs-modal-progress {
+  margin-top: 20px;
+}
+
+.cs-modal-progress > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cs-modal-progress span {
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.cs-modal-progress strong {
+  font-size: 10px;
+  color: #2563eb;
+}
+
+
+/* =========================================
+   MODAL FOOTER
+========================================= */
+
+.cs-modal-footer {
+  padding: 14px 20px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cs-modal-footer button {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 7px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.cs-modal-footer button:hover {
+  background: #1d4ed8;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .cs-study-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .cs-page {
+    padding: 20px;
+  }
+
+  .cs-page-header {
+    align-items: flex-start;
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .cs-filter-bar {
+    flex-direction: column;
+  }
+
+  .cs-status-filter {
+    width: fit-content;
+  }
+
+  .cs-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
