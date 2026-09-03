@@ -9,7 +9,7 @@ import CoordinatorNotifications from './CoordinatorNotifications'
 import CoordinatorSettings from './CoordinatorSettings'
 import CoordinatorLogout from './CoordinatorLogout'
 
-import '../styles/StudyCoordinator/studyCoordinator.css'
+import '../../styles/StudyCoordinator/studyCoordinator.css'
 
 
 function StudyCoordinator() {

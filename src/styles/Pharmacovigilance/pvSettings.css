@@ -1,0 +1,271 @@
+.pv-settings-page {
+  padding: 28px;
+  background: #f7f9fc;
+  min-height: 100%;
+}
+
+/* Header */
+
+.pv-settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.pv-settings-header h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  color: #172033;
+}
+
+.pv-settings-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.pv-settings-save-btn {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pv-settings-save-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Cards */
+
+.pv-settings-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.pv-settings-card-header {
+  padding: 20px;
+  border-bottom: 1px solid #eef0f3;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.pv-settings-card-header h2 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: #172033;
+}
+
+.pv-settings-card-header p {
+  margin: 0;
+  color: #98a2b3;
+  font-size: 12px;
+}
+
+/* Section Icons */
+
+.pv-settings-section-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pv-settings-section-icon.profile {
+  background: #e8f0ff;
+  color: #2563eb;
+}
+
+.pv-settings-section-icon.notifications {
+  background: #fff4d6;
+  color: #d97706;
+}
+
+.pv-settings-section-icon.security {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* Form */
+
+.pv-settings-form {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.pv-settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.pv-settings-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #344054;
+}
+
+.pv-settings-input-wrapper {
+  height: 40px;
+  border: 1px solid #dfe3ea;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  padding: 0 11px;
+  gap: 8px;
+  color: #98a2b3;
+}
+
+.pv-settings-input-wrapper:focus-within {
+  border-color: #2563eb;
+}
+
+.pv-settings-input-wrapper input {
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #344054;
+  font-size: 13px;
+  background: transparent;
+}
+
+/* Notification Options */
+
+.pv-settings-options {
+  padding: 5px 20px;
+}
+
+.pv-settings-option {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.pv-settings-option:last-child {
+  border-bottom: none;
+}
+
+.pv-settings-option h3 {
+  margin: 0 0 4px;
+  color: #344054;
+  font-size: 13px;
+}
+
+.pv-settings-option p {
+  margin: 0;
+  color: #98a2b3;
+  font-size: 11px;
+}
+
+/* Toggle */
+
+.pv-toggle {
+  width: 42px;
+  height: 23px;
+  padding: 2px;
+  border: none;
+  border-radius: 20px;
+  background: #d1d5db;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+
+.pv-toggle span {
+  width: 19px;
+  height: 19px;
+  background: white;
+  border-radius: 50%;
+  display: block;
+  transition: 0.2s;
+}
+
+.pv-toggle.active {
+  background: #2563eb;
+}
+
+.pv-toggle.active span {
+  transform: translateX(19px);
+}
+
+/* Security */
+
+.pv-security-row {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pv-security-row h3 {
+  margin: 0 0 5px;
+  font-size: 13px;
+  color: #344054;
+}
+
+.pv-security-row p {
+  margin: 0;
+  font-size: 11px;
+  color: #98a2b3;
+}
+
+.pv-change-password-btn {
+  border: 1px solid #dfe3ea;
+  background: white;
+  color: #344054;
+  padding: 9px 14px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pv-change-password-btn:hover {
+  background: #f8fafc;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+  .pv-settings-page {
+    padding: 18px;
+  }
+
+  .pv-settings-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .pv-settings-form {
+    grid-template-columns: 1fr;
+  }
+
+  .pv-settings-option {
+    padding: 12px 0;
+  }
+
+  .pv-security-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}

@@ -1,6 +1,6 @@
 import { LogOut, X, CheckCircle } from 'lucide-react'
 
-import '../styles/logout.css'
+import "../../styles/Investigator/logout.css";
 
 function Logout({ onCancel, onLogout }) {
 

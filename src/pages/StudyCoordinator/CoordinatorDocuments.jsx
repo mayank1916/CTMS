@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import '../styles/StudyCoordinator/coordinatorDocuments.css'
+import '../../styles/StudyCoordinator/coordinatorDocuments.css'
 
 function CoordinatorDocuments() {
   const [search, setSearch] = useState('')

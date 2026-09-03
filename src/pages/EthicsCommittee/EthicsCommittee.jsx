@@ -11,6 +11,15 @@ import {
   CalendarDays,
 } from 'lucide-react'
 
+import EthicsCommitteeSubmissions from './EthicsCommitteeSubmissions'
+import EthicsCommitteeStudies from './EthicsCommitteeStudies'
+import EthicsCommitteeDocuments from './EthicsCommitteeDocuments'
+import EthicsCommitteeReviews from './EthicsCommitteeReviews'
+import EthicsCommitteeMeetings from './EthicsCommitteeMeetings'
+import EthicsCommitteeNotifications from './EthicsCommitteeNotifications'
+import EthicsCommitteeSettings from './EthicsCommitteeSettings'
+import EthicsCommitteeLogout from './EthicsCommitteeLogout'
+
 import '../../styles/EthicsCommittee/ethicsCommittee.css'
 
 function EthicsCommittee() {
@@ -54,7 +63,6 @@ function EthicsCommittee() {
 
 
   const updateStatus = (id, status) => {
-
     setSubmissions(
       submissions.map(item =>
         item.id === id
@@ -62,7 +70,6 @@ function EthicsCommittee() {
           : item
       )
     )
-
   }
 
 
@@ -78,7 +85,6 @@ function EthicsCommittee() {
 
 
   return (
-
     <div className="ec-layout">
 
       {/* =========================================
@@ -144,7 +150,9 @@ function EthicsCommittee() {
         <div className="ec-sidebar-bottom">
 
           <button
-            className="ec-nav-item"
+            className={`ec-nav-item ${
+              activeTab === 'Settings' ? 'active' : ''
+            }`}
             onClick={() => setActiveTab('Settings')}
           >
             <span>⚙️</span>
@@ -153,7 +161,9 @@ function EthicsCommittee() {
 
 
           <button
-            className="ec-nav-item logout"
+            className={`ec-nav-item logout ${
+              activeTab === 'Logout' ? 'active' : ''
+            }`}
             onClick={() => setActiveTab('Logout')}
           >
             <span>🚪</span>
@@ -653,6 +663,7 @@ function EthicsCommittee() {
                             Review
                           </button>
 
+
                           <button
                             className="ec-approve-btn"
                             onClick={() =>
@@ -779,6 +790,7 @@ function EthicsCommittee() {
 
                   </div>
 
+
                 </div>
 
               </div>
@@ -870,64 +882,80 @@ function EthicsCommittee() {
 
 
         {/* =========================================
-            OTHER MODULES
+            SUBMISSIONS
         ========================================= */}
 
-        {activeTab !== 'Dashboard' && (
-
-          <section className="ec-placeholder">
-
-            <div className="ec-placeholder-icon">
-
-              {activeTab === 'Submissions' &&
-                <FileText size={30} />}
-
-              {activeTab === 'Studies' &&
-                <FlaskConical size={30} />}
-
-              {activeTab === 'Documents' &&
-                <FileText size={30} />}
-
-              {activeTab === 'Reviews' &&
-                <ClipboardCheck size={30} />}
-
-              {activeTab === 'Meetings' &&
-                <CalendarDays size={30} />}
-
-              {activeTab === 'Notifications' &&
-                <Bell size={30} />}
-
-            </div>
+        {activeTab === 'Submissions' && (
+          <EthicsCommitteeSubmissions />
+        )}
 
 
-            <h2>
-              {activeTab}
-            </h2>
+        {/* =========================================
+            STUDIES
+        ========================================= */}
+
+        {activeTab === 'Studies' && (
+          <EthicsCommitteeStudies />
+        )}
 
 
-            <p>
-              {activeTab} module is ready for implementation.
-            </p>
+        {/* =========================================
+            DOCUMENTS
+        ========================================= */}
+
+        {activeTab === 'Documents' && (
+          <EthicsCommitteeDocuments />
+        )}
 
 
-            <button
-              onClick={() =>
-                setActiveTab('Dashboard')
-              }
-            >
-              Back to Dashboard
-            </button>
+        {/* =========================================
+            REVIEWS
+        ========================================= */}
 
-          </section>
+        {activeTab === 'Reviews' && (
+          <EthicsCommitteeReviews />
+        )}
 
+
+        {/* =========================================
+            MEETINGS
+        ========================================= */}
+
+        {activeTab === 'Meetings' && (
+          <EthicsCommitteeMeetings />
+        )}
+
+
+        {/* =========================================
+            NOTIFICATIONS
+        ========================================= */}
+
+        {activeTab === 'Notifications' && (
+          <EthicsCommitteeNotifications />
+        )}
+
+
+        {/* =========================================
+            SETTINGS
+        ========================================= */}
+
+        {activeTab === 'Settings' && (
+          <EthicsCommitteeSettings />
+        )}
+
+
+        {/* =========================================
+            LOGOUT
+        ========================================= */}
+
+        {activeTab === 'Logout' && (
+          <EthicsCommitteeLogout />
         )}
 
       </main>
 
     </div>
-
   )
-
 }
 
 export default EthicsCommittee

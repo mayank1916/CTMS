@@ -1,0 +1,177 @@
+.pv-logout-page {
+  min-height: 100%;
+  background: #f7f9fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.pv-logout-card {
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 40px;
+  text-align: center;
+}
+
+.pv-logout-icon {
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pv-logout-card h1 {
+  margin: 0 0 8px;
+  font-size: 25px;
+  color: #172033;
+}
+
+.pv-logout-card p {
+  margin: 0 auto 25px;
+  max-width: 330px;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.pv-logout-btn {
+  border: none;
+  background: #dc2626;
+  color: white;
+  padding: 11px 22px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pv-logout-btn:hover {
+  background: #b91c1c;
+}
+
+/* Overlay */
+
+.pv-logout-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.pv-logout-modal {
+  width: 100%;
+  max-width: 380px;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.pv-modal-close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: #f8fafc;
+  color: #667085;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pv-modal-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background: #e8f0ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pv-logout-modal h2 {
+  margin: 0 0 8px;
+  color: #172033;
+  font-size: 19px;
+}
+
+.pv-logout-modal p {
+  margin: 0 0 23px;
+  color: #667085;
+  font-size: 13px;
+}
+
+.pv-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pv-cancel-btn,
+.pv-confirm-logout-btn {
+  padding: 9px 20px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pv-cancel-btn {
+  background: white;
+  border: 1px solid #dfe3ea;
+  color: #344054;
+}
+
+.pv-cancel-btn:hover {
+  background: #f8fafc;
+}
+
+.pv-confirm-logout-btn {
+  background: #dc2626;
+  border: 1px solid #dc2626;
+  color: white;
+}
+
+.pv-confirm-logout-btn:hover {
+  background: #b91c1c;
+}
+
+/* Responsive */
+
+@media (max-width: 500px) {
+  .pv-logout-page {
+    padding: 18px;
+  }
+
+  .pv-logout-card {
+    padding: 30px 20px;
+  }
+
+  .pv-modal-actions {
+    flex-direction: column;
+  }
+}

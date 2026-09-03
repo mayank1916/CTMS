@@ -1,0 +1,283 @@
+.ec-submissions-page {
+  padding: 30px;
+}
+
+.ec-submissions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.ec-submissions-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.ec-submissions-header p {
+  margin: 7px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+
+/* STATISTICS */
+
+.ec-submission-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.ec-submission-stat {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ec-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-submission-stat span {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 5px;
+}
+
+.ec-submission-stat strong {
+  font-size: 23px;
+}
+
+
+/* TOOLBAR */
+
+.ec-submission-toolbar {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.ec-submission-search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0 13px;
+}
+
+.ec-submission-search svg {
+  color: #6b7280;
+}
+
+.ec-submission-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 11px 0;
+  font-size: 14px;
+}
+
+.ec-submission-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+.ec-submission-filter svg {
+  color: #6b7280;
+}
+
+.ec-submission-filter select {
+  border: none;
+  outline: none;
+  padding: 11px 5px;
+  background: transparent;
+}
+
+
+/* TABLE */
+
+.ec-submission-table-container {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.ec-submission-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ec-submission-table th {
+  background: #f8fafc;
+  text-align: left;
+  padding: 15px;
+  font-size: 13px;
+  color: #475569;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ec-submission-table td {
+  padding: 16px 15px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  color: #374151;
+}
+
+.ec-submission-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.ec-study-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ec-study-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-study-cell strong {
+  color: #111827;
+}
+
+
+/* STATUS */
+
+.ec-submission-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ec-submission-status.pending-review {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.ec-submission-status.under-review {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.ec-submission-status.approved {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.ec-submission-status.rejected {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+
+/* ACTIONS */
+
+.ec-submission-actions {
+  display: flex;
+  gap: 7px;
+}
+
+.ec-submission-actions button {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-view-btn {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.ec-approve-btn {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.ec-review-btn {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.ec-reject-btn {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.ec-submission-actions button:hover {
+  opacity: 0.75;
+}
+
+
+/* NO RESULTS */
+
+.ec-no-results {
+  text-align: center !important;
+  padding: 45px !important;
+  color: #6b7280 !important;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+
+  .ec-submission-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .ec-submissions-page {
+    padding: 20px;
+  }
+
+  .ec-submission-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .ec-submission-toolbar {
+    flex-direction: column;
+  }
+
+}

@@ -5,6 +5,8 @@
 import InvestigatorDashboard from './pages/Investigator/InvestigatorDashboard'
 import StudyCoordinator from './pages/StudyCoordinator/StudyCoordinator'
 import EthicsCommittee from './pages/EthicsCommittee/EthicsCommittee'
+import Pharmacovigilance from './pages/Pharmacovigilance/Pharmacovigilance'
+
 
 function App() {
 
@@ -58,9 +60,11 @@ function App() {
     <>
       {/* <InvestigatorDashboard /> */}
 
-      <StudyCoordinator />
+      {/* <StudyCoordinator /> */}
 
       {/* <EthicsCommittee /> */}
+      <Pharmacovigilance />
+      
     </>
   )
 }

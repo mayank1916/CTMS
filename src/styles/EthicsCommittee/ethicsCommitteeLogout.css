@@ -1,0 +1,121 @@
+.ec-logout-page {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.ec-logout-card {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 35px;
+  text-align: center;
+}
+
+.ec-logout-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #fef2f2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-logout-content h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.ec-logout-content > p {
+  margin: 9px auto 22px;
+  max-width: 390px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.ec-logout-user {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  background: #f8fafc;
+  border-radius: 9px;
+  padding: 14px;
+  margin-bottom: 25px;
+}
+
+.ec-logout-user svg {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.ec-logout-user strong {
+  display: block;
+  color: #374151;
+  font-size: 13px;
+}
+
+.ec-logout-user span {
+  display: block;
+  margin-top: 4px;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.ec-logout-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ec-logout-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ec-logout-cancel {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.ec-logout-confirm {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.ec-logout-actions button:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .ec-logout-page {
+    padding: 20px;
+  }
+
+  .ec-logout-card {
+    padding: 25px 20px;
+  }
+
+  .ec-logout-actions {
+    flex-direction: column;
+  }
+
+  .ec-logout-actions button {
+    width: 100%;
+  }
+}
