@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+python-dotenv
+PyJWT
+pwdlib[argon2]
+pyotp
+qrcode[pil]

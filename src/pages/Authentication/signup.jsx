@@ -1,375 +1,172 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-function Signup({ onLogin, onSignup }) {
+import { useNavigate } from "react-router-dom";
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [role, setRole] = useState('')
-  const [phone, setPhone] = useState('')
+import api from "../../api/api";
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState(false)
+export default function Signup() {
+  const navigate = useNavigate();
 
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
+  const [username, setUsername] = useState("");
 
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const [role, setRole] = useState("investigator");
 
-    e.preventDefault()
+  const [error, setError] = useState("");
 
-    setError('')
-    setSuccess('')
+  const [message, setMessage] = useState("");
 
+  const [loading, setLoading] = useState(false);
 
-    // Name validation
-    if (!name.trim()) {
-      setError('Please enter your full name.')
-      return
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
+    setError("");
+
+    setMessage("");
+
+    setLoading(true);
+
+    try {
+      const response = await api.post(
+        "/auth/register",
+
+        {
+          username,
+
+          password,
+
+          role,
+        },
+      );
+
+      setMessage(response.data.message);
+
+      setTimeout(
+        () => {
+          navigate("/login");
+        },
+
+        1500,
+      );
+    } catch (err) {
+      setError(err.response?.data?.detail || "Registration failed");
+    } finally {
+      setLoading(false);
     }
-
-
-    // Email validation
-    if (!email.trim()) {
-      setError('Please enter your email.')
-      return
-    }
-
-    if (!email.includes('@')) {
-      setError('Please enter a valid email address.')
-      return
-    }
-
-
-    // Password validation
-    if (!password) {
-      setError('Please create a password.')
-      return
-    }
-
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters.')
-      return
-    }
-
-
-    // Confirm password
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.')
-      return
-    }
-
-
-    // Role
-    if (!role) {
-      setError('Please select your role.')
-      return
-    }
-
-
-    // Phone
-    if (!phone.trim()) {
-      setError('Please enter your phone number.')
-      return
-    }
-
-    if (!/^[0-9]{10}$/.test(phone)) {
-      setError('Phone number must contain 10 digits.')
-      return
-    }
-
-
-    // Create user object
-    const newUser = {
-      name,
-      email,
-      password,
-      role,
-      phone,
-    }
-
-
-    // Send user to App
-    const result = onSignup(newUser)
-
-
-    if (!result.success) {
-      setError(result.message)
-      return
-    }
-
-
-    // Success
-    setSuccess(result.message)
-
-
-    // Clear form
-    setName('')
-    setEmail('')
-    setPassword('')
-    setConfirmPassword('')
-    setRole('')
-    setPhone('')
-  }
-
+  };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center p-6">
+    <div
+      style={{
+        minHeight: "100vh",
 
-      <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl p-8">
+        display: "flex",
 
+        justifyContent: "center",
 
-        {/* Branding */}
-        <div className="text-center">
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          width: "350px",
 
-          <div className="mx-auto w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center">
-            <span className="text-white text-2xl font-bold">
-              C
-            </span>
-          </div>
+          padding: "30px",
 
-          <h1 className="text-3xl font-bold text-slate-800 mt-4">
-            Create Account
-          </h1>
+          border: "1px solid #ddd",
 
-          <p className="text-slate-500 mt-2">
-            Join the Clinical Trial Management System
-          </p>
+          borderRadius: "10px",
+        }}
+      >
+        <h2>Create CTMS Account</h2>
 
-        </div>
+        <form onSubmit={handleSignup}>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            required
+            style={{
+              width: "100%",
 
+              padding: "10px",
 
-        {/* Signup Form */}
-        <form
-          className="mt-8 space-y-4"
-          onSubmit={handleSubmit}
-        >
+              marginBottom: "15px",
+            }}
+          />
 
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            minLength="8"
+            required
+            style={{
+              width: "100%",
 
-          {/* Name */}
-          <div>
+              padding: "10px",
 
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Full Name
-            </label>
+              marginBottom: "15px",
+            }}
+          />
 
-            <input
-              type="text"
-              placeholder="Enter your full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-            />
+          <select
+            value={role}
+            onChange={(event) => setRole(event.target.value)}
+            style={{
+              width: "100%",
 
-          </div>
+              padding: "10px",
 
+              marginBottom: "15px",
+            }}
+          >
+            <option value="investigator">Investigator</option>
 
-          {/* Email */}
-          <div>
+            <option value="studycoordinator">Study Coordinator</option>
 
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Email
-            </label>
+            <option value="ethicscommittee">Ethics Committee</option>
 
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            <option value="pharmacovigilance">Pharmacovigilance</option>
+          </select>
 
-          </div>
-
-
-          {/* Password */}
-          <div>
-
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Password
-            </label>
-
-            <div className="relative">
-
-              <input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Create a password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-20 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-              />
-
-              <button
-                type="button"
-                onClick={() =>
-                  setShowPassword(!showPassword)
-                }
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-blue-600 font-medium"
-              >
-                {showPassword ? 'Hide' : 'Show'}
-              </button>
-
-            </div>
-
-          </div>
-
-
-          {/* Confirm Password */}
-          <div>
-
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Confirm Password
-            </label>
-
-            <div className="relative">
-
-              <input
-                type={
-                  showConfirmPassword
-                    ? 'text'
-                    : 'password'
-                }
-                placeholder="Confirm your password"
-                value={confirmPassword}
-                onChange={(e) =>
-                  setConfirmPassword(e.target.value)
-                }
-                className="w-full px-4 py-3 pr-20 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-              />
-
-              <button
-                type="button"
-                onClick={() =>
-                  setShowConfirmPassword(
-                    !showConfirmPassword
-                  )
-                }
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-blue-600 font-medium"
-              >
-                {showConfirmPassword
-                  ? 'Hide'
-                  : 'Show'}
-              </button>
-
-            </div>
-
-          </div>
-
-
-          {/* Role */}
-          <div>
-
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Role
-            </label>
-
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-            >
-
-              <option value="">
-                Select your role
-              </option>
-
-              <option value="investigator">
-                Investigator
-              </option>
-
-              <option value="ethics">
-                Ethics Committee
-              </option>
-
-              <option value="safety">
-                Pharmacovigilance / Safety
-              </option>
-
-              <option value="leadership">
-                Institutional Leadership
-              </option>
-
-              <option value="admin">
-                Administrator / Regulatory
-              </option>
-
-            </select>
-
-          </div>
-
-
-          {/* Phone */}
-          <div>
-
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Phone Number
-            </label>
-
-            <input
-              type="tel"
-              placeholder="10-digit phone number"
-              value={phone}
-              onChange={(e) =>
-                setPhone(
-                  e.target.value.replace(/\D/g, '')
-                )
-              }
-              maxLength="10"
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-            />
-
-          </div>
-
-
-          {/* Error */}
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-3 text-sm">
-              {error}
-            </div>
-          )}
-
-
-          {/* Success */}
-          {success && (
-            <div className="bg-green-50 border border-green-200 text-green-600 rounded-lg p-3 text-sm">
-              {success}
-            </div>
-          )}
-
-
-          {/* Create Account */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-          >
-            Create Account
-          </button>
+            disabled={loading}
+            style={{
+              width: "100%",
 
+              padding: "10px",
+            }}
+          >
+            {loading ? "Creating..." : "Create Account"}
+          </button>
         </form>
 
-
-        {/* Login */}
-        <p className="text-center text-sm text-slate-500 mt-6">
-
-          Already have an account?{' '}
-
-          <button
-            type="button"
-            onClick={onLogin}
-            className="text-blue-600 font-semibold hover:underline"
+        {error && (
+          <p
+            style={{
+              color: "red",
+            }}
           >
-            Login
-          </button>
+            {error}
+          </p>
+        )}
 
-        </p>
-
+        {message && (
+          <p
+            style={{
+              color: "green",
+            }}
+          >
+            {message}
+          </p>
+        )}
       </div>
-
     </div>
-  )
+  );
 }
-
-export default Signup
