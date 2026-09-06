@@ -1,6 +1,7 @@
 import base64
 import io
 
+import jwt
 import pyotp
 import qrcode
 
@@ -12,52 +13,191 @@ from fastapi import (
     status
 )
 
-from sqlalchemy.orm import Session
+from fastapi.security import (
+    HTTPAuthorizationCredentials,
+    HTTPBearer
+)
 
 from pwdlib import PasswordHash
+
+from sqlalchemy.orm import Session
+
 
 from database import get_db
 
 from models import User
-from models import Role
 
-from schemas import RegisterRequest
-from schemas import LoginRequest
-from schemas import MFALoginRequest
-from schemas import MFAEnableRequest
-from schemas import TokenResponse
-from schemas import UserResponse
-from schemas import MFASetupResponse
+from schemas import (
+    RegisterRequest,
+    LoginRequest,
+    MFALoginRequest,
+    MFAEnableRequest,
+    TokenResponse,
+    UserResponse,
+    MFASetupResponse
+)
 
-from auth.jwt import create_access_token
+
+from auth.jwt import (
+    create_access_token,
+    create_mfa_setup_token,
+    decode_token
+)
+
 
 from security.permissions import get_current_user
 
-from audit.logger import log_security_event
-
-
-router = APIRouter(
-    prefix="/auth",
-    tags=["Authentication"]
+from audit.logger import (
+    log_security_event,
+    get_client_ip
 )
 
+
+# ============================================================
+# ROUTER
+# ============================================================
+
+router = APIRouter(
+
+    prefix="/auth",
+
+    tags=["Authentication"]
+
+)
+
+
+# ============================================================
+# PASSWORD HASHING
+# ============================================================
 
 password_hash = PasswordHash.recommended()
 
 
-def get_client_ip(request: Request):
+# ============================================================
+# HTTP BEARER
+# ============================================================
 
-    if request.client:
-
-        return request.client.host
-
-
-    return None
+security = HTTPBearer()
 
 
-@router.post(
-    "/register"
-)
+# ============================================================
+# VALID ROLES
+# ============================================================
+
+VALID_ROLES = {
+
+    "investigator",
+
+    "studycoordinator",
+
+    "ethicscommittee",
+
+    "pharmacovigilance"
+
+}
+
+
+# ============================================================
+# GET MFA SETUP USER
+# ============================================================
+
+def get_mfa_setup_user(
+
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+
+    db: Session = Depends(get_db)
+
+):
+
+    token = credentials.credentials
+
+
+    try:
+
+        payload = decode_token(token)
+
+
+    except jwt.ExpiredSignatureError:
+
+        raise HTTPException(
+
+            status_code=status.HTTP_401_UNAUTHORIZED,
+
+            detail="MFA setup session expired"
+
+        )
+
+
+    except jwt.InvalidTokenError:
+
+        raise HTTPException(
+
+            status_code=status.HTTP_401_UNAUTHORIZED,
+
+            detail="Invalid MFA setup token"
+
+        )
+
+
+    # ========================================================
+    # CHECK TOKEN TYPE
+    # ========================================================
+
+    if payload.get("type") != "mfa_setup":
+
+        raise HTTPException(
+
+            status_code=status.HTTP_401_UNAUTHORIZED,
+
+            detail="Invalid MFA setup token"
+
+        )
+
+
+    user_id = payload.get("user_id")
+
+
+    if not user_id:
+
+        raise HTTPException(
+
+            status_code=status.HTTP_401_UNAUTHORIZED,
+
+            detail="Invalid MFA setup token"
+
+        )
+
+
+    user = (
+
+        db.query(User)
+
+        .filter(User.id == user_id)
+
+        .first()
+
+    )
+
+
+    if user is None:
+
+        raise HTTPException(
+
+            status_code=status.HTTP_401_UNAUTHORIZED,
+
+            detail="User not found"
+
+        )
+
+
+    return user
+
+
+# ============================================================
+# REGISTER USER
+# ============================================================
+
+@router.post("/register")
 def register(
 
     data: RegisterRequest,
@@ -68,57 +208,75 @@ def register(
 
 ):
 
-    valid_roles = [
-
-        Role.investigator.value,
-
-        Role.studycoordinator.value,
-
-        Role.ethicscommittee.value,
-
-        Role.pharmacovigilance.value
-
-    ]
+    username = data.username.strip().lower()
 
 
-    if data.role not in valid_roles:
+    # ========================================================
+    # ROLE VALIDATION
+    # ========================================================
+
+    if data.role not in VALID_ROLES:
 
         raise HTTPException(
 
-            status_code=400,
+            status_code=status.HTTP_400_BAD_REQUEST,
 
             detail="Invalid role"
+
         )
 
 
-    existing_user = db.query(
-        User
-    ).filter(
-        User.username == data.username
-    ).first()
+    # ========================================================
+    # CHECK USERNAME
+    # ========================================================
+
+    existing_user = (
+
+        db.query(User)
+
+        .filter(User.username == username)
+
+        .first()
+
+    )
 
 
     if existing_user:
 
         raise HTTPException(
 
-            status_code=400,
+            status_code=status.HTTP_400_BAD_REQUEST,
 
             detail="Username already exists"
+
         )
 
 
+    # ========================================================
+    # HASH PASSWORD
+    # ========================================================
+
     hashed_password = password_hash.hash(
+
         data.password
+
     )
 
+
+    # ========================================================
+    # CREATE MFA SECRET
+    # ========================================================
 
     mfa_secret = pyotp.random_base32()
 
 
+    # ========================================================
+    # CREATE USER
+    # ========================================================
+
     user = User(
 
-        username=data.username,
+        username=username,
 
         password_hash=hashed_password,
 
@@ -126,7 +284,10 @@ def register(
 
         mfa_secret=mfa_secret,
 
-        mfa_enabled=False
+        mfa_enabled=False,
+
+        is_active=True
+
     )
 
 
@@ -137,20 +298,69 @@ def register(
     db.refresh(user)
 
 
+    # ========================================================
+    # CREATE TEMPORARY MFA SETUP TOKEN
+    # ========================================================
+
+    mfa_setup_token = create_mfa_setup_token({
+
+        "user_id": user.id,
+
+        "username": user.username,
+
+        "role": user.role
+
+    })
+
+
+    # ========================================================
+    # AUDIT LOG
+    # ========================================================
+
+    log_security_event(
+
+        db=db,
+
+        action="REGISTER_SUCCESS",
+
+        user_id=user.id,
+
+        username=user.username,
+
+        details=f"Account created with role {user.role}",
+
+        ip_address=get_client_ip(request)
+
+    )
+
+
     return {
 
-        "message": (
-            "User registered successfully. "
-            "Set up MFA before logging in."
-        )
+        "message": "Account created. MFA setup is required.",
+
+        "mfa_setup_required": True,
+
+        "mfa_setup_token": mfa_setup_token,
+
+        "username": user.username,
+
+        "role": user.role
 
     }
 
 
+# ============================================================
+# LOGIN
+# ============================================================
+
 @router.post(
+
     "/login",
+
     response_model=TokenResponse
+
 )
+
 def login(
 
     data: LoginRequest,
@@ -161,15 +371,25 @@ def login(
 
 ):
 
-    user = db.query(
-        User
-    ).filter(
-        User.username == data.username
-    ).first()
+    username = data.username.strip().lower()
+
+
+    # ========================================================
+    # FIND USER
+    # ========================================================
+
+    user = (
+
+        db.query(User)
+
+        .filter(User.username == username)
+
+        .first()
+
+    )
 
 
     if user is None:
-
 
         log_security_event(
 
@@ -177,13 +397,12 @@ def login(
 
             action="LOGIN_FAILED",
 
-            username=data.username,
+            username=username,
 
             details="Invalid username",
 
-            ip_address=get_client_ip(
-                request
-            )
+            ip_address=get_client_ip(request)
+
         )
 
 
@@ -192,19 +411,24 @@ def login(
             status_code=status.HTTP_401_UNAUTHORIZED,
 
             detail="Invalid username or password"
+
         )
 
+
+    # ========================================================
+    # VERIFY PASSWORD
+    # ========================================================
 
     password_valid = password_hash.verify(
 
         data.password,
 
         user.password_hash
+
     )
 
 
     if not password_valid:
-
 
         log_security_event(
 
@@ -218,9 +442,8 @@ def login(
 
             details="Invalid password",
 
-            ip_address=get_client_ip(
-                request
-            )
+            ip_address=get_client_ip(request)
+
         )
 
 
@@ -229,120 +452,136 @@ def login(
             status_code=status.HTTP_401_UNAUTHORIZED,
 
             detail="Invalid username or password"
+
         )
 
+
+    # ========================================================
+    # ACTIVE CHECK
+    # ========================================================
 
     if not user.is_active:
 
         raise HTTPException(
 
-            status_code=403,
+            status_code=status.HTTP_403_FORBIDDEN,
 
             detail="User account is disabled"
+
         )
 
 
-    if user.mfa_enabled:
+    # ========================================================
+    # MFA NOT ENABLED
+    # ========================================================
+
+    if not user.mfa_enabled:
+
+        setup_token = create_mfa_setup_token({
+
+            "user_id": user.id,
+
+            "username": user.username,
+
+            "role": user.role
+
+        })
+
+
+        log_security_event(
+
+            db=db,
+
+            action="MFA_SETUP_REQUIRED",
+
+            user_id=user.id,
+
+            username=user.username,
+
+            details="User attempted login before MFA setup",
+
+            ip_address=get_client_ip(request)
+
+        )
 
 
         return TokenResponse(
 
-            mfa_required=True,
-
             username=user.username,
 
-            role=user.role
+            role=user.role,
+
+            mfa_setup_required=True,
+
+            mfa_setup_token=setup_token
+
         )
 
 
-    token = create_access_token({
-
-        "user_id": user.id,
-
-        "username": user.username,
-
-        "role": user.role
-
-    })
-
-
-    log_security_event(
-
-        db=db,
-
-        action="LOGIN_SUCCESS",
-
-        user_id=user.id,
-
-        username=user.username,
-
-        details="Login successful without MFA",
-
-        ip_address=get_client_ip(
-            request
-        )
-    )
-
+    # ========================================================
+    # MFA REQUIRED
+    # ========================================================
 
     return TokenResponse(
 
-        access_token=token,
+        username=user.username,
 
         role=user.role,
 
-        username=user.username,
+        mfa_required=True
 
-        mfa_required=False
     )
 
+
+# ============================================================
+# MFA SETUP
+# ============================================================
+
 @router.get(
+
     "/mfa/setup",
 
     response_model=MFASetupResponse
+
 )
-def setup_mfa(
 
-    current_user: User = Depends(
-        get_current_user
-    ),
+def mfa_setup(
 
-    db: Session = Depends(
-        get_db
-    )
+    current_user: User = Depends(get_mfa_setup_user)
 
 ):
 
-    if current_user.mfa_enabled:
+    # ========================================================
+    # CREATE TOTP URI
+    # ========================================================
 
-        raise HTTPException(
+    totp_uri = (
 
-            status_code=400,
+        pyotp.TOTP(
 
-            detail="MFA is already enabled"
+            current_user.mfa_secret
+
         )
 
+        .provisioning_uri(
 
-    if not current_user.mfa_secret:
+            name=current_user.username,
 
-        current_user.mfa_secret = (
-            pyotp.random_base32()
+            issuer_name="CTMS"
+
         )
 
-        db.commit()
-
-
-    totp_uri = pyotp.TOTP(
-        current_user.mfa_secret
-    ).provisioning_uri(
-
-        name=current_user.username,
-
-        issuer_name="CTMS"
     )
 
 
+    # ========================================================
+    # CREATE QR CODE
+    # ========================================================
+
     qr = qrcode.make(
+
         totp_uri
+
     )
 
 
@@ -354,14 +593,23 @@ def setup_mfa(
         buffer,
 
         format="PNG"
+
     )
 
 
-    qr_base64 = base64.b64encode(
+    qr_base64 = (
 
-        buffer.getvalue()
+        base64
 
-    ).decode()
+        .b64encode(
+
+            buffer.getvalue()
+
+        )
+
+        .decode()
+
+    )
 
 
     qr_code = (
@@ -369,6 +617,7 @@ def setup_mfa(
         "data:image/png;base64,"
 
         + qr_base64
+
     )
 
 
@@ -377,29 +626,37 @@ def setup_mfa(
         secret=current_user.mfa_secret,
 
         qr_code=qr_code
+
     )
 
-@router.post(
-    "/mfa/enable"
-)
+
+# ============================================================
+# ENABLE MFA
+# ============================================================
+
+@router.post("/mfa/enable")
 def enable_mfa(
 
     data: MFAEnableRequest,
 
-    current_user: User = Depends(
-        get_current_user
-    ),
+    request: Request,
 
-    db: Session = Depends(
-        get_db
-    )
+    current_user: User = Depends(get_mfa_setup_user),
+
+    db: Session = Depends(get_db)
 
 ):
 
     totp = pyotp.TOTP(
+
         current_user.mfa_secret
+
     )
 
+
+    # ========================================================
+    # VERIFY OTP
+    # ========================================================
 
     if not totp.verify(
 
@@ -409,109 +666,167 @@ def enable_mfa(
 
     ):
 
-        raise HTTPException(
+        log_security_event(
 
-            status_code=400,
+            db=db,
 
-            detail="Invalid OTP"
+            action="MFA_ENABLE_FAILED",
+
+            user_id=current_user.id,
+
+            username=current_user.username,
+
+            details="Invalid OTP during MFA setup",
+
+            ip_address=get_client_ip(request)
+
         )
 
 
-    current_user.mfa_enabled = True
+        raise HTTPException(
 
+            status_code=status.HTTP_400_BAD_REQUEST,
+
+            detail="Invalid OTP"
+
+        )
+
+
+    # ========================================================
+    # ENABLE MFA
+    # ========================================================
+
+    current_user.mfa_enabled = True
 
     db.commit()
 
 
+    # ========================================================
+    # AUDIT
+    # ========================================================
+
+    log_security_event(
+
+        db=db,
+
+        action="MFA_ENABLED",
+
+        user_id=current_user.id,
+
+        username=current_user.username,
+
+        details="Authenticator MFA enabled",
+
+        ip_address=get_client_ip(request)
+
+    )
+
+
     return {
 
-        "message": "MFA enabled successfully"
+        "message": "MFA enabled successfully. Please login."
+
     }
 
 
+# ============================================================
+# MFA LOGIN
+# ============================================================
+
 @router.post(
+
     "/mfa/login",
 
     response_model=TokenResponse
+
 )
+
 def mfa_login(
 
     data: MFALoginRequest,
 
     request: Request,
 
-    db: Session = Depends(
-        get_db
-    )
+    db: Session = Depends(get_db)
 
 ):
 
-    user = db.query(
-        User
-    ).filter(
-        User.username == data.username
-    ).first()
+    username = data.username.strip().lower()
+
+
+    # ========================================================
+    # FIND USER
+    # ========================================================
+
+    user = (
+
+        db.query(User)
+
+        .filter(User.username == username)
+
+        .first()
+
+    )
 
 
     if user is None:
 
-
         raise HTTPException(
 
-            status_code=401,
+            status_code=status.HTTP_401_UNAUTHORIZED,
 
             detail="Invalid credentials"
+
         )
 
 
-    if not password_hash.verify(
+    # ========================================================
+    # VERIFY PASSWORD AGAIN
+    # ========================================================
+
+    password_valid = password_hash.verify(
 
         data.password,
 
         user.password_hash
 
-    ):
+    )
 
 
-        log_security_event(
-
-            db=db,
-
-            action="LOGIN_FAILED",
-
-            user_id=user.id,
-
-            username=user.username,
-
-            details="Invalid password during MFA login",
-
-            ip_address=get_client_ip(
-                request
-            )
-        )
-
+    if not password_valid:
 
         raise HTTPException(
 
-            status_code=401,
+            status_code=status.HTTP_401_UNAUTHORIZED,
 
             detail="Invalid credentials"
+
         )
 
+
+    # ========================================================
+    # MFA CHECK
+    # ========================================================
 
     if not user.mfa_enabled:
 
-
         raise HTTPException(
 
-            status_code=400,
+            status_code=status.HTTP_400_BAD_REQUEST,
 
             detail="MFA is not enabled"
+
         )
 
 
+    # ========================================================
+    # VERIFY OTP
+    # ========================================================
+
     totp = pyotp.TOTP(
+
         user.mfa_secret
+
     )
 
 
@@ -522,7 +837,6 @@ def mfa_login(
         valid_window=1
 
     ):
-
 
         log_security_event(
 
@@ -536,19 +850,23 @@ def mfa_login(
 
             details="Invalid MFA OTP",
 
-            ip_address=get_client_ip(
-                request
-            )
+            ip_address=get_client_ip(request)
+
         )
 
 
         raise HTTPException(
 
-            status_code=401,
+            status_code=status.HTTP_401_UNAUTHORIZED,
 
             detail="Invalid OTP"
+
         )
 
+
+    # ========================================================
+    # CREATE ACCESS TOKEN
+    # ========================================================
 
     token = create_access_token({
 
@@ -561,6 +879,10 @@ def mfa_login(
     })
 
 
+    # ========================================================
+    # AUDIT
+    # ========================================================
+
     log_security_event(
 
         db=db,
@@ -571,11 +893,10 @@ def mfa_login(
 
         username=user.username,
 
-        details="MFA verified successfully",
+        details="MFA verification successful",
 
-        ip_address=get_client_ip(
-            request
-        )
+        ip_address=get_client_ip(request)
+
     )
 
 
@@ -591,9 +912,8 @@ def mfa_login(
 
         details="Login successful with MFA",
 
-        ip_address=get_client_ip(
-            request
-        )
+        ip_address=get_client_ip(request)
+
     )
 
 
@@ -601,24 +921,34 @@ def mfa_login(
 
         access_token=token,
 
-        role=user.role,
+        token_type="bearer",
 
         username=user.username,
 
-        mfa_required=False
+        role=user.role,
+
+        mfa_required=False,
+
+        mfa_setup_required=False
+
     )
 
 
+# ============================================================
+# CURRENT USER
+# ============================================================
+
 @router.get(
+
     "/me",
 
     response_model=UserResponse
+
 )
+
 def get_me(
 
-    current_user: User = Depends(
-        get_current_user
-    )
+    current_user: User = Depends(get_current_user)
 
 ):
 
@@ -631,23 +961,22 @@ def get_me(
         role=current_user.role,
 
         mfa_enabled=current_user.mfa_enabled
+
     )
 
 
-@router.post(
-    "/logout"
-)
+# ============================================================
+# LOGOUT
+# ============================================================
+
+@router.post("/logout")
 def logout(
 
     request: Request,
 
-    current_user: User = Depends(
-        get_current_user
-    ),
+    current_user: User = Depends(get_current_user),
 
-    db: Session = Depends(
-        get_db
-    )
+    db: Session = Depends(get_db)
 
 ):
 
@@ -663,13 +992,13 @@ def logout(
 
         details="User logged out",
 
-        ip_address=get_client_ip(
-            request
-        )
+        ip_address=get_client_ip(request)
+
     )
 
 
     return {
 
-        "message": "Logged out successfully"
+        "message": "Logout successful"
+
     }

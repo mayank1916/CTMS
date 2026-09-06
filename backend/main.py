@@ -2,25 +2,17 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import Base, engine
-
 from auth.login import router as auth_router
 
-from routes.studies import router as studies_router
-
-from routes.participants import router as participants_router
-
-from routes.dashboard import router as dashboard_router
+# Import models so SQLAlchemy knows all tables
+import models
 
 
 # ============================================================
 # CREATE DATABASE TABLES
 # ============================================================
 
-Base.metadata.create_all(
-
-    bind=engine
-
-)
+Base.metadata.create_all(bind=engine)
 
 
 # ============================================================
@@ -28,11 +20,9 @@ Base.metadata.create_all(
 # ============================================================
 
 app = FastAPI(
-
     title="CTMS Security API",
-
-    version="1.0.0"
-
+    version="1.0.0",
+    description="Stage 4 - Authentication, JWT, MFA and RBAC"
 )
 
 
@@ -41,23 +31,14 @@ app = FastAPI(
 # ============================================================
 
 app.add_middleware(
-
     CORSMiddleware,
-
     allow_origins=[
-
         "http://localhost:5173",
-
         "http://127.0.0.1:5173"
-
     ],
-
     allow_credentials=True,
-
     allow_methods=["*"],
-
     allow_headers=["*"]
-
 )
 
 
@@ -65,32 +46,9 @@ app.add_middleware(
 # ROUTES
 # ============================================================
 
-app.include_router(
+# ONLY STAGE 4 ROUTES
 
-    auth_router
-
-)
-
-
-app.include_router(
-
-    studies_router
-
-)
-
-
-app.include_router(
-
-    participants_router
-
-)
-
-
-app.include_router(
-
-    dashboard_router
-
-)
+app.include_router(auth_router)
 
 
 # ============================================================
@@ -98,32 +56,32 @@ app.include_router(
 # ============================================================
 
 @app.get("/")
-
 def home():
-
     return {
+        "message": "CTMS Backend Running",
+        "stage": "Stage 4 - Security and Access Control",
+        "security": [
+            "Password Hashing",
+            "JWT Authentication",
+            "MFA",
+            "RBAC",
+            "Audit Logging"
+        ],
+        "roles": [
+            "investigator",
+            "studycoordinator",
+            "ethicscommittee",
+            "pharmacovigilance"
+        ]
+    }
 
 
-        "message":
+# ============================================================
+# HEALTH CHECK
+# ============================================================
 
-            "CTMS Backend Running",
-
-        "security":
-
-            "JWT + RBAC",
-
-        "roles":
-
-            [
-
-                "INVESTIGATOR",
-
-                "STUDY_COORDINATOR",
-
-                "ETHICS_COMMITTEE",
-
-                "PHARMACOVIGILANCE"
-
-            ]
-
+@app.get("/health")
+def health():
+    return {
+        "status": "healthy"
     }

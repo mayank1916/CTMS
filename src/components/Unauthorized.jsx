@@ -10,18 +10,14 @@ export default function Unauthorized() {
 
         flexDirection: "column",
 
-        justifyContent: "center",
-
         alignItems: "center",
 
-        textAlign: "center",
+        justifyContent: "center",
 
         fontFamily: "Arial",
       }}
     >
-      <h1>403</h1>
-
-      <h2>Access Denied</h2>
+      <h1>Access Denied</h1>
 
       <p>You do not have permission to access this page.</p>
 

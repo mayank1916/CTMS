@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import api from "../../api/api";
 
+import { getMfaSetupToken, clearMfaSetupToken } from "../../utils/auth";
+
+// ============================================================
+// MFA SETUP
+// ============================================================
+
 export default function MfaSetup() {
   const navigate = useNavigate();
 
@@ -17,26 +23,72 @@ export default function MfaSetup() {
 
   const [loading, setLoading] = useState(true);
 
+  const [enabling, setEnabling] = useState(false);
+
+  // ========================================================
+  // GET MFA SETUP TOKEN
+  // ========================================================
+
+  const getHeaders = () => {
+    const token = getMfaSetupToken();
+
+    return {
+      Authorization: `Bearer ${token}`,
+    };
+  };
+
+  // ========================================================
+  // LOAD QR CODE
+  // ========================================================
+
   useEffect(() => {
     const loadMfaSetup = async () => {
+      const token = getMfaSetupToken();
+
+      if (!token) {
+        navigate(
+          "/login",
+
+          {
+            replace: true,
+          },
+        );
+
+        return;
+      }
+
       try {
-        const response = await api.get("/auth/mfa/setup");
+        const response = await api.get(
+          "/auth/mfa/setup",
+
+          {
+            headers: getHeaders(),
+          },
+        );
 
         setQrCode(response.data.qr_code);
 
         setSecret(response.data.secret);
       } catch (err) {
-        setError(err.response?.data?.detail || "Could not load MFA setup");
+        setError(err.response?.data?.detail || "Unable to load MFA setup");
       } finally {
         setLoading(false);
       }
     };
 
     loadMfaSetup();
-  }, []);
+  }, [navigate]);
 
-  const enableMfa = async (event) => {
+  // ========================================================
+  // ENABLE MFA
+  // ========================================================
+
+  const handleEnableMfa = async (event) => {
     event.preventDefault();
+
+    setError("");
+
+    setEnabling(true);
 
     try {
       await api.post(
@@ -45,18 +97,46 @@ export default function MfaSetup() {
         {
           otp,
         },
+
+        {
+          headers: getHeaders(),
+        },
       );
 
-      alert("MFA enabled successfully");
+      clearMfaSetupToken();
 
-      navigate("/login");
+      alert("MFA enabled successfully. Please login.");
+
+      navigate(
+        "/login",
+
+        {
+          replace: true,
+        },
+      );
     } catch (err) {
-      setError(err.response?.data?.detail || "Invalid OTP");
+      setError(err.response?.data?.detail || "Unable to enable MFA");
+    } finally {
+      setEnabling(false);
     }
   };
 
   if (loading) {
-    return <p>Loading MFA setup...</p>;
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+
+          display: "flex",
+
+          justifyContent: "center",
+
+          alignItems: "center",
+        }}
+      >
+        Loading MFA setup...
+      </div>
+    );
   }
 
   return (
@@ -73,18 +153,22 @@ export default function MfaSetup() {
     >
       <div
         style={{
-          width: "400px",
-
-          textAlign: "center",
+          width: "420px",
 
           padding: "30px",
+
+          border: "1px solid #ddd",
+
+          borderRadius: "10px",
+
+          textAlign: "center",
         }}
       >
-        <h2>Set Up MFA</h2>
+        <h2>Set Up Multi-Factor Authentication</h2>
 
         <p>
           Scan this QR code using Google Authenticator, Microsoft Authenticator,
-          or another authenticator app.
+          or another TOTP app.
         </p>
 
         {qrCode && (
@@ -92,34 +176,53 @@ export default function MfaSetup() {
             src={qrCode}
             alt="MFA QR Code"
             style={{
-              width: "220px",
+              width: "250px",
+
+              margin: "20px auto",
             }}
           />
         )}
 
-        <p>Secret:</p>
+        <p>
+          <strong>Manual Secret:</strong>
+        </p>
 
-        <code>{secret}</code>
-
-        <form
-          onSubmit={enableMfa}
+        <p
           style={{
-            marginTop: "20px",
+            wordBreak: "break-all",
           }}
         >
+          {secret}
+        </p>
+
+        <form onSubmit={handleEnableMfa}>
           <input
             type="text"
             placeholder="Enter 6-digit OTP"
             value={otp}
             onChange={(event) => setOtp(event.target.value)}
+            maxLength="6"
             required
+            style={{
+              width: "100%",
+
+              padding: "10px",
+
+              marginBottom: "15px",
+            }}
           />
 
-          <br />
+          <button
+            type="submit"
+            disabled={enabling}
+            style={{
+              width: "100%",
 
-          <br />
-
-          <button type="submit">Enable MFA</button>
+              padding: "10px",
+            }}
+          >
+            {enabling ? "Verifying..." : "Enable MFA"}
+          </button>
         </form>
 
         {error && (

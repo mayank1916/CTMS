@@ -2,69 +2,79 @@ import { useEffect, useRef } from "react";
 
 import { Navigate, useNavigate } from "react-router-dom";
 
-import {
-  isAuthenticated,
-  hasRole,
-  updateActivity,
-  getLastActivity,
-  clearAuth,
-} from "../utils/auth";
+import { isAuthenticated, getUser, clearAllAuth } from "../utils/auth";
+
+// ============================================================
+// IDLE TIMEOUT
+// ============================================================
 
 const IDLE_TIMEOUT = 15 * 60 * 1000;
+
+// ============================================================
+// COMPONENT
+// ============================================================
 
 export default function ProtectedRoute({
   children,
 
-  allowedRoles,
+  allowedRoles = [],
 }) {
   const navigate = useNavigate();
 
   const timeoutRef = useRef(null);
 
-  const resetIdleTimer = () => {
-    updateActivity();
+  // ========================================================
+  // AUTHENTICATION CHECK
+  // ========================================================
 
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+  const authenticated = isAuthenticated();
 
-    timeoutRef.current = setTimeout(
-      () => {
-        clearAuth();
+  const user = getUser();
 
-        navigate("/login", {
-          replace: true,
-        });
-      },
+  if (!authenticated || !user) {
+    return <Navigate to="/login" replace />;
+  }
 
-      IDLE_TIMEOUT,
-    );
-  };
+  // ========================================================
+  // ROLE CHECK
+  // ========================================================
+
+  if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  // ========================================================
+  // IDLE TIMEOUT
+  // ========================================================
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      return;
-    }
+    const logoutForInactivity = () => {
+      clearAllAuth();
 
-    const lastActivity = getLastActivity();
+      alert("Session expired due to 15 minutes of inactivity.");
 
-    if (lastActivity) {
-      const elapsed = Date.now() - lastActivity;
+      navigate(
+        "/login",
 
-      if (elapsed >= IDLE_TIMEOUT) {
-        clearAuth();
-
-        navigate("/login", {
+        {
           replace: true,
-        });
+        },
+      );
+    };
 
-        return;
+    const resetTimer = () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
-    }
 
-    resetIdleTimer();
+      timeoutRef.current = setTimeout(
+        logoutForInactivity,
 
-    const events = [
+        IDLE_TIMEOUT,
+      );
+    };
+
+    const activityEvents = [
       "mousemove",
 
       "mousedown",
@@ -76,36 +86,30 @@ export default function ProtectedRoute({
       "touchstart",
     ];
 
-    events.forEach((event) => {
+    activityEvents.forEach((event) => {
       window.addEventListener(
         event,
 
-        resetIdleTimer,
+        resetTimer,
       );
     });
+
+    resetTimer();
 
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
 
-      events.forEach((event) => {
+      activityEvents.forEach((event) => {
         window.removeEventListener(
           event,
 
-          resetIdleTimer,
+          resetTimer,
         );
       });
     };
   }, [navigate]);
-
-  if (!isAuthenticated()) {
-    return <Navigate to="/login" replace />;
-  }
-
-  if (!hasRole(allowedRoles)) {
-    return <Navigate to="/unauthorized" replace />;
-  }
 
   return children;
 }

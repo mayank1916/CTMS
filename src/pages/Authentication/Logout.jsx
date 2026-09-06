@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import api from "../../api/api";
 
-import { clearAuth } from "../../utils/auth";
+import { clearAllAuth, getToken } from "../../utils/auth";
+
+// ============================================================
+// LOGOUT
+// ============================================================
 
 export default function Logout() {
   const navigate = useNavigate();
@@ -12,24 +16,28 @@ export default function Logout() {
   useEffect(() => {
     const logout = async () => {
       try {
-        await api.post("/auth/logout");
-      } catch {
-        // Token may already be expired.
+        const token = getToken();
+
+        if (token) {
+          await api.post("/auth/logout");
+        }
+      } catch (error) {
+        console.log("Logout request failed");
+      } finally {
+        clearAllAuth();
+
+        navigate(
+          "/login",
+
+          {
+            replace: true,
+          },
+        );
       }
-
-      clearAuth();
-
-      navigate(
-        "/login",
-
-        {
-          replace: true,
-        },
-      );
     };
 
     logout();
   }, [navigate]);
 
-  return <p>Logging out...</p>;
+  return <div>Logging out...</div>;
 }

@@ -1,36 +1,75 @@
-from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Literal
 
+from pydantic import BaseModel, Field
+
+
+# ============================================================
+# ROLES
+# ============================================================
+
+RoleName = Literal[
+    "investigator",
+    "studycoordinator",
+    "ethicscommittee",
+    "pharmacovigilance"
+]
+
+
+# ============================================================
+# REGISTER
+# ============================================================
 
 class RegisterRequest(BaseModel):
+    username: str = Field(
+        min_length=3,
+        max_length=100
+    )
 
-    username: str
+    password: str = Field(
+        min_length=8,
+        max_length=128
+    )
 
-    password: str
+    role: RoleName
 
-    role: str
 
+# ============================================================
+# LOGIN
+# ============================================================
 
 class LoginRequest(BaseModel):
-
     username: str
-
     password: str
 
+
+# ============================================================
+# MFA LOGIN
+# ============================================================
 
 class MFALoginRequest(BaseModel):
-
     username: str
-
     password: str
 
-    otp: str
+    otp: str = Field(
+        min_length=6,
+        max_length=6
+    )
 
+
+# ============================================================
+# MFA ENABLE
+# ============================================================
 
 class MFAEnableRequest(BaseModel):
+    otp: str = Field(
+        min_length=6,
+        max_length=6
+    )
 
-    otp: str
 
+# ============================================================
+# TOKEN RESPONSE
+# ============================================================
 
 class TokenResponse(BaseModel):
 
@@ -38,12 +77,20 @@ class TokenResponse(BaseModel):
 
     token_type: str = "bearer"
 
-    role: Optional[str] = None
-
     username: Optional[str] = None
+
+    role: Optional[str] = None
 
     mfa_required: bool = False
 
+    mfa_setup_required: bool = False
+
+    mfa_setup_token: Optional[str] = None
+
+
+# ============================================================
+# USER RESPONSE
+# ============================================================
 
 class UserResponse(BaseModel):
 
@@ -55,6 +102,10 @@ class UserResponse(BaseModel):
 
     mfa_enabled: bool
 
+
+# ============================================================
+# MFA SETUP RESPONSE
+# ============================================================
 
 class MFASetupResponse(BaseModel):
 

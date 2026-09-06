@@ -3,19 +3,60 @@ import json
 
 from datetime import datetime
 
+from sqlalchemy.orm import Session
+
 from models import AuditLog
 
 
-def create_hash(
+# ============================================================
+# GET CLIENT IP
+# ============================================================
+
+def get_client_ip(request):
+
+    if request.client:
+
+        return request.client.host
+
+    return None
+
+
+# ============================================================
+# GET PREVIOUS HASH
+# ============================================================
+
+def get_previous_hash(db: Session):
+
+    previous_log = (
+        db.query(AuditLog)
+        .order_by(AuditLog.id.desc())
+        .first()
+    )
+
+    if previous_log:
+
+        return previous_log.current_hash
+
+    return "GENESIS"
+
+
+# ============================================================
+# CREATE CURRENT HASH
+# ============================================================
+
+def create_audit_hash(
+    previous_hash,
     user_id,
     username,
     action,
     details,
-    timestamp,
-    previous_hash
+    ip_address,
+    timestamp
 ):
 
     data = {
+
+        "previous_hash": previous_hash,
 
         "user_id": user_id,
 
@@ -25,28 +66,31 @@ def create_hash(
 
         "details": details,
 
-        "timestamp": str(timestamp),
+        "ip_address": ip_address,
 
-        "previous_hash": previous_hash
+        "timestamp": timestamp.isoformat()
+
     }
 
-
-    data_string = json.dumps(
+    serialized_data = json.dumps(
         data,
         sort_keys=True
     )
 
-
     return hashlib.sha256(
-        data_string.encode()
+        serialized_data.encode()
     ).hexdigest()
 
 
+# ============================================================
+# LOG SECURITY EVENT
+# ============================================================
+
 def log_security_event(
 
-    db,
+    db: Session,
 
-    action,
+    action: str,
 
     user_id=None,
 
@@ -58,39 +102,27 @@ def log_security_event(
 
 ):
 
-    previous_log = db.query(
-        AuditLog
-    ).order_by(
-        AuditLog.id.desc()
-    ).first()
-
-
-    previous_hash = None
-
-
-    if previous_log:
-
-        previous_hash = previous_log.current_hash
-
-
     timestamp = datetime.utcnow()
 
+    previous_hash = get_previous_hash(db)
 
-    current_hash = create_hash(
+    current_hash = create_audit_hash(
 
-        user_id=user_id,
+        previous_hash,
 
-        username=username,
+        user_id,
 
-        action=action,
+        username,
 
-        details=details,
+        action,
 
-        timestamp=timestamp,
+        details,
 
-        previous_hash=previous_hash
+        ip_address,
+
+        timestamp
+
     )
-
 
     audit_log = AuditLog(
 
@@ -109,9 +141,13 @@ def log_security_event(
         previous_hash=previous_hash,
 
         current_hash=current_hash
-    )
 
+    )
 
     db.add(audit_log)
 
     db.commit()
+
+    db.refresh(audit_log)
+
+    return audit_log

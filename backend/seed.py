@@ -1,144 +1,115 @@
-from database import (
+import pyotp
 
-    SessionLocal,
-
-    engine,
-
-    Base
-
-)
-
+from database import SessionLocal
 
 from models import User
 
-
-from auth.login import hash_password
-
+from pwdlib import PasswordHash
 
 
-# CREATE TABLES
-
-Base.metadata.create_all(
-
-    bind=engine
-
-)
+password_hash = PasswordHash.recommended()
 
 
+# ============================================================
+# DATABASE
+# ============================================================
 
 db = SessionLocal()
 
 
+# ============================================================
+# TEST USERS
+# ============================================================
 
-demo_users = [
-
+users = [
 
     {
-
-        "username": "pi_user",
-
-        "password": "PI123",
-
-        "role": "PI"
-
+        "username": "investigator",
+        "password": "Password123",
+        "role": "investigator"
     },
 
-
     {
-
-        "username": "coordinator_user",
-
-        "password": "COORD123",
-
-        "role": "COORDINATOR"
-
+        "username": "coordinator",
+        "password": "Password123",
+        "role": "studycoordinator"
     },
 
-
     {
-
-        "username": "ethics_user",
-
-        "password": "ETHICS123",
-
-        "role": "ETHICS"
-
+        "username": "ethics",
+        "password": "Password123",
+        "role": "ethicscommittee"
     },
 
-
     {
-
-        "username": "leadership_user",
-
-        "password": "LEADER123",
-
-        "role": "LEADERSHIP"
-
-    },
-
-
-    {
-
-        "username": "regulator_user",
-
-        "password": "REG123",
-
-        "role": "REGULATOR"
-
+        "username": "pharmacovigilance",
+        "password": "Password123",
+        "role": "pharmacovigilance"
     }
 
 ]
 
 
+# ============================================================
+# CREATE USERS
+# ============================================================
 
-for user_data in demo_users:
+for user_data in users:
 
+    existing_user = (
 
-    existing_user = db.query(
+        db.query(User)
 
-        User
+        .filter(
 
-    ).filter(
-
-        User.username
-
-        == user_data["username"]
-
-    ).first()
-
-
-
-    if not existing_user:
-
-
-        user = User(
-
-            username=user_data["username"],
-
-            password_hash=hash_password(
-
-                user_data["password"]
-
-            ),
-
-            role=user_data["role"]
+            User.username == user_data["username"]
 
         )
 
+        .first()
+
+    )
 
 
-        db.add(user)
+    if existing_user:
 
+        print(
+
+            f"{user_data['username']} already exists"
+
+        )
+
+        continue
+
+
+    user = User(
+
+        username=user_data["username"],
+
+        password_hash=password_hash.hash(
+
+            user_data["password"]
+
+        ),
+
+        role=user_data["role"],
+
+        mfa_secret=pyotp.random_base32(),
+
+        mfa_enabled=False,
+
+        is_active=True
+
+    )
+
+
+    db.add(user)
 
 
 db.commit()
 
+
+print("Stage 4 test users created successfully")
+
+
 db.close()
-
-
-
-print(
-
-    "Demo users created successfully!"
-
-)

@@ -1,8 +1,14 @@
 import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import api from "../../api/api";
+
+import { saveMfaSetupToken, clearAllAuth } from "../../utils/auth";
+
+// ============================================================
+// SIGNUP
+// ============================================================
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -15,18 +21,20 @@ export default function Signup() {
 
   const [error, setError] = useState("");
 
-  const [message, setMessage] = useState("");
-
   const [loading, setLoading] = useState(false);
+
+  // ========================================================
+  // SIGNUP HANDLER
+  // ========================================================
 
   const handleSignup = async (event) => {
     event.preventDefault();
 
     setError("");
 
-    setMessage("");
-
     setLoading(true);
+
+    clearAllAuth();
 
     try {
       const response = await api.post(
@@ -41,15 +49,25 @@ export default function Signup() {
         },
       );
 
-      setMessage(response.data.message);
+      const data = response.data;
 
-      setTimeout(
-        () => {
-          navigate("/login");
-        },
+      // =================================================
+      // SAVE MFA SETUP TOKEN
+      // =================================================
 
-        1500,
-      );
+      if (data.mfa_setup_token) {
+        saveMfaSetupToken(data.mfa_setup_token);
+
+        navigate(
+          "/mfa-setup",
+
+          {
+            replace: true,
+          },
+        );
+      } else {
+        setError("MFA setup token was not received.");
+      }
     } catch (err) {
       setError(err.response?.data?.detail || "Registration failed");
     } finally {
@@ -71,16 +89,20 @@ export default function Signup() {
     >
       <div
         style={{
-          width: "350px",
+          width: "380px",
 
           padding: "30px",
 
           border: "1px solid #ddd",
 
           borderRadius: "10px",
+
+          boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
         }}
       >
         <h2>Create CTMS Account</h2>
+
+        <p>MFA setup will be required.</p>
 
         <form onSubmit={handleSignup}>
           <input
@@ -141,6 +163,8 @@ export default function Signup() {
               width: "100%",
 
               padding: "10px",
+
+              cursor: "pointer",
             }}
           >
             {loading ? "Creating..." : "Create Account"}
@@ -157,15 +181,9 @@ export default function Signup() {
           </p>
         )}
 
-        {message && (
-          <p
-            style={{
-              color: "green",
-            }}
-          >
-            {message}
-          </p>
-        )}
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );

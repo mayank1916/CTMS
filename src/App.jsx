@@ -20,38 +20,38 @@ import EthicsCommittee from "./pages/EthicsCommittee/EthicsCommittee";
 
 import Pharmacovigilance from "./pages/Pharmacovigilance/Pharmacovigilance";
 
+// ============================================================
+// APP
+// ============================================================
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Authentication */}
+        {/* ============================================
+                  PUBLIC AUTHENTICATION ROUTES
+              ============================================ */}
 
         <Route path="/login" element={<Login />} />
 
         <Route path="/signup" element={<Signup />} />
 
+        {/* ============================================
+                  MFA SETUP
+
+                  This is intentionally NOT wrapped inside
+                  ProtectedRoute.
+
+                  It uses a temporary MFA setup token.
+              ============================================ */}
+
+        <Route path="/mfa-setup" element={<MfaSetup />} />
+
         <Route path="/logout" element={<Logout />} />
 
-        <Route
-          path="/mfa-setup"
-          element={
-            <ProtectedRoute
-              allowedRoles={[
-                "investigator",
-
-                "studycoordinator",
-
-                "ethicscommittee",
-
-                "pharmacovigilance",
-              ]}
-            >
-              <MfaSetup />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Investigator */}
+        {/* ============================================
+                  INVESTIGATOR
+              ============================================ */}
 
         <Route
           path="/investigator"
@@ -62,7 +62,9 @@ function App() {
           }
         />
 
-        {/* Study Coordinator */}
+        {/* ============================================
+                  STUDY COORDINATOR
+              ============================================ */}
 
         <Route
           path="/studycoordinator"
@@ -73,7 +75,9 @@ function App() {
           }
         />
 
-        {/* Ethics Committee */}
+        {/* ============================================
+                  ETHICS COMMITTEE
+              ============================================ */}
 
         <Route
           path="/ethicscommittee"
@@ -84,7 +88,9 @@ function App() {
           }
         />
 
-        {/* Pharmacovigilance */}
+        {/* ============================================
+                  PHARMACOVIGILANCE
+              ============================================ */}
 
         <Route
           path="/pharmacovigilance"
@@ -95,15 +101,21 @@ function App() {
           }
         />
 
-        {/* Unauthorized */}
+        {/* ============================================
+                  UNAUTHORIZED
+              ============================================ */}
 
         <Route path="/unauthorized" element={<Unauthorized />} />
 
-        {/* Default */}
+        {/* ============================================
+                  DEFAULT ROUTE
+              ============================================ */}
 
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Unknown URL */}
+        {/* ============================================
+                  UNKNOWN ROUTES
+              ============================================ */}
 
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

@@ -1,10 +1,19 @@
 import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import api from "../../api/api";
 
-import { saveAuth, getDashboardPath } from "../../utils/auth";
+import {
+  saveAuth,
+  saveMfaSetupToken,
+  clearAllAuth,
+  getDashboardPath,
+} from "../../utils/auth";
+
+// ============================================================
+// LOGIN
+// ============================================================
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,16 +26,22 @@ export default function Login() {
 
   const [mfaRequired, setMfaRequired] = useState(false);
 
+  const [error, setError] = useState("");
+
   const [loading, setLoading] = useState(false);
 
-  const [error, setError] = useState("");
+  // ========================================================
+  // LOGIN
+  // ========================================================
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
+    setError("");
+
     setLoading(true);
 
-    setError("");
+    clearAllAuth();
 
     try {
       const response = await api.post(
@@ -41,31 +56,33 @@ export default function Login() {
 
       const data = response.data;
 
-      if (data.mfa_required) {
-        setMfaRequired(true);
+      // =================================================
+      // MFA SETUP REQUIRED
+      // =================================================
 
-        setLoading(false);
+      if (data.mfa_setup_required) {
+        saveMfaSetupToken(data.mfa_setup_token);
+
+        navigate(
+          "/mfa-setup",
+
+          {
+            replace: true,
+          },
+        );
 
         return;
       }
 
-      saveAuth(
-        data.access_token,
+      // =================================================
+      // MFA LOGIN REQUIRED
+      // =================================================
 
-        {
-          username: data.username,
+      if (data.mfa_required) {
+        setMfaRequired(true);
 
-          role: data.role,
-        },
-      );
-
-      navigate(
-        getDashboardPath(data.role),
-
-        {
-          replace: true,
-        },
-      );
+        return;
+      }
     } catch (err) {
       setError(err.response?.data?.detail || "Login failed");
     } finally {
@@ -73,12 +90,16 @@ export default function Login() {
     }
   };
 
+  // ========================================================
+  // MFA LOGIN
+  // ========================================================
+
   const handleMfaLogin = async (event) => {
     event.preventDefault();
 
-    setLoading(true);
-
     setError("");
+
+    setLoading(true);
 
     try {
       const response = await api.post(
@@ -95,6 +116,10 @@ export default function Login() {
 
       const data = response.data;
 
+      // =================================================
+      // SAVE JWT
+      // =================================================
+
       saveAuth(
         data.access_token,
 
@@ -104,6 +129,10 @@ export default function Login() {
           role: data.role,
         },
       );
+
+      // =================================================
+      // REDIRECT TO ROLE DASHBOARD
+      // =================================================
 
       navigate(
         getDashboardPath(data.role),
@@ -119,32 +148,38 @@ export default function Login() {
     }
   };
 
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
+  // ========================================================
+  // PASSWORD LOGIN SCREEN
+  // ========================================================
 
-        display: "flex",
-
-        justifyContent: "center",
-
-        alignItems: "center",
-      }}
-    >
+  if (!mfaRequired) {
+    return (
       <div
         style={{
-          width: "350px",
+          minHeight: "100vh",
 
-          padding: "30px",
+          display: "flex",
 
-          border: "1px solid #ddd",
+          justifyContent: "center",
 
-          borderRadius: "10px",
+          alignItems: "center",
         }}
       >
-        <h2>CTMS Login</h2>
+        <div
+          style={{
+            width: "380px",
 
-        {!mfaRequired ? (
+            padding: "30px",
+
+            border: "1px solid #ddd",
+
+            borderRadius: "10px",
+
+            boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+          }}
+        >
+          <h2>CTMS Login</h2>
+
           <form onSubmit={handleLogin}>
             <input
               type="text"
@@ -188,71 +223,112 @@ export default function Login() {
               {loading ? "Logging in..." : "Login"}
             </button>
           </form>
-        ) : (
-          <form onSubmit={handleMfaLogin}>
-            <h3>Multi-Factor Authentication</h3>
 
-            <p>Enter the OTP from your authenticator app.</p>
-
-            <input
-              type="text"
-              placeholder="6-digit OTP"
-              value={otp}
-              onChange={(event) => setOtp(event.target.value)}
-              maxLength="6"
-              required
+          {error && (
+            <p
               style={{
-                width: "100%",
-
-                padding: "10px",
-
-                marginBottom: "15px",
-              }}
-            />
-
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                width: "100%",
-
-                padding: "10px",
+                color: "red",
               }}
             >
-              {loading ? "Verifying..." : "Verify OTP"}
-            </button>
-          </form>
-        )}
+              {error}
+            </p>
+          )}
+
+          <p>
+            Don't have an account? <Link to="/signup">Create Account</Link>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // ========================================================
+  // MFA SCREEN
+  // ========================================================
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+
+        display: "flex",
+
+        justifyContent: "center",
+
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          width: "380px",
+
+          padding: "30px",
+
+          border: "1px solid #ddd",
+
+          borderRadius: "10px",
+
+          textAlign: "center",
+        }}
+      >
+        <h2>Multi-Factor Authentication</h2>
+
+        <p>Enter the OTP from your authenticator app.</p>
+
+        <form onSubmit={handleMfaLogin}>
+          <input
+            type="text"
+            placeholder="6-digit OTP"
+            value={otp}
+            onChange={(event) => setOtp(event.target.value)}
+            maxLength="6"
+            required
+            style={{
+              width: "100%",
+
+              padding: "10px",
+
+              marginBottom: "15px",
+            }}
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: "100%",
+
+              padding: "10px",
+            }}
+          >
+            {loading ? "Verifying..." : "Verify OTP"}
+          </button>
+        </form>
+
+        <button
+          onClick={() => {
+            setMfaRequired(false);
+
+            setOtp("");
+
+            setError("");
+          }}
+          style={{
+            marginTop: "15px",
+          }}
+        >
+          Back
+        </button>
 
         {error && (
           <p
             style={{
               color: "red",
-
-              marginTop: "15px",
             }}
           >
             {error}
           </p>
         )}
-
-        <p
-          style={{
-            marginTop: "20px",
-          }}
-        >
-          New user?{" "}
-          <span
-            onClick={() => navigate("/signup")}
-            style={{
-              color: "blue",
-
-              cursor: "pointer",
-            }}
-          >
-            Create Account
-          </span>
-        </p>
       </div>
     </div>
   );

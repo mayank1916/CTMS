@@ -1,39 +1,37 @@
-from fastapi import (
-    Depends,
-    HTTPException,
-    status,
-    Request
-)
+from fastapi import Depends, HTTPException, status
 
-from fastapi.security import (
-    HTTPBearer,
-    HTTPAuthorizationCredentials
-)
+from fastapi.security import HTTPAuthorizationCredentials
+from fastapi.security import HTTPBearer
 
 from sqlalchemy.orm import Session
+
+import jwt
 
 from database import get_db
 
 from models import User
 
-from auth.jwt import verify_token
-from auth.jwt import decode_expired_token
+from auth.jwt import decode_token
+
+from security.rbac import has_permission
 
 from audit.logger import log_security_event
 
-from security.rbac import role_has_permission
+
+# ============================================================
+# BEARER SECURITY
+# ============================================================
+
+security = HTTPBearer()
 
 
-security_scheme = HTTPBearer()
-
+# ============================================================
+# GET CURRENT USER
+# ============================================================
 
 def get_current_user(
 
-    request: Request,
-
-    credentials: HTTPAuthorizationCredentials = Depends(
-        security_scheme
-    ),
+    credentials: HTTPAuthorizationCredentials = Depends(security),
 
     db: Session = Depends(get_db)
 
@@ -41,55 +39,71 @@ def get_current_user(
 
     token = credentials.credentials
 
+    try:
 
-    payload = verify_token(token)
+        payload = decode_token(token)
 
+    except jwt.ExpiredSignatureError:
 
-    if payload is None:
+        log_security_event(
 
+            db=db,
 
-        expired_payload = decode_expired_token(
-            token
+            action="TOKEN_EXPIRED",
+
+            details="Expired JWT used"
+
         )
-
-
-        if expired_payload:
-
-            user_id = expired_payload.get("user_id")
-
-            username = expired_payload.get(
-                "username"
-            )
-
-
-            log_security_event(
-
-                db=db,
-
-                action="TOKEN_EXPIRED",
-
-                user_id=user_id,
-
-                username=username,
-
-                details="JWT token expired",
-
-                ip_address=request.client.host
-                if request.client
-                else None
-            )
-
 
         raise HTTPException(
 
             status_code=status.HTTP_401_UNAUTHORIZED,
 
-            detail="Invalid or expired token"
+            detail="Token expired"
+
+        )
+
+    except jwt.InvalidTokenError:
+
+        log_security_event(
+
+            db=db,
+
+            action="TOKEN_INVALID",
+
+            details="Invalid JWT used"
+
+        )
+
+        raise HTTPException(
+
+            status_code=status.HTTP_401_UNAUTHORIZED,
+
+            detail="Invalid token"
+
         )
 
 
-    user_id = payload.get("user_id")
+    # ========================================================
+    # TOKEN TYPE CHECK
+    # ========================================================
 
+    if payload.get("type") != "access":
+
+        raise HTTPException(
+
+            status_code=status.HTTP_401_UNAUTHORIZED,
+
+            detail="Invalid access token"
+
+        )
+
+
+    # ========================================================
+    # USER ID
+    # ========================================================
+
+    user_id = payload.get("user_id")
 
     if user_id is None:
 
@@ -97,15 +111,24 @@ def get_current_user(
 
             status_code=status.HTTP_401_UNAUTHORIZED,
 
-            detail="Invalid token"
+            detail="Invalid token payload"
+
         )
 
 
-    user = db.query(
-        User
-    ).filter(
-        User.id == user_id
-    ).first()
+    # ========================================================
+    # DATABASE USER
+    # ========================================================
+
+    user = (
+
+        db.query(User)
+
+        .filter(User.id == user_id)
+
+        .first()
+
+    )
 
 
     if user is None:
@@ -115,8 +138,13 @@ def get_current_user(
             status_code=status.HTTP_401_UNAUTHORIZED,
 
             detail="User not found"
+
         )
 
+
+    # ========================================================
+    # ACTIVE USER CHECK
+    # ========================================================
 
     if not user.is_active:
 
@@ -125,32 +153,28 @@ def get_current_user(
             status_code=status.HTTP_403_FORBIDDEN,
 
             detail="User account is disabled"
+
         )
 
 
     return user
 
 
-def require_role(*allowed_roles):
+# ============================================================
+# REQUIRE ROLE
+# ============================================================
 
+def require_role(allowed_roles: list[str]):
 
     def role_checker(
 
-        request: Request,
+        current_user: User = Depends(get_current_user),
 
-        current_user: User = Depends(
-            get_current_user
-        ),
-
-        db: Session = Depends(
-            get_db
-        )
+        db: Session = Depends(get_db)
 
     ):
 
-
         if current_user.role not in allowed_roles:
-
 
             log_security_event(
 
@@ -165,56 +189,47 @@ def require_role(*allowed_roles):
                 details=(
                     f"Role {current_user.role} "
                     f"attempted restricted access"
-                ),
+                )
 
-                ip_address=request.client.host
-                if request.client
-                else None
             )
-
 
             raise HTTPException(
 
                 status_code=status.HTTP_403_FORBIDDEN,
 
                 detail="You do not have permission to access this resource"
+
             )
 
-
         return current_user
-
 
     return role_checker
 
 
-def require_permission(permission: str):
+# ============================================================
+# REQUIRE PERMISSION
+# ============================================================
 
+def require_permission(permission: str):
 
     def permission_checker(
 
-        request: Request,
+        current_user: User = Depends(get_current_user),
 
-        current_user: User = Depends(
-            get_current_user
-        ),
-
-        db: Session = Depends(
-            get_db
-        )
+        db: Session = Depends(get_db)
 
     ):
 
-
-        allowed = role_has_permission(
+        allowed = has_permission(
 
             current_user.role,
 
             permission
+
         )
 
 
         if not allowed:
-
 
             log_security_event(
 
@@ -227,25 +242,19 @@ def require_permission(permission: str):
                 username=current_user.username,
 
                 details=(
-                    f"Permission denied: "
-                    f"{permission}"
-                ),
+                    f"Missing permission: {permission}"
+                )
 
-                ip_address=request.client.host
-                if request.client
-                else None
             )
-
 
             raise HTTPException(
 
                 status_code=status.HTTP_403_FORBIDDEN,
 
                 detail="Permission denied"
+
             )
 
-
         return current_user
-
 
     return permission_checker

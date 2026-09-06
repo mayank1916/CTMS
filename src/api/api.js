@@ -1,13 +1,22 @@
 import axios from "axios";
-import { getToken, clearAuth } from "../utils/auth";
+
+import { getToken, clearAllAuth } from "../utils/auth";
+
+// ============================================================
+// API INSTANCE
+// ============================================================
 
 const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000",
 
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+// ============================================================
+// REQUEST INTERCEPTOR
+// ============================================================
 
 api.interceptors.request.use(
   (config) => {
@@ -25,14 +34,26 @@ api.interceptors.request.use(
   },
 );
 
+// ============================================================
+// RESPONSE INTERCEPTOR
+// ============================================================
+
 api.interceptors.response.use(
   (response) => response,
 
   (error) => {
-    if (error.response?.status === 401) {
-      clearAuth();
+    const status = error.response?.status;
 
-      window.location.href = "/login";
+    if (status === 401) {
+      clearAllAuth();
+
+      // Do not force redirect when already on login
+      if (
+        window.location.pathname !== "/login" &&
+        !window.location.pathname.startsWith("/mfa-setup")
+      ) {
+        window.location.href = "/login";
+      }
     }
 
     return Promise.reject(error);

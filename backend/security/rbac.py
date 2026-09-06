@@ -1,5 +1,9 @@
-ROLE_PERMISSIONS = {
+# ============================================================
+# ROLE BASED ACCESS CONTROL
+# ============================================================
 
+
+ROLE_PERMISSIONS = {
 
     "investigator": [
 
@@ -14,7 +18,9 @@ ROLE_PERMISSIONS = {
 
         "dashboard:studycoordinator",
 
-        "data:view_assigned"
+        "data:view_assigned",
+
+        "data:entry"
 
     ],
 
@@ -23,7 +29,9 @@ ROLE_PERMISSIONS = {
 
         "dashboard:ethicscommittee",
 
-        "data:view_masked"
+        "approval:view",
+
+        "approval:review"
 
     ],
 
@@ -32,25 +40,48 @@ ROLE_PERMISSIONS = {
 
         "dashboard:pharmacovigilance",
 
-        "data:view_masked"
+        "safety:view",
+
+        "safety:manage"
 
     ]
 
 }
 
 
-def role_has_permission(
+# ============================================================
+# GET ROLE PERMISSIONS
+# ============================================================
 
-    role: str,
+def get_permissions(role: str):
 
-    permission: str
-
-):
-
-    permissions = ROLE_PERMISSIONS.get(
+    return ROLE_PERMISSIONS.get(
         role,
         []
     )
 
 
+# ============================================================
+# CHECK PERMISSION
+# ============================================================
+
+def has_permission(
+    role: str,
+    permission: str
+):
+
+    permissions = get_permissions(role)
+
     return permission in permissions
+
+
+# ============================================================
+# CHECK ROLE
+# ============================================================
+
+def has_role(
+    user_role: str,
+    allowed_roles: list[str]
+):
+
+    return user_role in allowed_roles
