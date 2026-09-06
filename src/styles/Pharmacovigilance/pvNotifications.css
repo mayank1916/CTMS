@@ -1,6 +1,6 @@
 .pv-notifications-page {
   padding: 28px;
-  background: #f7f9fc;
+  background: #c6d4c0;
   min-height: 100%;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .pv-notification-summary-card {
-  background: white;
+  background: #afc2aa;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 19px;
@@ -156,7 +156,7 @@
 }
 
 .pv-notification-card {
-  background: white;
+  background: #f7f9fc;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 18px;

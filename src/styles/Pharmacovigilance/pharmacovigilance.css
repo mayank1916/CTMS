@@ -30,7 +30,7 @@
   align-items: center;
   gap: 10px;
   border-bottom: 1px solid #eef0f3;
-  background : #c8a96b;
+  background : #d7b16684;
 }
 
 .pv-logo-icon {
@@ -38,7 +38,7 @@
   height: 39px;
   border-radius: 9px;
   background: #2563eb;
-  color: white;
+  color: rgb(8, 7, 7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,7 +182,7 @@
 
 .pv-topbar {
   height: 72px;
-  background: #f9f0e0;
+  background: #f8f0df;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
   align-items: center;

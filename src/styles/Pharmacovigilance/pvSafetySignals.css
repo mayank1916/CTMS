@@ -1,6 +1,6 @@
 .pv-safety-signals-page {
   padding: 28px;
-  background: #f7f9fc;
+  background: #c6d4c0;
   min-height: 100%;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .pv-signal-stat-card {
-  background: white;
+  background: #afc2aa;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 19px;
@@ -156,7 +156,7 @@
 /* Table */
 
 .pv-signal-table-card {
-  background: white;
+  background: #f9f1df;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   overflow: hidden;
@@ -191,7 +191,7 @@
 }
 
 .pv-signal-table th {
-  background: #f8fafc;
+  background: #f9f1df;
   color: #667085;
   font-size: 12px;
   font-weight: 600;

@@ -1,6 +1,6 @@
 .pv-adverse-events-page {
   padding: 28px;
-  background: #f7f9fc;
+  background: #c6d4c0;
   min-height: 100%;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .pv-ae-stat-card {
-  background: white;
+  background: #afc2aa;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 19px;
@@ -156,7 +156,7 @@
 /* Table */
 
 .pv-ae-table-card {
-  background: white;
+  background: #f9f1df;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   overflow: hidden;
@@ -164,7 +164,7 @@
 
 .pv-ae-table-heading {
   padding: 20px 22px;
-  border-bottom: 1px solid #edf0f4;
+  border-bottom: 1px solid #355b8d;
 }
 
 .pv-ae-table-heading h2 {
@@ -191,7 +191,7 @@
 }
 
 .pv-ae-table th {
-  background: #f8fafc;
+  background: #f9f1df;
   color: #667085;
   font-size: 12px;
   font-weight: 600;
