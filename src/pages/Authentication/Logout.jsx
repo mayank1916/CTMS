@@ -1,60 +1,43 @@
-import { LogOut, X, CheckCircle } from 'lucide-react'
+import { useEffect } from "react";
 
-import "../../styles/Investigator/logout.css";
+import { useNavigate } from "react-router-dom";
 
-function Logout({ onCancel, onLogout }) {
+import api from "../../api/api";
 
-  const handleLogout = () => {
+import { clearAllAuth, getToken } from "../../utils/auth";
 
-    // Remove logged-in user data
-    localStorage.removeItem('currentUser')
+// ============================================================
+// LOGOUT
+// ============================================================
 
-    // Call parent logout function
-    if (onLogout) {
-      onLogout()
-    }
+export default function Logout() {
+  const navigate = useNavigate();
 
-  }
+  useEffect(() => {
+    const logout = async () => {
+      try {
+        const token = getToken();
 
-  return (
-    <section className="logout-page">
+        if (token) {
+          await api.post("/auth/logout");
+        }
+      } catch (error) {
+        console.log("Logout request failed");
+      } finally {
+        clearAllAuth();
 
-      <div className="logout-card">
+        navigate(
+          "/login",
 
-        <div className="logout-icon">
-          <LogOut size={25} />
-        </div>
+          {
+            replace: true,
+          },
+        );
+      }
+    };
 
-        <h1>Logout</h1>
+    logout();
+  }, [navigate]);
 
-        <p>
-          Are you sure you want to logout from your CTMS account?
-        </p>
-
-        <div className="logout-actions">
-
-          <button
-            className="logout-cancel-button"
-            onClick={onCancel}
-          >
-            <X size={16} />
-            Cancel
-          </button>
-
-          <button
-            className="logout-confirm-button"
-            onClick={handleLogout}
-          >
-            <CheckCircle size={16} />
-            Logout
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-  )
+  return <div>Logging out...</div>;
 }
-
-export default Logout

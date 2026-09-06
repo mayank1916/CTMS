@@ -1,72 +1,126 @@
-// import { useState } from 'react'
-// import Login from './pages/Authentication/login'
-// import Signup from './pages/Authentication/signup'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import InvestigatorDashboard from './pages/Investigator/InvestigatorDashboard'
-import StudyCoordinator from './pages/StudyCoordinator/StudyCoordinator'
-import EthicsCommittee from './pages/EthicsCommittee/EthicsCommittee'
-import Pharmacovigilance from './pages/Pharmacovigilance/Pharmacovigilance'
+import Login from "./pages/Authentication/Login";
 
+import Signup from "./pages/Authentication/signup";
+
+import Logout from "./pages/Authentication/Logout";
+
+import MfaSetup from "./pages/Authentication/MfaSetup";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import Unauthorized from "./components/Unauthorized";
+
+import InvestigatorDashboard from "./pages/Investigator/InvestigatorDashboard";
+
+import StudyCoordinator from "./pages/StudyCoordinator/StudyCoordinator";
+
+import EthicsCommittee from "./pages/EthicsCommittee/EthicsCommittee";
+
+import Pharmacovigilance from "./pages/Pharmacovigilance/Pharmacovigilance";
+
+// ============================================================
+// APP
+// ============================================================
 
 function App() {
-
-  // const [showLogin, setShowLogin] = useState(true)
-
-  // const handleLogin = (user) => {
-  //   console.log('Logged in user:', user)
-
-  //   localStorage.setItem(
-  //     'currentUser',
-  //     JSON.stringify(user)
-  //   )
-
-  //   alert(`Welcome ${user.name}!`)
-  // }
-
-  // const handleSignup = (user) => {
-  //   console.log('New user:', user)
-
-  //   const existingUsers =
-  //     JSON.parse(localStorage.getItem('users')) || []
-
-  //   const userExists = existingUsers.some(
-  //     (existingUser) =>
-  //       existingUser.email.toLowerCase() ===
-  //       user.email.toLowerCase()
-  //   )
-
-  //   if (userExists) {
-  //     return {
-  //       success: false,
-  //       message: 'An account with this email already exists.',
-  //     }
-  //   }
-
-  //   existingUsers.push(user)
-
-  //   localStorage.setItem(
-  //     'users',
-  //     JSON.stringify(existingUsers)
-  //   )
-
-  //   return {
-  //     success: true,
-  //     message: 'Account created successfully!',
-  //   }
-  // }
-
-
   return (
-    <>
-      {/* <InvestigatorDashboard /> */}
+    <BrowserRouter>
+      <Routes>
+        {/* ============================================
+                  PUBLIC AUTHENTICATION ROUTES
+              ============================================ */}
 
-      {/* <StudyCoordinator /> */}
+        <Route path="/login" element={<Login />} />
 
-      {/* <EthicsCommittee /> */}
-      <Pharmacovigilance />
-      
-    </>
-  )
+        <Route path="/signup" element={<Signup />} />
+
+        {/* ============================================
+                  MFA SETUP
+
+                  This is intentionally NOT wrapped inside
+                  ProtectedRoute.
+
+                  It uses a temporary MFA setup token.
+              ============================================ */}
+
+        <Route path="/mfa-setup" element={<MfaSetup />} />
+
+        <Route path="/logout" element={<Logout />} />
+
+        {/* ============================================
+                  INVESTIGATOR
+              ============================================ */}
+
+        <Route
+          path="/investigator"
+          element={
+            <ProtectedRoute allowedRoles={["investigator"]}>
+              <InvestigatorDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ============================================
+                  STUDY COORDINATOR
+              ============================================ */}
+
+        <Route
+          path="/studycoordinator"
+          element={
+            <ProtectedRoute allowedRoles={["studycoordinator"]}>
+              <StudyCoordinator />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ============================================
+                  ETHICS COMMITTEE
+              ============================================ */}
+
+        <Route
+          path="/ethicscommittee"
+          element={
+            <ProtectedRoute allowedRoles={["ethicscommittee"]}>
+              <EthicsCommittee />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ============================================
+                  PHARMACOVIGILANCE
+              ============================================ */}
+
+        <Route
+          path="/pharmacovigilance"
+          element={
+            <ProtectedRoute allowedRoles={["pharmacovigilance"]}>
+              <Pharmacovigilance />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ============================================
+                  UNAUTHORIZED
+              ============================================ */}
+
+        <Route path="/unauthorized" element={<Unauthorized />} />
+
+        {/* ============================================
+                  DEFAULT ROUTE
+              ============================================ */}
+
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* ============================================
+                  UNKNOWN ROUTES
+              ============================================ */}
+
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
