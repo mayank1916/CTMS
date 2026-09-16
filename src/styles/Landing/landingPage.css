@@ -1,0 +1,2371 @@
+/* =========================================================
+   NIDAN LANDING PAGE
+   Full-width premium clinical research design
+========================================================= */
+
+:root {
+  --landing-cream: #f4eee1;
+  --landing-paper: #fbf7ed;
+  --landing-paper-dark: #e9dfca;
+
+  --landing-green: #193c32;
+  --landing-green-dark: #102d25;
+
+  /* Lighter green for buttons */
+  --landing-button-green: #b9d0b9;
+  --landing-button-green-hover: #a9c5a9;
+
+  --landing-gold: #c8a665;
+  --landing-gold-light: #e1c98f;
+
+  --landing-text: #202b25;
+  --landing-muted: #68716a;
+
+  --landing-line: rgba(55, 62, 53, 0.18);
+
+  --landing-white: #fffdf7;
+}
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 320px;
+
+  background: var(--landing-cream);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.landing-page {
+  width: 100%;
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+  color: var(--landing-text);
+
+  background:
+    radial-gradient(
+      circle at 10% 8%,
+      rgba(222, 203, 165, 0.22),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(213, 194, 154, 0.15),
+      transparent 30%
+    ),
+    var(--landing-cream);
+}
+
+.landing-page *,
+.landing-page *::before,
+.landing-page *::after {
+  box-sizing: border-box;
+}
+
+.landing-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.landing-page button {
+  font: inherit;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.landing-nav-wrapper {
+  width: 100%;
+
+  margin: 0;
+
+  position: relative;
+  z-index: 100;
+}
+
+.landing-nav {
+  width: 100%;
+  min-height: 88px;
+
+  padding: 0 clamp(24px, 5vw, 75px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  border-top: 2px solid rgba(181, 147, 86, 0.5);
+  border-bottom: 1px solid rgba(181, 147, 86, 0.35);
+
+  background:
+    rgba(250, 246, 235, 0.88);
+
+  backdrop-filter: blur(15px);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.landing-logo {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  flex-shrink: 0;
+}
+
+.landing-logo-mark {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: var(--landing-green);
+
+  background: rgba(255, 253, 247, 0.7);
+
+  border: 1px solid rgba(25, 60, 50, 0.3);
+}
+
+.landing-logo-text {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.landing-logo-name {
+  color: var(--landing-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: 0.5px;
+}
+
+.landing-logo-subtitle {
+  color: var(--landing-muted);
+
+  font-size: 8px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: 1.8px;
+}
+
+
+/* =========================================================
+   DESKTOP NAVIGATION
+========================================================= */
+
+.landing-nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: clamp(30px, 4vw, 60px);
+
+  margin-left: auto;
+}
+
+.landing-nav-links a {
+  position: relative;
+
+  color: #20251f;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: color 0.25s ease;
+}
+
+.landing-nav-links a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  bottom: -8px;
+
+  height: 1px;
+
+  background: var(--landing-green);
+
+  transform: scaleX(0);
+
+  transform-origin: center;
+
+  transition: transform 0.25s ease;
+}
+
+.landing-nav-links a:hover {
+  color: var(--landing-green);
+}
+
+.landing-nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* =========================================================
+   START YOUR JOURNEY BUTTON
+========================================================= */
+
+.landing-start-btn {
+  min-height: 48px;
+
+  padding: 0 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border-radius: 999px;
+
+  /* LIGHT GREEN */
+  color: #16382e;
+
+  background: var(--landing-button-green);
+
+  border: 1px solid rgba(25, 60, 50, 0.18);
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.4px;
+
+  box-shadow:
+    0 8px 20px rgba(25, 60, 50, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.landing-start-btn:hover {
+  transform: translateY(-2px);
+
+  background: var(--landing-button-green-hover);
+
+  box-shadow:
+    0 12px 25px rgba(25, 60, 50, 0.14);
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+========================================================= */
+
+.landing-menu-btn {
+  display: none;
+
+  width: 44px;
+  height: 44px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border: 1px solid var(--landing-line);
+
+  color: var(--landing-green);
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.landing-mobile-menu {
+  display: none;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.landing-hero {
+  width: 100%;
+
+  min-height: calc(100vh - 88px);
+
+  margin: 0;
+
+  padding:
+    clamp(70px, 8vh, 105px)
+    clamp(24px, 5vw, 75px)
+    0;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(255, 252, 243, 0.98),
+      transparent 48%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(249, 244, 231, 0.98),
+      rgba(245, 237, 219, 0.9)
+    );
+
+  border-bottom: 1px solid rgba(185, 153, 94, 0.3);
+
+  box-shadow:
+    inset 0 0 100px rgba(255, 255, 255, 0.18);
+}
+
+
+/* Paper texture */
+
+.landing-hero::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0.12;
+
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      rgba(70, 59, 40, 0.2) 0.6px,
+      transparent 0.6px
+    );
+
+  background-size: 7px 7px;
+
+  mix-blend-mode: multiply;
+}
+
+
+/* =========================================================
+   HERO LABEL
+========================================================= */
+
+.landing-hero-label {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: var(--landing-green);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 2.4px;
+}
+
+.landing-hero-label span {
+  width: 28px;
+  height: 1px;
+
+  background: var(--landing-gold);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.landing-hero-title {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1400px;
+
+  margin:
+    clamp(42px, 6vh, 65px)
+    auto
+    0;
+
+  text-align: center;
+
+  color: var(--landing-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(58px, 8.2vw, 125px);
+
+  font-weight: 500;
+
+  line-height: 0.86;
+
+  letter-spacing: -5px;
+}
+
+.landing-hero-title em {
+  font-style: normal;
+
+  color: transparent;
+
+  -webkit-text-stroke:
+    1.2px
+    var(--landing-green);
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.landing-hero-description {
+  position: relative;
+  z-index: 3;
+
+  width: min(620px, 90%);
+
+  margin: 32px auto 0;
+
+  text-align: center;
+
+  color: #56615a;
+
+  font-size: 15px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.landing-hero-actions {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  margin-top: 27px;
+}
+
+.landing-primary-btn,
+.landing-secondary-btn {
+  min-height: 48px;
+
+  padding: 0 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   ENTER NIDAN
+   LIGHT GREEN + DARK TEXT
+========================================================= */
+
+.landing-primary-btn {
+  color: #16382e;
+
+  background: var(--landing-button-green);
+
+  border: 1px solid rgba(25, 60, 50, 0.2);
+
+  box-shadow:
+    0 8px 20px rgba(25, 60, 50, 0.09);
+}
+
+.landing-primary-btn:hover {
+  transform: translateY(-2px);
+
+  color: #102d25;
+
+  background: var(--landing-button-green-hover);
+
+  box-shadow:
+    0 12px 28px rgba(25, 60, 50, 0.15);
+}
+
+
+/* =========================================================
+   DISCOVER NIDAN
+========================================================= */
+
+.landing-secondary-btn {
+  color: var(--landing-green);
+
+  background: rgba(255, 253, 247, 0.65);
+
+  border: 1px solid rgba(25, 60, 50, 0.35);
+}
+
+.landing-secondary-btn:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 253, 247, 0.95);
+}
+
+
+/* =========================================================
+   HERO ARTWORK
+========================================================= */
+
+.landing-artwork {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  bottom: 0;
+
+  height: min(410px, 38vh);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CLINICAL CARD
+========================================================= */
+
+.landing-clinical-card {
+  position: absolute;
+
+  left: clamp(4%, 7vw, 9%);
+
+  bottom: 18px;
+
+  width: 310px;
+
+  z-index: 5;
+}
+
+.landing-clinical-arch {
+  height: 300px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border:
+    1.5px solid
+    rgba(193, 158, 96, 0.8);
+
+  border-bottom: 0;
+
+  border-radius: 160px 160px 0 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 25%,
+      rgba(255, 255, 255, 0.82),
+      transparent 48%
+    ),
+    rgba(255, 250, 236, 0.6);
+}
+
+
+/* =========================================================
+   DOCUMENT
+========================================================= */
+
+.landing-document {
+  position: absolute;
+
+  left: 54px;
+  top: 67px;
+
+  width: 128px;
+  height: 172px;
+
+  padding: 34px 17px 17px;
+
+  transform: rotate(-5deg);
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #e7eee4,
+      #bfcbbb
+    );
+
+  border: 1px solid rgba(44, 61, 48, 0.25);
+
+  box-shadow:
+    5px 8px 0 rgba(81, 98, 77, 0.12),
+    0 15px 25px rgba(50, 59, 48, 0.13);
+}
+
+.document-clip {
+  position: absolute;
+
+  left: 43px;
+  top: -14px;
+
+  width: 43px;
+  height: 30px;
+
+  border-radius: 8px;
+
+  background: #dfbd7e;
+
+  border: 1px solid #b99453;
+}
+
+.document-line {
+  width: 65%;
+  height: 6px;
+
+  margin-bottom: 10px;
+
+  border-radius: 999px;
+
+  background: rgba(47, 65, 52, 0.28);
+}
+
+.document-line-long {
+  width: 84%;
+}
+
+.document-check-row {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: 11px;
+}
+
+.document-check-row svg {
+  flex-shrink: 0;
+
+  color: #536b51;
+}
+
+.document-check-row span {
+  width: 50px;
+  height: 5px;
+
+  border-radius: 999px;
+
+  background: rgba(47, 65, 52, 0.25);
+}
+
+
+/* =========================================================
+   SHIELD
+========================================================= */
+
+.landing-shield {
+  position: absolute;
+
+  left: 150px;
+  top: 166px;
+
+  width: 74px;
+  height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--landing-green);
+
+  background:
+    linear-gradient(
+      145deg,
+      #f1dfad,
+      #d0b272
+    );
+
+  clip-path:
+    polygon(
+      50% 0,
+      92% 15%,
+      85% 65%,
+      50% 100%,
+      15% 65%,
+      8% 15%
+    );
+
+  filter:
+    drop-shadow(
+      5px 7px 4px
+      rgba(50, 59, 48, 0.15)
+    );
+}
+
+
+/* =========================================================
+   DATA CLOUD
+========================================================= */
+
+.landing-data-cloud {
+  position: absolute;
+
+  right: 38px;
+  top: 74px;
+
+  width: 90px;
+  height: 85px;
+}
+
+.cloud-top {
+  position: absolute;
+
+  left: 16px;
+  top: 5px;
+
+  width: 58px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #dddde8,
+      #bbbcc8
+    );
+}
+
+.cloud-body {
+  position: absolute;
+
+  left: 20px;
+  bottom: 9px;
+
+  width: 56px;
+  height: 49px;
+
+  border-radius:
+    8px
+    8px
+    14px
+    14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #8caa91,
+      #59775f
+    );
+}
+
+.cloud-body span {
+  position: absolute;
+
+  left: 13px;
+
+  width: 30px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #c6d3c1;
+}
+
+.cloud-body span:nth-child(1) {
+  top: 9px;
+}
+
+.cloud-body span:nth-child(2) {
+  top: 20px;
+}
+
+.cloud-body span:nth-child(3) {
+  top: 31px;
+}
+
+
+/* =========================================================
+   CONNECTION DOTS
+========================================================= */
+
+.connection-dot {
+  position: absolute;
+
+  width: 17px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  background: #d0b275;
+
+  border: 2px solid #f8efdc;
+
+  box-shadow:
+    0 4px 10px rgba(52, 60, 47, 0.12);
+}
+
+.connection-one {
+  left: 194px;
+  top: 152px;
+}
+
+.connection-two {
+  right: 6px;
+  top: 155px;
+}
+
+.connection-three {
+  left: 190px;
+  bottom: 37px;
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+.landing-progress {
+  height: 17px;
+
+  margin: -4px 32px 0;
+
+  position: relative;
+  z-index: 2;
+
+  border-radius: 999px;
+
+  border:
+    1px solid
+    rgba(65, 75, 63, 0.25);
+
+  background: #e5e8dd;
+
+  overflow: hidden;
+}
+
+.landing-progress span {
+  display: block;
+
+  width: 54%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #b99a5f,
+      #dfc88e
+    );
+}
+
+
+/* =========================================================
+   ART LABEL
+========================================================= */
+
+.landing-art-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 33px 0;
+
+  font-size: 9px;
+
+  letter-spacing: 1.5px;
+}
+
+.landing-art-label span {
+  color: var(--landing-muted);
+}
+
+.landing-art-label strong {
+  color: var(--landing-green);
+}
+
+
+/* =========================================================
+   BOTANICAL
+========================================================= */
+
+.landing-botanical {
+  position: absolute;
+
+  left: 30%;
+  right: -2%;
+
+  bottom: -5px;
+
+  height: 430px;
+
+  pointer-events: none;
+}
+
+.landing-botanical svg {
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.branch-main,
+.branch-line {
+  fill: none;
+
+  stroke: #303c32;
+
+  stroke-width: 3;
+
+  stroke-linecap: round;
+}
+
+.branch-line {
+  stroke: #78684e;
+
+  stroke-width: 2.2;
+}
+
+.botanical-leaves ellipse {
+  fill: #d4c49d;
+
+  stroke: #29382f;
+
+  stroke-width: 1.6;
+
+  opacity: 0.95;
+}
+
+
+/* =========================================================
+   ART CAPTION
+========================================================= */
+
+.landing-art-caption {
+  position: absolute;
+
+  right: clamp(4%, 7vw, 9%);
+
+  bottom: 45px;
+
+  z-index: 8;
+
+  display: flex;
+  flex-direction: column;
+
+  color: #202921;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 23px;
+
+  line-height: 1.1;
+}
+
+.landing-art-caption strong {
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
+
+.section-eyebrow {
+  display: inline-block;
+
+  color: var(--landing-green);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 2.4px;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.landing-about {
+  width: 100%;
+
+  margin: 0;
+
+  padding:
+    145px
+    clamp(24px, 8vw, 150px);
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: clamp(50px, 8vw, 120px);
+
+  background: var(--landing-cream);
+}
+
+.landing-section-heading,
+.landing-about-content {
+  max-width: 650px;
+}
+
+.landing-section-heading h2,
+.landing-services-header h2,
+.ecosystem-copy h2,
+.landing-final-cta h2 {
+  margin: 18px 0 0;
+
+  color: var(--landing-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(43px, 5vw, 72px);
+
+  line-height: 0.98;
+
+  font-weight: 500;
+
+  letter-spacing: -2.5px;
+}
+
+.landing-section-heading h2 em,
+.landing-services-header h2 em,
+.ecosystem-copy h2 em,
+.landing-final-cta h2 em {
+  font-style: normal;
+
+  color: #677269;
+}
+
+.landing-about-content {
+  padding-top: 45px;
+}
+
+.landing-about-large {
+  margin: 0;
+
+  color: #354039;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 24px;
+
+  line-height: 1.45;
+}
+
+.landing-about-small {
+  max-width: 520px;
+
+  margin: 28px 0 0;
+
+  color: var(--landing-muted);
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.landing-services {
+  width: 100%;
+
+  padding:
+    120px
+    clamp(24px, 8vw, 150px);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(228, 219, 199, 0.32),
+      rgba(242, 236, 222, 0.62)
+    );
+
+  border-top: 1px solid var(--landing-line);
+
+  border-bottom: 1px solid var(--landing-line);
+}
+
+.landing-services-header {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 60px;
+}
+
+.landing-services-header > p {
+  max-width: 390px;
+
+  margin: 0 0 8px;
+
+  color: var(--landing-muted);
+
+  font-size: 14px;
+
+  line-height: 1.75;
+}
+
+.landing-service-grid {
+  width: 100%;
+
+  margin-top: 70px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  border-top: 1px solid var(--landing-line);
+
+  border-bottom: 1px solid var(--landing-line);
+}
+
+.landing-service-card {
+  min-height: 345px;
+
+  padding: 34px 28px;
+
+  position: relative;
+
+  border-right: 1px solid var(--landing-line);
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.landing-service-card:last-child {
+  border-right: 0;
+}
+
+.landing-service-card:hover {
+  background: rgba(255, 253, 247, 0.58);
+
+  transform: translateY(-5px);
+}
+
+.service-icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: var(--landing-green);
+
+  background:
+    rgba(210, 191, 149, 0.35);
+}
+
+.landing-service-card > span {
+  display: block;
+
+  margin-top: 40px;
+
+  color: var(--landing-gold);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.landing-service-card h3 {
+  margin: 13px 0 0;
+
+  color: var(--landing-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 24px;
+
+  line-height: 1.15;
+
+  font-weight: 500;
+}
+
+.landing-service-card p {
+  margin: 18px 0 0;
+
+  color: var(--landing-muted);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+.service-arrow {
+  position: absolute;
+
+  right: 28px;
+  bottom: 31px;
+
+  color: var(--landing-green);
+
+  transition:
+    transform 0.25s ease;
+}
+
+.landing-service-card:hover .service-arrow {
+  transform: translateX(5px);
+}
+
+
+/* =========================================================
+   ECOSYSTEM
+========================================================= */
+
+.landing-ecosystem {
+  width: 100%;
+
+  margin: 0;
+
+  padding:
+    145px
+    clamp(24px, 8vw, 150px);
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 0.9fr)
+    minmax(0, 1.1fr);
+
+  gap: clamp(50px, 8vw, 120px);
+
+  align-items: center;
+}
+
+.ecosystem-copy {
+  max-width: 600px;
+}
+
+.ecosystem-copy p {
+  max-width: 480px;
+
+  margin: 30px 0 0;
+
+  color: var(--landing-muted);
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+.ecosystem-btn {
+  margin-top: 30px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  color: var(--landing-green);
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  border-bottom:
+    1px solid
+    var(--landing-green);
+
+  padding-bottom: 7px;
+}
+
+
+/* =========================================================
+   ECOSYSTEM VISUAL
+========================================================= */
+
+.ecosystem-roles {
+  min-height: 520px;
+
+  position: relative;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 252, 242, 0.9),
+      rgba(221, 210, 185, 0.25) 55%,
+      transparent 56%
+    );
+}
+
+.ecosystem-roles::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 330px;
+  height: 330px;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(201, 168, 106, 0.45);
+}
+
+.ecosystem-roles::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 230px;
+  height: 230px;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border:
+    1px dashed
+    rgba(25, 60, 50, 0.2);
+}
+
+
+/* =========================================================
+   ECOSYSTEM ROLE CARDS
+========================================================= */
+
+.ecosystem-role {
+  position: absolute;
+
+  width: 190px;
+
+  padding: 17px 20px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  border:
+    1px solid
+    var(--landing-line);
+
+  border-radius: 14px;
+
+  background:
+    rgba(255, 252, 242, 0.9);
+
+  box-shadow:
+    0 12px 30px
+    rgba(55, 55, 40, 0.07);
+
+  z-index: 3;
+}
+
+.ecosystem-role span {
+  color: var(--landing-gold);
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.ecosystem-role strong {
+  margin-top: 7px;
+
+  color: var(--landing-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+
+  font-weight: 600;
+}
+
+.ecosystem-role small {
+  margin-top: 4px;
+
+  color: var(--landing-muted);
+
+  font-size: 10px;
+}
+
+.ecosystem-role-one {
+  left: 0;
+  top: 105px;
+}
+
+.ecosystem-role-two {
+  right: 0;
+  top: 70px;
+}
+
+.ecosystem-role-three {
+  left: 5px;
+  bottom: 65px;
+}
+
+.ecosystem-role-four {
+  right: 0;
+  bottom: 100px;
+}
+
+
+/* =========================================================
+   ECOSYSTEM CENTER
+========================================================= */
+
+.ecosystem-center {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index: 5;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+.ecosystem-center > div {
+  width: 75px;
+  height: 75px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: var(--landing-green);
+
+  background: #e3d2aa;
+
+  border:
+    1px solid
+    rgba(25, 60, 50, 0.2);
+}
+
+.ecosystem-center strong {
+  margin-top: 12px;
+
+  color: var(--landing-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 26px;
+}
+
+.ecosystem-center span {
+  margin-top: 3px;
+
+  color: var(--landing-muted);
+
+  font-size: 7px;
+
+  line-height: 1.3;
+
+  letter-spacing: 1.4px;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.landing-final-cta {
+  width: 100%;
+
+  min-height: 530px;
+
+  padding:
+    100px
+    30px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  color: #f5f1e5;
+
+  background: var(--landing-green);
+}
+
+.landing-final-cta .section-eyebrow {
+  color: var(--landing-gold-light);
+}
+
+.landing-final-cta h2 {
+  color: #f5f1e5;
+}
+
+.landing-final-cta h2 em {
+  color: #b8c0b8;
+}
+
+.landing-final-cta p {
+  max-width: 520px;
+
+  margin: 25px 0 0;
+
+  color: #bdc8c0;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   FINAL CTA BUTTON
+========================================================= */
+
+.landing-cta-button {
+  margin-top: 32px;
+
+  min-height: 50px;
+
+  padding: 0 27px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  color: #16382e;
+
+  background: var(--landing-button-green);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.15);
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.5px;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.landing-cta-button:hover {
+  transform: translateY(-3px);
+
+  background: #c9ddc9;
+}
+
+
+/* =========================================================
+   CTA DECORATIONS
+========================================================= */
+
+.cta-decoration {
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  border:
+    1px solid
+    rgba(226, 201, 143, 0.22);
+
+  border-radius: 50%;
+}
+
+.cta-decoration-left {
+  left: -170px;
+  bottom: -130px;
+}
+
+.cta-decoration-right {
+  right: -170px;
+  top: -130px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.landing-footer {
+  width: 100%;
+
+  margin: 0;
+
+  padding:
+    45px
+    clamp(24px, 8vw, 150px);
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
+  align-items: center;
+
+  gap: 30px;
+
+  background: var(--landing-cream);
+}
+
+.landing-footer-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+}
+
+.landing-footer-brand .landing-logo-mark {
+  width: 39px;
+  height: 39px;
+}
+
+.landing-footer-brand > div:last-child {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.landing-footer-brand strong {
+  color: var(--landing-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 22px;
+}
+
+.landing-footer-brand span {
+  margin-top: 2px;
+
+  color: var(--landing-muted);
+
+  font-size: 7px;
+
+  letter-spacing: 1.3px;
+
+  font-weight: 800;
+}
+
+.landing-footer p {
+  margin: 0;
+
+  text-align: center;
+
+  color: var(--landing-muted);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 15px;
+}
+
+.landing-footer-copy {
+  text-align: right;
+
+  color: #8a918b;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .landing-nav {
+    padding:
+      0
+      24px;
+  }
+
+  .landing-nav-links {
+    gap: 28px;
+  }
+
+  .landing-start-btn {
+    padding: 0 18px;
+  }
+
+  .landing-hero {
+    min-height: 780px;
+  }
+
+  .landing-clinical-card {
+    left: 4%;
+
+    transform: scale(0.88);
+
+    transform-origin: bottom left;
+  }
+
+  .landing-botanical {
+    left: 27%;
+  }
+
+  .landing-art-caption {
+    right: 4%;
+
+    font-size: 18px;
+  }
+
+  .landing-about {
+    gap: 50px;
+  }
+
+  .landing-service-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .landing-service-card:nth-child(2) {
+    border-right: 0;
+  }
+
+  .landing-service-card:nth-child(3),
+  .landing-service-card:nth-child(4) {
+    border-top: 1px solid var(--landing-line);
+  }
+
+  .landing-ecosystem {
+    gap: 50px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 720px) {
+
+  /* NAV */
+
+  .landing-nav {
+    min-height: 72px;
+
+    padding:
+      0
+      15px;
+  }
+
+  .landing-logo-mark {
+    width: 39px;
+    height: 39px;
+  }
+
+  .landing-logo-name {
+    font-size: 23px;
+  }
+
+  .landing-logo-subtitle {
+    font-size: 6px;
+
+    letter-spacing: 1.2px;
+  }
+
+  .landing-nav-links,
+  .landing-start-btn {
+    display: none;
+  }
+
+  .landing-menu-btn {
+    display: flex;
+  }
+
+
+  /* MOBILE MENU */
+
+  .landing-mobile-menu {
+    display: flex;
+
+    position: absolute;
+
+    left: 12px;
+    right: 12px;
+
+    top: calc(100% + 8px);
+
+    padding: 12px;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+      translateY(-8px);
+
+    border:
+      1px solid
+      var(--landing-line);
+
+    border-radius: 16px;
+
+    background:
+      rgba(251, 247, 237, 0.98);
+
+    box-shadow:
+      0 18px 35px
+      rgba(40, 43, 34, 0.12);
+
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .landing-mobile-menu-open {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+      translateY(0);
+  }
+
+  .landing-mobile-menu a {
+    min-height: 45px;
+
+    padding: 0 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+  }
+
+  .landing-mobile-menu a:hover {
+    background:
+      rgba(215, 201, 171, 0.25);
+  }
+
+  .landing-mobile-menu a:last-child {
+    margin-top: 5px;
+
+    color: #16382e;
+
+    background: var(--landing-button-green);
+
+    justify-content: center;
+
+    gap: 8px;
+  }
+
+
+  /* HERO */
+
+  .landing-hero {
+    min-height: 760px;
+
+    padding:
+      70px
+      18px
+      0;
+  }
+
+  .landing-hero-label {
+    font-size: 7px;
+
+    letter-spacing: 1.6px;
+  }
+
+  .landing-hero-label span {
+    width: 13px;
+  }
+
+  .landing-hero-title {
+    margin-top: 38px;
+
+    font-size:
+      clamp(49px, 15vw, 75px);
+
+    letter-spacing: -3px;
+  }
+
+  .landing-hero-title em {
+    -webkit-text-stroke:
+      0.8px
+      var(--landing-green);
+  }
+
+  .landing-hero-description {
+    width: 94%;
+
+    margin-top: 25px;
+
+    font-size: 13px;
+
+    line-height: 1.65;
+  }
+
+  .landing-hero-actions {
+    margin-top: 22px;
+
+    gap: 8px;
+  }
+
+  .landing-primary-btn,
+  .landing-secondary-btn {
+    min-height: 43px;
+
+    padding: 0 15px;
+
+    font-size: 10px;
+  }
+
+
+  /* HERO ART */
+
+  .landing-artwork {
+    height: 310px;
+  }
+
+  .landing-clinical-card {
+    left: 4%;
+
+    bottom: 12px;
+
+    width: 210px;
+
+    transform:
+      scale(0.75);
+
+    transform-origin:
+      bottom left;
+  }
+
+  .landing-clinical-arch {
+    height: 270px;
+  }
+
+  .landing-botanical {
+    left: 24%;
+
+    right: -35%;
+
+    bottom: 0;
+
+    height: 300px;
+  }
+
+  .landing-art-caption {
+    right: 7%;
+
+    bottom: 27px;
+
+    font-size: 13px;
+  }
+
+  .landing-art-label {
+    font-size: 7px;
+  }
+
+
+  /* ABOUT */
+
+  .landing-about {
+    padding:
+      90px
+      20px;
+
+    display: block;
+  }
+
+  .landing-section-heading h2,
+  .landing-services-header h2,
+  .ecosystem-copy h2,
+  .landing-final-cta h2 {
+    font-size: 43px;
+
+    letter-spacing: -1.8px;
+  }
+
+  .landing-about-content {
+    padding-top: 35px;
+  }
+
+  .landing-about-large {
+    font-size: 20px;
+  }
+
+  .landing-about-small {
+    font-size: 13px;
+  }
+
+
+  /* SERVICES */
+
+  .landing-services {
+    padding:
+      85px
+      20px;
+  }
+
+  .landing-services-header {
+    display: block;
+  }
+
+  .landing-services-header > p {
+    margin-top: 28px;
+  }
+
+  .landing-service-grid {
+    margin-top: 45px;
+
+    grid-template-columns: 1fr;
+  }
+
+  .landing-service-card {
+    min-height: 300px;
+
+    border-right: 0 !important;
+
+    border-top:
+      1px solid
+      var(--landing-line);
+  }
+
+  .landing-service-card:first-child {
+    border-top: 0;
+  }
+
+
+  /* ECOSYSTEM */
+
+  .landing-ecosystem {
+    padding:
+      90px
+      20px;
+
+    display: block;
+  }
+
+  .ecosystem-roles {
+    min-height: 500px;
+
+    margin-top: 60px;
+  }
+
+  .ecosystem-roles::before {
+    width: 270px;
+    height: 270px;
+  }
+
+  .ecosystem-roles::after {
+    width: 190px;
+    height: 190px;
+  }
+
+  .ecosystem-role {
+    width: 145px;
+
+    padding:
+      13px
+      14px;
+  }
+
+  .ecosystem-role strong {
+    font-size: 14px;
+  }
+
+  .ecosystem-role small {
+    font-size: 8px;
+  }
+
+  .ecosystem-role-one {
+    left: -5px;
+    top: 70px;
+  }
+
+  .ecosystem-role-two {
+    right: -5px;
+    top: 45px;
+  }
+
+  .ecosystem-role-three {
+    left: -5px;
+    bottom: 45px;
+  }
+
+  .ecosystem-role-four {
+    right: -5px;
+    bottom: 65px;
+  }
+
+  .ecosystem-center > div {
+    width: 62px;
+    height: 62px;
+  }
+
+  .ecosystem-center strong {
+    font-size: 22px;
+  }
+
+
+  /* FINAL CTA */
+
+  .landing-final-cta {
+    min-height: 470px;
+
+    padding:
+      80px
+      20px;
+  }
+
+  .landing-final-cta p {
+    font-size: 13px;
+  }
+
+
+  /* FOOTER */
+
+  .landing-footer {
+    padding:
+      35px
+      20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+  }
+
+  .landing-footer-copy {
+    text-align: center;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .landing-hero {
+    min-height: 710px;
+  }
+
+  .landing-hero-title {
+    font-size: 47px;
+  }
+
+  .landing-hero-description {
+    font-size: 12px;
+  }
+
+  .landing-artwork {
+    height: 285px;
+  }
+
+  .landing-clinical-card {
+    transform:
+      scale(0.62);
+  }
+
+  .landing-botanical {
+    left: 21%;
+
+    right: -48%;
+
+    height: 280px;
+  }
+
+  .landing-art-caption {
+    right: 5%;
+
+    bottom: 21px;
+
+    font-size: 11px;
+  }
+
+  .landing-primary-btn,
+  .landing-secondary-btn {
+    padding: 0 12px;
+  }
+
+  .ecosystem-role {
+    width: 128px;
+  }
+
+  .ecosystem-role strong {
+    font-size: 12px;
+  }
+
+  .ecosystem-role-one {
+    left: -12px;
+  }
+
+  .ecosystem-role-two {
+    right: -12px;
+  }
+
+  .ecosystem-role-three {
+    left: -12px;
+  }
+
+  .ecosystem-role-four {
+    right: -12px;
+  }
+}

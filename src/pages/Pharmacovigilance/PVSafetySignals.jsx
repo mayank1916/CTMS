@@ -1,282 +1,504 @@
-import { useState } from 'react'
+import React, { useMemo, useState } from 'react';
 import {
   Search,
-  Filter,
-  AlertTriangle,
   Eye,
-  Clock,
-  CheckCircle,
-  Activity,
+  Plus,
+  X,
+  Radio,
   TrendingUp,
-} from 'lucide-react'
+  TrendingDown,
+  Minus,
+  AlertTriangle,
+  CheckCircle2,
+  Clock3,
+  XCircle,
+  PieChart,
+  BarChart3,
+} from 'lucide-react';
 
-import '../../styles/Pharmacovigilance/pvSafetySignals.css'
+import '../../styles/Pharmacovigilance/pvSafetySignals.css';
+
+const signals = [
+  {
+    id: 'SIG-2026-014',
+    event: 'Liver Injury',
+    product: 'Drug A',
+    cases: 18,
+    trend: 'Rising',
+    trendValue: '+42%',
+    studies: ['Study A', 'Study B'],
+    status: 'Under Review',
+    evidence:
+      'Increasing reports of liver-related events across two studies during the last reporting period.',
+    notes:
+      'Cases are being reviewed for seriousness, temporal relationship and alternative causes.',
+    action: 'Medical review in progress',
+    lastUpdated: '12 Sep 2026',
+  },
+  {
+    id: 'SIG-2026-012',
+    event: 'Severe Headache',
+    product: 'Drug B',
+    cases: 12,
+    trend: 'Rising',
+    trendValue: '+28%',
+    studies: ['Study C'],
+    status: 'Potential',
+    evidence:
+      'Higher-than-expected frequency of severe headache reports observed in recent cases.',
+    notes:
+      'Additional case review is required before confirming the signal.',
+    action: 'Case aggregation initiated',
+    lastUpdated: '11 Sep 2026',
+  },
+  {
+    id: 'SIG-2026-010',
+    event: 'Cardiac Event',
+    product: 'Drug C',
+    cases: 8,
+    trend: 'Stable',
+    trendValue: '+3%',
+    studies: ['Study A'],
+    status: 'Confirmed',
+    evidence:
+      'Repeated cardiac events were identified through clinical assessment and case review.',
+    notes:
+      'Signal has been confirmed following medical and safety review.',
+    action: 'Risk assessment initiated',
+    lastUpdated: '10 Sep 2026',
+  },
+  {
+    id: 'SIG-2026-009',
+    event: 'Severe Skin Reaction',
+    product: 'Drug A',
+    cases: 7,
+    trend: 'Rising',
+    trendValue: '+35%',
+    studies: ['Study A', 'Study C'],
+    status: 'Under Review',
+    evidence:
+      'Reports indicate an increasing pattern of severe skin reactions.',
+    notes:
+      'Cases are being assessed for consistency and possible risk factors.',
+    action: 'Detailed case review',
+    lastUpdated: '09 Sep 2026',
+  },
+  {
+    id: 'SIG-2026-007',
+    event: 'Kidney Function Disorder',
+    product: 'Drug D',
+    cases: 6,
+    trend: 'Declining',
+    trendValue: '-18%',
+    studies: ['Study B'],
+    status: 'Dismissed',
+    evidence:
+      'Initial increase was not sustained after review of additional cases.',
+    notes:
+      'Observed frequency is currently consistent with the expected background rate.',
+    action: 'Signal dismissed',
+    lastUpdated: '08 Sep 2026',
+  },
+  {
+    id: 'SIG-2026-005',
+    event: 'Respiratory Distress',
+    product: 'Drug C',
+    cases: 5,
+    trend: 'Rising',
+    trendValue: '+22%',
+    studies: ['Study B', 'Study C'],
+    status: 'Potential',
+    evidence:
+      'Several respiratory distress events were reported within a short period.',
+    notes:
+      'Further review of patient history and concomitant medication is required.',
+    action: 'Additional evidence requested',
+    lastUpdated: '07 Sep 2026',
+  },
+  {
+    id: 'SIG-2026-003',
+    event: 'Abdominal Pain',
+    product: 'Drug B',
+    cases: 15,
+    trend: 'Stable',
+    trendValue: '+4%',
+    studies: ['Study A', 'Study B'],
+    status: 'Confirmed',
+    evidence:
+      'Consistent reporting pattern identified across multiple studies.',
+    notes:
+      'Clinical review supports continued monitoring of the event.',
+    action: 'Routine safety monitoring',
+    lastUpdated: '05 Sep 2026',
+  },
+  {
+    id: 'SIG-2026-001',
+    event: 'Dizziness',
+    product: 'Drug D',
+    cases: 9,
+    trend: 'Declining',
+    trendValue: '-12%',
+    studies: ['Study C'],
+    status: 'Dismissed',
+    evidence:
+      'Frequency decreased during subsequent reporting periods.',
+    notes:
+      'No additional evidence supporting a persistent signal was identified.',
+    action: 'No further action',
+    lastUpdated: '02 Sep 2026',
+  },
+];
 
 function PVSafetySignals() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [statusFilter, setStatusFilter] = useState('All')
+  const [searchTerm, setSearchTerm] = useState('');
+  const [studyFilter, setStudyFilter] = useState('All');
+  const [productFilter, setProductFilter] = useState('All');
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [selectedSignal, setSelectedSignal] = useState(null);
 
-  const signals = [
-    {
-      id: 'SIG-2026-001',
-      name: 'Increased Headache Reports',
-      study: 'Cardio Health Study',
-      events: 18,
-      severity: 'High',
-      detected: '02 Sep 2026',
-      status: 'Under Investigation',
-    },
-    {
-      id: 'SIG-2026-002',
-      name: 'Unexpected Allergic Reactions',
-      study: 'Oncology Treatment Study',
-      events: 11,
-      severity: 'Critical',
-      detected: '31 Aug 2026',
-      status: 'Escalated',
-    },
-    {
-      id: 'SIG-2026-003',
-      name: 'Increased Dizziness Cases',
-      study: 'Mental Health Research',
-      events: 9,
-      severity: 'Medium',
-      detected: '30 Aug 2026',
-      status: 'Under Investigation',
-    },
-    {
-      id: 'SIG-2026-004',
-      name: 'Fatigue Pattern Detected',
-      study: 'Diabetes Research Trial',
-      events: 15,
-      severity: 'Low',
-      detected: '28 Aug 2026',
-      status: 'Closed',
-    },
-    {
-      id: 'SIG-2026-005',
-      name: 'Chest Pain Frequency',
-      study: 'Cardio Health Study',
-      events: 7,
-      severity: 'High',
-      detected: '27 Aug 2026',
-      status: 'Under Investigation',
-    },
-  ]
+  const filteredSignals = useMemo(() => {
+    return signals.filter((signal) => {
+      const search = searchTerm.toLowerCase();
 
-  const filteredSignals = signals.filter((signal) => {
-    const search = searchTerm.toLowerCase()
+      const matchesSearch =
+        signal.id.toLowerCase().includes(search) ||
+        signal.event.toLowerCase().includes(search) ||
+        signal.product.toLowerCase().includes(search) ||
+        signal.studies.join(' ').toLowerCase().includes(search);
 
-    const matchesSearch =
-      signal.id.toLowerCase().includes(search) ||
-      signal.name.toLowerCase().includes(search) ||
-      signal.study.toLowerCase().includes(search)
+      const matchesStudy =
+        studyFilter === 'All' ||
+        signal.studies.includes(studyFilter);
 
-    const matchesStatus =
-      statusFilter === 'All' ||
-      signal.status === statusFilter
+      const matchesProduct =
+        productFilter === 'All' ||
+        signal.product === productFilter;
 
-    return matchesSearch && matchesStatus
-  })
+      const matchesStatus =
+        statusFilter === 'All' ||
+        signal.status === statusFilter;
 
-  const getSeverityClass = (severity) => {
-    switch (severity) {
-      case 'Critical':
-        return 'pv-signal-critical'
-      case 'High':
-        return 'pv-signal-high'
-      case 'Medium':
-        return 'pv-signal-medium'
-      case 'Low':
-        return 'pv-signal-low'
-      default:
-        return ''
+      return (
+        matchesSearch &&
+        matchesStudy &&
+        matchesProduct &&
+        matchesStatus
+      );
+    });
+  }, [
+    searchTerm,
+    studyFilter,
+    productFilter,
+    statusFilter,
+  ]);
+
+  const stats = {
+    potential: signals.filter(
+      (signal) => signal.status === 'Potential'
+    ).length,
+
+    underReview: signals.filter(
+      (signal) => signal.status === 'Under Review'
+    ).length,
+
+    confirmed: signals.filter(
+      (signal) => signal.status === 'Confirmed'
+    ).length,
+
+    dismissed: signals.filter(
+      (signal) => signal.status === 'Dismissed'
+    ).length,
+  };
+
+  const totalSignals = filteredSignals.length;
+
+  const potentialPercent =
+    totalSignals > 0
+      ? (filteredSignals.filter(
+          (signal) => signal.status === 'Potential'
+        ).length /
+          totalSignals) *
+        100
+      : 0;
+
+  const reviewPercent =
+    totalSignals > 0
+      ? (filteredSignals.filter(
+          (signal) => signal.status === 'Under Review'
+        ).length /
+          totalSignals) *
+        100
+      : 0;
+
+  const confirmedPercent =
+    totalSignals > 0
+      ? (filteredSignals.filter(
+          (signal) => signal.status === 'Confirmed'
+        ).length /
+          totalSignals) *
+        100
+      : 0;
+
+  const getTrendIcon = (trend) => {
+    if (trend === 'Rising') {
+      return <TrendingUp size={15} />;
     }
-  }
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case 'Under Investigation':
-        return 'pv-signal-investigating'
-      case 'Escalated':
-        return 'pv-signal-escalated'
-      case 'Closed':
-        return 'pv-signal-closed'
-      default:
-        return ''
+    if (trend === 'Declining') {
+      return <TrendingDown size={15} />;
     }
-  }
 
-  const handleView = (signal) => {
-    alert(
-      `Safety Signal: ${signal.id}\n\n` +
-      `Signal: ${signal.name}\n` +
-      `Study: ${signal.study}\n` +
-      `Events Detected: ${signal.events}\n` +
-      `Severity: ${signal.severity}\n` +
-      `Detected: ${signal.detected}\n` +
-      `Status: ${signal.status}`
-    )
-  }
+    return <Minus size={15} />;
+  };
 
-  const criticalSignals = signals.filter(
-    (signal) => signal.severity === 'Critical'
-  ).length
+  const getTrendClass = (trend) => {
+    if (trend === 'Rising') return 'rising';
+    if (trend === 'Declining') return 'declining';
+    return 'stable';
+  };
 
-  const highSignals = signals.filter(
-    (signal) => signal.severity === 'High'
-  ).length
+  const getStatusIcon = (status) => {
+    if (status === 'Potential') {
+      return <AlertTriangle size={14} />;
+    }
 
-  const investigatingSignals = signals.filter(
-    (signal) => signal.status === 'Under Investigation'
-  ).length
+    if (status === 'Under Review') {
+      return <Clock3 size={14} />;
+    }
 
-  const closedSignals = signals.filter(
-    (signal) => signal.status === 'Closed'
-  ).length
+    if (status === 'Confirmed') {
+      return <CheckCircle2 size={14} />;
+    }
+
+    return <XCircle size={14} />;
+  };
+
+  const clearFilters = () => {
+    setSearchTerm('');
+    setStudyFilter('All');
+    setProductFilter('All');
+    setStatusFilter('All');
+  };
+
+  const hasFilters =
+    searchTerm ||
+    studyFilter !== 'All' ||
+    productFilter !== 'All' ||
+    statusFilter !== 'All';
 
   return (
-    <section className="pv-safety-signals-page">
+    <div className="pv-signals-page">
 
-      {/* Header */}
+      {/* =====================================================
+          HEADER
+          ===================================================== */}
 
-      <div className="pv-signal-header">
-        <div>
-          <h1>Safety Signals</h1>
-          <p>
-            Detect, assess and monitor potential safety
-            signals across clinical studies.
-          </p>
+      <div className="pv-signals-header">
+
+        <div className="pv-signals-title-row">
+
+          <div className="pv-signals-title-icon">
+            <Radio size={24} />
+          </div>
+
+          <div>
+            <h1>Signal Detection</h1>
+
+            <p>
+              Identify, review and track potential safety signals
+              across products, interventions and studies.
+            </p>
+          </div>
+
         </div>
 
         <button
-          className="pv-signal-detect-btn"
+          className="pv-signals-primary-btn"
           onClick={() =>
-            alert('Run Safety Signal Detection selected.')
+            alert('New signal assessment will open here.')
           }
         >
-          <TrendingUp size={18} />
-          Run Signal Detection
+          <Plus size={18} />
+          New Signal
         </button>
-      </div>
-
-      {/* Statistics */}
-
-      <div className="pv-signal-stats">
-
-        <div className="pv-signal-stat-card">
-          <div className="pv-signal-stat-icon critical">
-            <AlertTriangle size={22} />
-          </div>
-
-          <div>
-            <span>Critical Signals</span>
-            <strong>{criticalSignals}</strong>
-          </div>
-        </div>
-
-        <div className="pv-signal-stat-card">
-          <div className="pv-signal-stat-icon high">
-            <TrendingUp size={22} />
-          </div>
-
-          <div>
-            <span>High Priority</span>
-            <strong>{highSignals}</strong>
-          </div>
-        </div>
-
-        <div className="pv-signal-stat-card">
-          <div className="pv-signal-stat-icon investigating">
-            <Activity size={22} />
-          </div>
-
-          <div>
-            <span>Under Investigation</span>
-            <strong>{investigatingSignals}</strong>
-          </div>
-        </div>
-
-        <div className="pv-signal-stat-card">
-          <div className="pv-signal-stat-icon closed">
-            <CheckCircle size={22} />
-          </div>
-
-          <div>
-            <span>Closed Signals</span>
-            <strong>{closedSignals}</strong>
-          </div>
-        </div>
 
       </div>
 
-      {/* Filters */}
+      {/* =====================================================
+          KPI CARDS
+          ===================================================== */}
 
-      <div className="pv-signal-toolbar">
+      <div className="pv-signals-stats">
 
-        <div className="pv-signal-search">
-          <Search size={18} />
+        <div className="pv-signal-stat-card potential">
+
+          <div className="pv-signal-stat-icon">
+            <AlertTriangle size={21} />
+          </div>
+
+          <div>
+            <span>Potential Signals</span>
+            <strong>{stats.potential}</strong>
+            <small>Awaiting assessment</small>
+          </div>
+
+        </div>
+
+        <div className="pv-signal-stat-card review">
+
+          <div className="pv-signal-stat-icon">
+            <Clock3 size={21} />
+          </div>
+
+          <div>
+            <span>Signals Under Review</span>
+            <strong>{stats.underReview}</strong>
+            <small>Active investigation</small>
+          </div>
+
+        </div>
+
+        <div className="pv-signal-stat-card confirmed">
+
+          <div className="pv-signal-stat-icon">
+            <CheckCircle2 size={21} />
+          </div>
+
+          <div>
+            <span>Confirmed / Actioned</span>
+            <strong>{stats.confirmed}</strong>
+            <small>Action required or taken</small>
+          </div>
+
+        </div>
+
+        <div className="pv-signal-stat-card dismissed">
+
+          <div className="pv-signal-stat-icon">
+            <XCircle size={21} />
+          </div>
+
+          <div>
+            <span>Dismissed Signals</span>
+            <strong>{stats.dismissed}</strong>
+            <small>No further action</small>
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* =====================================================
+          FILTERS
+          ===================================================== */}
+
+      <div className="pv-signals-filter-card">
+
+        <div className="pv-signals-search">
+
+          <Search size={19} />
 
           <input
             type="text"
-            placeholder="Search signals or studies..."
+            placeholder="Search signal, event, product or study..."
             value={searchTerm}
-            onChange={(e) =>
-              setSearchTerm(e.target.value)
-            }
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
+
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm('')}
+              aria-label="Clear search"
+            >
+              <X size={16} />
+            </button>
+          )}
+
         </div>
 
-        <div className="pv-signal-filter">
-          <Filter size={17} />
+        <div className="pv-signals-filters">
+
+          <select
+            value={studyFilter}
+            onChange={(e) => setStudyFilter(e.target.value)}
+          >
+            <option value="All">Study: All</option>
+            <option value="Study A">Study A</option>
+            <option value="Study B">Study B</option>
+            <option value="Study C">Study C</option>
+          </select>
+
+          <select
+            value={productFilter}
+            onChange={(e) => setProductFilter(e.target.value)}
+          >
+            <option value="All">Product: All</option>
+            <option value="Drug A">Drug A</option>
+            <option value="Drug B">Drug B</option>
+            <option value="Drug C">Drug C</option>
+            <option value="Drug D">Drug D</option>
+          </select>
 
           <select
             value={statusFilter}
-            onChange={(e) =>
-              setStatusFilter(e.target.value)
-            }
+            onChange={(e) => setStatusFilter(e.target.value)}
           >
-            <option value="All">All Status</option>
-            <option value="Under Investigation">
-              Under Investigation
-            </option>
-            <option value="Escalated">
-              Escalated
-            </option>
-            <option value="Closed">
-              Closed
-            </option>
+            <option value="All">Status: All</option>
+            <option value="Potential">Potential</option>
+            <option value="Under Review">Under Review</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Dismissed">Dismissed</option>
           </select>
+
+          {hasFilters && (
+            <button
+              className="pv-signals-clear"
+              onClick={clearFilters}
+            >
+              Clear
+            </button>
+          )}
+
         </div>
 
       </div>
 
-      {/* Signal Table */}
+      {/* =====================================================
+          SIGNAL TABLE
+          ===================================================== */}
 
-      <div className="pv-signal-table-card">
+      <div className="pv-signals-table-card">
 
-        <div className="pv-signal-table-header">
+        <div className="pv-signals-table-header">
+
           <div>
-            <h2>Detected Safety Signals</h2>
-            <p>
-              {filteredSignals.length} signals found
-            </p>
+            <h2>Potential Safety Signals</h2>
+
+            <span>
+              {filteredSignals.length} signal
+              {filteredSignals.length !== 1 ? 's' : ''} found
+            </span>
           </div>
+
+          <div className="pv-signal-info">
+            Signal assessment based on aggregated safety evidence
+          </div>
+
         </div>
 
-        <div className="pv-signal-table-wrapper">
+        <div className="pv-signals-table-wrapper">
 
-          <table className="pv-signal-table">
+          <table className="pv-signals-table">
 
             <thead>
               <tr>
-                <th>Signal ID</th>
-                <th>Signal Description</th>
-                <th>Study</th>
-                <th>Events</th>
-                <th>Severity</th>
-                <th>Detected</th>
-                <th>Status</th>
+                <th>Signal</th>
+                <th>Product / Intervention</th>
+                <th>Cases</th>
+                <th>Time Trend</th>
+                <th>Relevant Studies</th>
+                <th>Review Status</th>
+                <th>Last Updated</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -284,80 +506,112 @@ function PVSafetySignals() {
             <tbody>
 
               {filteredSignals.length > 0 ? (
+
                 filteredSignals.map((signal) => (
 
                   <tr key={signal.id}>
 
                     <td>
-                      <strong className="pv-signal-id">
-                        {signal.id}
+
+                      <div className="pv-signal-name">
+
+                        <strong>{signal.event}</strong>
+
+                        <span>{signal.id}</span>
+
+                      </div>
+
+                    </td>
+
+                    <td>
+                      <span className="pv-product-name">
+                        {signal.product}
+                      </span>
+                    </td>
+
+                    <td>
+                      <strong className="pv-case-count">
+                        {signal.cases}
                       </strong>
                     </td>
 
                     <td>
-                      <span className="pv-signal-name">
-                        {signal.name}
-                      </span>
-                    </td>
 
-                    <td>
-                      {signal.study}
-                    </td>
-
-                    <td>
-                      <span className="pv-event-count">
-                        {signal.events}
-                      </span>
-                    </td>
-
-                    <td>
-                      <span
-                        className={`pv-signal-severity ${getSeverityClass(
-                          signal.severity
+                      <div
+                        className={`pv-trend ${getTrendClass(
+                          signal.trend
                         )}`}
                       >
-                        {signal.severity}
-                      </span>
+                        {getTrendIcon(signal.trend)}
+
+                        <div>
+                          <strong>{signal.trend}</strong>
+                          <span>{signal.trendValue}</span>
+                        </div>
+                      </div>
+
                     </td>
 
                     <td>
-                      {signal.detected}
+
+                      <div className="pv-study-tags">
+
+                        {signal.studies.map((study) => (
+                          <span key={study}>
+                            {study}
+                          </span>
+                        ))}
+
+                      </div>
+
                     </td>
 
                     <td>
+
                       <span
-                        className={`pv-signal-status ${getStatusClass(
-                          signal.status
-                        )}`}
+                        className={`pv-signal-status ${signal.status
+                          .toLowerCase()
+                          .replace(' ', '-')}`}
                       >
+                        {getStatusIcon(signal.status)}
                         {signal.status}
                       </span>
+
                     </td>
 
                     <td>
+                      {signal.lastUpdated}
+                    </td>
+
+                    <td>
+
                       <button
                         className="pv-signal-view-btn"
                         onClick={() =>
-                          handleView(signal)
+                          setSelectedSignal(signal)
                         }
-                        title="View Signal"
                       >
-                        <Eye size={16} />
+                        <Eye size={15} />
+                        View →
                       </button>
+
                     </td>
 
                   </tr>
 
                 ))
+
               ) : (
 
                 <tr>
+
                   <td
                     colSpan="8"
-                    className="pv-signal-empty"
+                    className="pv-signals-no-results"
                   >
                     No safety signals found.
                   </td>
+
                 </tr>
 
               )}
@@ -370,23 +624,374 @@ function PVSafetySignals() {
 
       </div>
 
-      {/* Investigation Notice */}
+      {/* =====================================================
+          CHARTS
+          ===================================================== */}
 
-      <div className="pv-signal-notice">
-        <AlertTriangle size={20} />
+      <div className="pv-signals-chart-grid">
 
-        <div>
-          <strong>Safety Signal Monitoring</strong>
-          <p>
-            Signals marked as Critical or High priority
-            require prompt assessment and appropriate
-            safety review.
-          </p>
+        {/* STATUS PIE */}
+
+        <div className="pv-signals-chart-card">
+
+          <div className="pv-signals-chart-header">
+
+            <div>
+              <h2>Signal Status Distribution</h2>
+              <p>Current signal assessment status</p>
+            </div>
+
+            <PieChart size={21} />
+
+          </div>
+
+          <div className="pv-signal-pie-section">
+
+            <div
+              className="pv-signal-pie"
+              style={{
+                background: `conic-gradient(
+                  #f59e0b 0deg ${potentialPercent * 3.6}deg,
+                  #8b5cf6 ${potentialPercent * 3.6}deg ${
+                    (potentialPercent + reviewPercent) * 3.6
+                  }deg,
+                  #16a34a ${
+                    (potentialPercent + reviewPercent) * 3.6
+                  }deg ${
+                    (potentialPercent +
+                      reviewPercent +
+                      confirmedPercent) *
+                    3.6
+                  }deg,
+                  #ef4444 ${
+                    (potentialPercent +
+                      reviewPercent +
+                      confirmedPercent) *
+                    3.6
+                  }deg 360deg
+                )`,
+              }}
+            >
+
+              <div className="pv-signal-pie-center">
+                <strong>{totalSignals}</strong>
+                <span>Signals</span>
+              </div>
+
+            </div>
+
+            <div className="pv-signal-pie-legend">
+
+              <div>
+                <span className="signal-dot potential-dot"></span>
+                <span>Potential</span>
+                <strong>
+                  {
+                    filteredSignals.filter(
+                      (x) => x.status === 'Potential'
+                    ).length
+                  }
+                </strong>
+              </div>
+
+              <div>
+                <span className="signal-dot review-dot"></span>
+                <span>Under Review</span>
+                <strong>
+                  {
+                    filteredSignals.filter(
+                      (x) => x.status === 'Under Review'
+                    ).length
+                  }
+                </strong>
+              </div>
+
+              <div>
+                <span className="signal-dot confirmed-dot"></span>
+                <span>Confirmed</span>
+                <strong>
+                  {
+                    filteredSignals.filter(
+                      (x) => x.status === 'Confirmed'
+                    ).length
+                  }
+                </strong>
+              </div>
+
+              <div>
+                <span className="signal-dot dismissed-dot"></span>
+                <span>Dismissed</span>
+                <strong>
+                  {
+                    filteredSignals.filter(
+                      (x) => x.status === 'Dismissed'
+                    ).length
+                  }
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
+
+        {/* TREND BAR */}
+
+        <div className="pv-signals-chart-card">
+
+          <div className="pv-signals-chart-header">
+
+            <div>
+              <h2>Signal Trend History</h2>
+              <p>Reported signal-associated cases over time</p>
+            </div>
+
+            <BarChart3 size={21} />
+
+          </div>
+
+          <div className="pv-signal-bar-chart">
+
+            <div className="pv-signal-y-axis">
+              <span>25</span>
+              <span>20</span>
+              <span>15</span>
+              <span>10</span>
+              <span>5</span>
+              <span>0</span>
+            </div>
+
+            <div className="pv-signal-bar-area">
+
+              <div className="pv-signal-grid-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div className="pv-signal-bars">
+
+                {[
+                  { month: 'Apr', value: 8 },
+                  { month: 'May', value: 11 },
+                  { month: 'Jun', value: 14 },
+                  { month: 'Jul', value: 17 },
+                  { month: 'Aug', value: 22 },
+                  { month: 'Sep', value: 18 },
+                ].map((item) => (
+
+                  <div
+                    className="pv-signal-bar-group"
+                    key={item.month}
+                  >
+
+                    <div className="pv-signal-bars-wrapper">
+
+                      <div
+                        className="pv-signal-bar"
+                        style={{
+                          height: `${(item.value / 25) * 100}%`,
+                        }}
+                        title={`${item.value} cases`}
+                      ></div>
+
+                    </div>
+
+                    <span>{item.month}</span>
+
+                  </div>
+
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className="pv-signal-chart-note">
+            Increasing activity may require additional signal assessment.
+          </div>
+
+        </div>
+
       </div>
 
-    </section>
-  )
+      {/* =====================================================
+          SIGNAL DETAIL MODAL
+          ===================================================== */}
+
+      {selectedSignal && (
+
+        <div
+          className="pv-signal-modal-overlay"
+          onClick={() => setSelectedSignal(null)}
+        >
+
+          <div
+            className="pv-signal-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+
+            <div className="pv-signal-modal-header">
+
+              <div>
+
+                <span>Signal Assessment</span>
+
+                <h2>{selectedSignal.event}</h2>
+
+                <small>{selectedSignal.id}</small>
+
+              </div>
+
+              <button
+                onClick={() => setSelectedSignal(null)}
+              >
+                <X size={20} />
+              </button>
+
+            </div>
+
+            <div className="pv-signal-modal-body">
+
+              {/* BASIC INFORMATION */}
+
+              <div className="pv-signal-modal-section">
+
+                <h3>Signal Information</h3>
+
+                <div className="pv-signal-modal-grid">
+
+                  <div>
+                    <span>Event</span>
+                    <strong>{selectedSignal.event}</strong>
+                  </div>
+
+                  <div>
+                    <span>Product / Intervention</span>
+                    <strong>{selectedSignal.product}</strong>
+                  </div>
+
+                  <div>
+                    <span>Number of Cases</span>
+                    <strong>{selectedSignal.cases}</strong>
+                  </div>
+
+                  <div>
+                    <span>Time Trend</span>
+
+                    <div
+                      className={`pv-trend ${getTrendClass(
+                        selectedSignal.trend
+                      )}`}
+                    >
+                      {getTrendIcon(selectedSignal.trend)}
+
+                      <div>
+                        <strong>
+                          {selectedSignal.trend}
+                        </strong>
+                        <span>
+                          {selectedSignal.trendValue}
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              {/* STUDIES */}
+
+              <div className="pv-signal-modal-section">
+
+                <h3>Relevant Studies</h3>
+
+                <div className="pv-modal-study-list">
+
+                  {selectedSignal.studies.map((study) => (
+                    <span key={study}>{study}</span>
+                  ))}
+
+                </div>
+
+              </div>
+
+              {/* STATUS */}
+
+              <div className="pv-signal-modal-section">
+
+                <h3>Review Status</h3>
+
+                <span
+                  className={`pv-signal-status ${selectedSignal.status
+                    .toLowerCase()
+                    .replace(' ', '-')}`}
+                >
+                  {getStatusIcon(selectedSignal.status)}
+                  {selectedSignal.status}
+                </span>
+
+              </div>
+
+              {/* EVIDENCE */}
+
+              <div className="pv-signal-evidence-box">
+
+                <h3>Evidence / Notes</h3>
+
+                <p>
+                  {selectedSignal.evidence}
+                </p>
+
+                <p>
+                  {selectedSignal.notes}
+                </p>
+
+              </div>
+
+              {/* ACTION */}
+
+              <div className="pv-signal-action-box">
+
+                <div>
+
+                  <span>Action Taken</span>
+
+                  <strong>
+                    {selectedSignal.action}
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className="pv-signal-modal-footer">
+
+              <button
+                onClick={() => setSelectedSignal(null)}
+              >
+                Close
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
+
+    </div>
+  );
 }
 
-export default PVSafetySignals
+export default PVSafetySignals;

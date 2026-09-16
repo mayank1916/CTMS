@@ -1,378 +1,755 @@
-import { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import {
+  ShieldAlert,
+  Plus,
   Search,
-  Filter,
-  FileText,
   Eye,
-  CheckCircle,
-  Clock,
-  AlertTriangle,
-  XCircle,
+  PieChart,
+  BarChart3,
+  CalendarDays,
+  X,
 } from 'lucide-react'
 
 import '../../styles/Pharmacovigilance/pvReports.css'
 
 function PVReports() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [statusFilter, setStatusFilter] = useState('All')
+  /* =====================================================
+     SAFETY REPORT DATA
+  ===================================================== */
 
-  const reports = [
+  const [reports] = useState([
     {
-      id: 'PV-2026-001',
-      patient: 'PT-1024',
-      study: 'Cardio Health Study',
-      event: 'Severe Headache',
-      severity: 'Serious',
-      reportedBy: 'Dr. Sharma',
+      id: 'SAE-1024',
+      study: 'Study A',
+      participant: 'P-1048',
+      event: 'Liver injury',
+      severity: 'Severe',
+      seriousness: 'Serious',
+      status: 'Under Review',
+      date: '12 Sep 2026',
+      followUp: 'Required',
+      reporting: 'Pending',
+    },
+    {
+      id: 'SAE-1021',
+      study: 'Study B',
+      participant: 'P-1021',
+      event: 'Headache',
+      severity: 'Moderate',
+      seriousness: 'Serious',
+      status: 'Follow-up',
+      date: '10 Sep 2026',
+      followUp: 'Required',
+      reporting: 'Submitted',
+    },
+    {
+      id: 'AE-1018',
+      study: 'Study C',
+      participant: 'P-1102',
+      event: 'Nausea',
+      severity: 'Mild',
+      seriousness: 'Non-Serious',
+      status: 'Open',
+      date: '08 Sep 2026',
+      followUp: 'Not Required',
+      reporting: 'Complete',
+    },
+    {
+      id: 'SAE-1015',
+      study: 'Study A',
+      participant: 'P-0987',
+      event: 'Cardiac event',
+      severity: 'Critical',
+      seriousness: 'Serious',
+      status: 'Escalated',
+      date: '05 Sep 2026',
+      followUp: 'Required',
+      reporting: 'Pending',
+    },
+    {
+      id: 'AE-1011',
+      study: 'Study D',
+      participant: 'P-0964',
+      event: 'Fatigue',
+      severity: 'Moderate',
+      seriousness: 'Non-Serious',
+      status: 'Closed',
       date: '02 Sep 2026',
+      followUp: 'Not Required',
+      reporting: 'Complete',
+    },
+    {
+      id: 'SAE-1008',
+      study: 'Study A',
+      participant: 'P-1042',
+      event: 'Allergic reaction',
+      severity: 'Severe',
+      seriousness: 'Serious',
       status: 'Under Review',
-    },
-    {
-      id: 'PV-2026-002',
-      patient: 'PT-1048',
-      study: 'Diabetes Research Trial',
-      event: 'Nausea and Vomiting',
-      severity: 'Non-Serious',
-      reportedBy: 'Dr. Patel',
-      date: '01 Sep 2026',
-      status: 'Pending Review',
-    },
-    {
-      id: 'PV-2026-003',
-      patient: 'PT-1087',
-      study: 'Oncology Treatment Study',
-      event: 'Allergic Reaction',
-      severity: 'Serious',
-      reportedBy: 'Dr. Singh',
-      date: '31 Aug 2026',
-      status: 'Resolved',
-    },
-    {
-      id: 'PV-2026-004',
-      patient: 'PT-1112',
-      study: 'Mental Health Research',
-      event: 'Dizziness',
-      severity: 'Non-Serious',
-      reportedBy: 'Dr. Kumar',
       date: '30 Aug 2026',
-      status: 'Pending Review',
+      followUp: 'Required',
+      reporting: 'Submitted',
     },
     {
-      id: 'PV-2026-005',
-      patient: 'PT-1156',
-      study: 'Cardio Health Study',
-      event: 'Chest Pain',
-      severity: 'Serious',
-      reportedBy: 'Dr. Sharma',
-      date: '29 Aug 2026',
+      id: 'AE-1005',
+      study: 'Study B',
+      participant: 'P-1015',
+      event: 'Dizziness',
+      severity: 'Mild',
+      seriousness: 'Non-Serious',
+      status: 'Closed',
+      date: '27 Aug 2026',
+      followUp: 'Not Required',
+      reporting: 'Complete',
+    },
+    {
+      id: 'SAE-0991',
+      study: 'Study C',
+      participant: 'P-1098',
+      event: 'Rash',
+      severity: 'Moderate',
+      seriousness: 'Serious',
+      status: 'Open',
+      date: '24 Aug 2026',
+      followUp: 'Required',
+      reporting: 'Pending',
+    },
+    {
+      id: 'AE-0986',
+      study: 'Study D',
+      participant: 'P-0977',
+      event: 'Nausea',
+      severity: 'Mild',
+      seriousness: 'Non-Serious',
+      status: 'Closed',
+      date: '20 Aug 2026',
+      followUp: 'Not Required',
+      reporting: 'Complete',
+    },
+    {
+      id: 'SAE-0979',
+      study: 'Study A',
+      participant: 'P-1033',
+      event: 'Hospitalization',
+      severity: 'Critical',
+      seriousness: 'Serious',
+      status: 'Escalated',
+      date: '16 Aug 2026',
+      followUp: 'Required',
+      reporting: 'Submitted',
+    },
+    {
+      id: 'AE-0972',
+      study: 'Study B',
+      participant: 'P-1009',
+      event: 'Fatigue',
+      severity: 'Moderate',
+      seriousness: 'Non-Serious',
+      status: 'Closed',
+      date: '12 Aug 2026',
+      followUp: 'Not Required',
+      reporting: 'Complete',
+    },
+    {
+      id: 'SAE-0965',
+      study: 'Study C',
+      participant: 'P-1081',
+      event: 'Liver injury',
+      severity: 'Severe',
+      seriousness: 'Serious',
       status: 'Under Review',
+      date: '08 Aug 2026',
+      followUp: 'Required',
+      reporting: 'Submitted',
+    },
+  ])
+
+  /* =====================================================
+     FILTER STATES
+  ===================================================== */
+
+  const [searchTerm, setSearchTerm] = useState('')
+  const [studyFilter, setStudyFilter] = useState('All')
+  const [typeFilter, setTypeFilter] = useState('All')
+  const [severityFilter, setSeverityFilter] = useState('All')
+  const [statusFilter, setStatusFilter] = useState('All')
+  const [dateFilter, setDateFilter] = useState('All')
+
+  const [selectedReport, setSelectedReport] = useState(null)
+
+  /* =====================================================
+     FILTER REPORTS
+  ===================================================== */
+
+  const filteredReports = useMemo(() => {
+    return reports.filter((report) => {
+      const search = searchTerm.toLowerCase().trim()
+
+      const matchesSearch =
+        report.id.toLowerCase().includes(search) ||
+        report.study.toLowerCase().includes(search) ||
+        report.participant.toLowerCase().includes(search) ||
+        report.event.toLowerCase().includes(search)
+
+      const matchesStudy =
+        studyFilter === 'All' ||
+        report.study === studyFilter
+
+      const matchesType =
+        typeFilter === 'All' ||
+        (typeFilter === 'SAE' &&
+          report.id.startsWith('SAE')) ||
+        (typeFilter === 'AE' &&
+          report.id.startsWith('AE'))
+
+      const matchesSeverity =
+        severityFilter === 'All' ||
+        report.severity === severityFilter
+
+      const matchesStatus =
+        statusFilter === 'All' ||
+        report.status === statusFilter
+
+      const matchesDate =
+        dateFilter === 'All' ||
+        (dateFilter === 'Recent' &&
+          report.date.includes('Sep')) ||
+        (dateFilter === 'August' &&
+          report.date.includes('Aug'))
+
+      return (
+        matchesSearch &&
+        matchesStudy &&
+        matchesType &&
+        matchesSeverity &&
+        matchesStatus &&
+        matchesDate
+      )
+    })
+  }, [
+    reports,
+    searchTerm,
+    studyFilter,
+    typeFilter,
+    severityFilter,
+    statusFilter,
+    dateFilter,
+  ])
+
+  /* =====================================================
+     SUMMARY DATA FOR CHARTS
+  ===================================================== */
+
+  const seriousCount = filteredReports.filter(
+    (report) => report.seriousness === 'Serious'
+  ).length
+
+  const nonSeriousCount =
+    filteredReports.length - seriousCount
+
+  const seriousPercentage =
+    filteredReports.length > 0
+      ? (seriousCount / filteredReports.length) * 360
+      : 0
+
+  const monthlyData = [
+    {
+      month: 'Apr',
+      value: 8,
+    },
+    {
+      month: 'May',
+      value: 11,
+    },
+    {
+      month: 'Jun',
+      value: 14,
+    },
+    {
+      month: 'Jul',
+      value: 17,
+    },
+    {
+      month: 'Aug',
+      value: 23,
+    },
+    {
+      month: 'Sep',
+      value: 12,
     },
   ]
 
-  const filteredReports = reports.filter((report) => {
-    const matchesSearch =
-      report.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      report.study.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      report.event.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      report.patient.toLowerCase().includes(searchTerm.toLowerCase())
+  const maxMonthlyValue = Math.max(
+    ...monthlyData.map((item) => item.value)
+  )
 
-    const matchesStatus =
-      statusFilter === 'All' ||
-      report.status === statusFilter
+  /* =====================================================
+     REPORT TYPE
+  ===================================================== */
 
-    return matchesSearch && matchesStatus
-  })
+  const getReportType = (id) => {
+    return id.startsWith('SAE') ? 'SAE' : 'AE'
+  }
+
+  /* =====================================================
+     STATUS CLASS
+  ===================================================== */
 
   const getStatusClass = (status) => {
-    switch (status) {
-      case 'Resolved':
-        return 'pv-status-resolved'
-      case 'Under Review':
-        return 'pv-status-review'
-      case 'Pending Review':
-        return 'pv-status-pending'
-      default:
-        return ''
+    if (status === 'Escalated') {
+      return 'danger'
     }
+
+    if (status === 'Under Review') {
+      return 'review'
+    }
+
+    if (status === 'Follow-up') {
+      return 'followup'
+    }
+
+    if (status === 'Closed') {
+      return 'closed'
+    }
+
+    return 'open'
   }
+
+  /* =====================================================
+     SEVERITY CLASS
+  ===================================================== */
 
   const getSeverityClass = (severity) => {
-    return severity === 'Serious'
-      ? 'pv-severity-serious'
-      : 'pv-severity-normal'
+    return severity.toLowerCase()
   }
 
-  const handleView = (report) => {
-    alert(
-      `Safety Report: ${report.id}\n\n` +
-      `Study: ${report.study}\n` +
-      `Patient: ${report.patient}\n` +
-      `Event: ${report.event}\n` +
-      `Severity: ${report.severity}\n` +
-      `Reported By: ${report.reportedBy}\n` +
-      `Status: ${report.status}`
-    )
+  /* =====================================================
+     CLEAR FILTERS
+  ===================================================== */
+
+  const clearFilters = () => {
+    setSearchTerm('')
+    setStudyFilter('All')
+    setTypeFilter('All')
+    setSeverityFilter('All')
+    setStatusFilter('All')
+    setDateFilter('All')
   }
 
-  const handleReview = (report) => {
-    alert(`Review started for ${report.id}`)
-  }
-
-  const totalReports = reports.length
-
-  const seriousReports = reports.filter(
-    (report) => report.severity === 'Serious'
-  ).length
-
-  const pendingReports = reports.filter(
-    (report) => report.status === 'Pending Review'
-  ).length
-
-  const resolvedReports = reports.filter(
-    (report) => report.status === 'Resolved'
-  ).length
+  const hasActiveFilters =
+    searchTerm ||
+    studyFilter !== 'All' ||
+    typeFilter !== 'All' ||
+    severityFilter !== 'All' ||
+    statusFilter !== 'All' ||
+    dateFilter !== 'All'
 
   return (
-    <section className="pv-reports-page">
+    <div className="pv-reports-page">
+
+      {/* =================================================
+          HEADER
+      ================================================= */}
 
       <div className="pv-reports-header">
-        <div>
-          <h1>Safety Reports</h1>
-          <p>
-            Monitor and manage pharmacovigilance safety reports.
-          </p>
+
+        <div className="pv-reports-title">
+
+          <div className="pv-reports-title-icon">
+            <ShieldAlert size={25} />
+          </div>
+
+          <div>
+            <div className="pv-page-eyebrow">
+              PHARMACOVIGILANCE
+            </div>
+
+            <h1>Safety Cases</h1>
+
+            <p>
+              Find, review and manage clinical trial safety cases.
+            </p>
+          </div>
+
         </div>
 
         <button
-          className="pv-create-report-btn"
+          className="pv-report-button"
           onClick={() =>
-            alert('Create Safety Report feature selected.')
+            alert('New Safety Report form will open here.')
           }
         >
-          <FileText size={18} />
-          New Safety Report
+          <Plus size={19} />
+          New Safety Case
         </button>
-      </div>
-
-      {/* Statistics */}
-
-      <div className="pv-report-stats">
-
-        <div className="pv-report-stat-card">
-          <div className="pv-stat-icon total">
-            <FileText size={22} />
-          </div>
-
-          <div>
-            <span>Total Reports</span>
-            <strong>{totalReports}</strong>
-          </div>
-        </div>
-
-        <div className="pv-report-stat-card">
-          <div className="pv-stat-icon serious">
-            <AlertTriangle size={22} />
-          </div>
-
-          <div>
-            <span>Serious Events</span>
-            <strong>{seriousReports}</strong>
-          </div>
-        </div>
-
-        <div className="pv-report-stat-card">
-          <div className="pv-stat-icon pending">
-            <Clock size={22} />
-          </div>
-
-          <div>
-            <span>Pending Review</span>
-            <strong>{pendingReports}</strong>
-          </div>
-        </div>
-
-        <div className="pv-report-stat-card">
-          <div className="pv-stat-icon resolved">
-            <CheckCircle size={22} />
-          </div>
-
-          <div>
-            <span>Resolved</span>
-            <strong>{resolvedReports}</strong>
-          </div>
-        </div>
 
       </div>
 
-      {/* Filters */}
 
-      <div className="pv-reports-toolbar">
+      {/* =================================================
+          QUICK SUMMARY
+      ================================================= */}
 
-        <div className="pv-search-box">
-          <Search size={18} />
+      <div className="pv-quick-summary">
+
+        <div className="pv-summary-item">
+          <span className="pv-summary-label">
+            Total Cases
+          </span>
+
+          <strong>
+            {reports.length}
+          </strong>
+
+          <small>
+            Registered safety cases
+          </small>
+        </div>
+
+        <div className="pv-summary-item">
+          <span className="pv-summary-label">
+            Serious Cases
+          </span>
+
+          <strong className="summary-danger">
+            {reports.filter(
+              (report) => report.seriousness === 'Serious'
+            ).length}
+          </strong>
+
+          <small>
+            Require closer review
+          </small>
+        </div>
+
+        <div className="pv-summary-item">
+          <span className="pv-summary-label">
+            Follow-ups
+          </span>
+
+          <strong className="summary-warning">
+            {reports.filter(
+              (report) => report.followUp === 'Required'
+            ).length}
+          </strong>
+
+          <small>
+            Information required
+          </small>
+        </div>
+
+        <div className="pv-summary-item">
+          <span className="pv-summary-label">
+            Pending Reports
+          </span>
+
+          <strong className="summary-purple">
+            {reports.filter(
+              (report) => report.reporting === 'Pending'
+            ).length}
+          </strong>
+
+          <small>
+            Awaiting submission
+          </small>
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          SEARCH + FILTERS
+      ================================================= */}
+
+      <div className="pv-report-toolbar">
+
+        <div className="pv-report-search">
+
+          <Search size={19} />
 
           <input
             type="text"
-            placeholder="Search reports, studies, events..."
+            placeholder="Search case ID, study, participant or event..."
             value={searchTerm}
             onChange={(e) =>
               setSearchTerm(e.target.value)
             }
           />
+
         </div>
 
-        <div className="pv-filter-box">
-          <Filter size={17} />
 
-          <select
-            value={statusFilter}
-            onChange={(e) =>
-              setStatusFilter(e.target.value)
-            }
+        <select
+          value={studyFilter}
+          onChange={(e) =>
+            setStudyFilter(e.target.value)
+          }
+        >
+          <option value="All">All Studies</option>
+          <option value="Study A">Study A</option>
+          <option value="Study B">Study B</option>
+          <option value="Study C">Study C</option>
+          <option value="Study D">Study D</option>
+        </select>
+
+
+        <select
+          value={typeFilter}
+          onChange={(e) =>
+            setTypeFilter(e.target.value)
+          }
+        >
+          <option value="All">AE / SAE</option>
+          <option value="AE">AE</option>
+          <option value="SAE">SAE</option>
+        </select>
+
+
+        <select
+          value={severityFilter}
+          onChange={(e) =>
+            setSeverityFilter(e.target.value)
+          }
+        >
+          <option value="All">All Severity</option>
+          <option value="Critical">Critical</option>
+          <option value="Severe">Severe</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Mild">Mild</option>
+        </select>
+
+
+        <select
+          value={statusFilter}
+          onChange={(e) =>
+            setStatusFilter(e.target.value)
+          }
+        >
+          <option value="All">All Status</option>
+          <option value="Open">Open</option>
+          <option value="Under Review">
+            Under Review
+          </option>
+          <option value="Follow-up">
+            Follow-up
+          </option>
+          <option value="Escalated">
+            Escalated
+          </option>
+          <option value="Closed">
+            Closed
+          </option>
+        </select>
+
+
+        <select
+          value={dateFilter}
+          onChange={(e) =>
+            setDateFilter(e.target.value)
+          }
+        >
+          <option value="All">All Dates</option>
+          <option value="Recent">September</option>
+          <option value="August">August</option>
+        </select>
+
+
+        {hasActiveFilters && (
+          <button
+            className="pv-clear-filters"
+            onClick={clearFilters}
           >
-            <option value="All">All Status</option>
-            <option value="Pending Review">
-              Pending Review
-            </option>
-            <option value="Under Review">
-              Under Review
-            </option>
-            <option value="Resolved">
-              Resolved
-            </option>
-          </select>
-        </div>
+            Clear filters
+          </button>
+        )}
 
       </div>
 
-      {/* Reports Table */}
 
-      <div className="pv-reports-table-card">
+      {/* =================================================
+          TABLE
+      ================================================= */}
 
-        <div className="pv-table-header">
+      <div className="pv-reports-card">
+
+        <div className="pv-reports-card-header">
+
           <div>
-            <h2>Safety Report Records</h2>
+            <div className="pv-section-kicker">
+              CASE REGISTRY
+            </div>
+
+            <h2>Safety Case Registry</h2>
+
             <p>
-              {filteredReports.length} reports found
+              {filteredReports.length} cases matching the current view
             </p>
           </div>
+
+          <div className="pv-registry-count">
+            <strong>
+              {filteredReports.length}
+            </strong>
+
+            <span>
+              / {reports.length}
+            </span>
+          </div>
+
         </div>
 
-        <div className="pv-table-wrapper">
 
-          <table className="pv-reports-table">
+        <div className="pv-report-table-wrapper">
+
+          <table className="pv-report-table">
 
             <thead>
               <tr>
-                <th>Report ID</th>
-                <th>Patient</th>
+                <th>Case ID</th>
                 <th>Study</th>
-                <th>Adverse Event</th>
-                <th>Severity</th>
-                <th>Reported By</th>
-                <th>Date</th>
-                <th>Status</th>
+                <th>Participant</th>
+                <th>Event</th>
+                <th>Type</th>
+                <th>Reported</th>
+                <th>Follow-up</th>
+                <th>Reporting</th>
                 <th>Action</th>
               </tr>
             </thead>
 
+
             <tbody>
 
-              {filteredReports.length > 0 ? (
-                filteredReports.map((report) => (
-
-                  <tr key={report.id}>
-
-                    <td>
-                      <strong className="pv-report-id">
-                        {report.id}
-                      </strong>
-                    </td>
-
-                    <td>{report.patient}</td>
-
-                    <td>
-                      <span className="pv-study-name">
-                        {report.study}
-                      </span>
-                    </td>
-
-                    <td>{report.event}</td>
-
-                    <td>
-                      <span
-                        className={`pv-severity ${getSeverityClass(
-                          report.severity
-                        )}`}
-                      >
-                        {report.severity === 'Serious' && (
-                          <AlertTriangle size={13} />
-                        )}
-
-                        {report.severity}
-                      </span>
-                    </td>
-
-                    <td>{report.reportedBy}</td>
-
-                    <td>{report.date}</td>
-
-                    <td>
-                      <span
-                        className={`pv-report-status ${getStatusClass(
-                          report.status
-                        )}`}
-                      >
-                        {report.status}
-                      </span>
-                    </td>
-
-                    <td>
-
-                      <div className="pv-action-buttons">
-
-                        <button
-                          className="pv-view-btn"
-                          onClick={() =>
-                            handleView(report)
-                          }
-                          title="View Report"
-                        >
-                          <Eye size={16} />
-                        </button>
-
-                        {report.status !== 'Resolved' && (
-                          <button
-                            className="pv-review-btn"
-                            onClick={() =>
-                              handleReview(report)
-                            }
-                            title="Review Report"
-                          >
-                            <CheckCircle size={16} />
-                          </button>
-                        )}
-
-                      </div>
-
-                    </td>
-
-                  </tr>
-
-                ))
-              ) : (
+              {filteredReports.length === 0 ? (
 
                 <tr>
                   <td
                     colSpan="9"
                     className="pv-no-results"
                   >
-                    <XCircle size={30} />
-                    <span>
-                      No safety reports found.
-                    </span>
+                    <div className="pv-empty-state">
+                      <ShieldAlert size={30} />
+                      <strong>
+                        No safety cases found
+                      </strong>
+                      <span>
+                        Try changing or clearing your filters.
+                      </span>
+                    </div>
                   </td>
                 </tr>
+
+              ) : (
+
+                filteredReports.map((report) => (
+
+                  <tr key={report.id}>
+
+                    {/* CASE ID */}
+                    <td>
+                      <div className="pv-case-cell">
+                        <strong className="pv-case-id">
+                          {report.id}
+                        </strong>
+
+                        <span>
+                          Safety case
+                        </span>
+                      </div>
+                    </td>
+
+
+                    {/* STUDY */}
+                    <td>
+                      <span className="pv-study-name">
+                        {report.study}
+                      </span>
+                    </td>
+
+
+                    {/* PARTICIPANT */}
+                    <td>
+                      <span className="pv-participant-id">
+                        {report.participant}
+                      </span>
+                    </td>
+
+
+                    {/* EVENT */}
+                    <td>
+                      <span className="pv-event-name">
+                        {report.event}
+                      </span>
+                    </td>
+
+
+                    {/* TYPE */}
+                    <td>
+                      <span
+                        className={`pv-type-badge ${
+                          getReportType(report.id).toLowerCase()
+                        }`}
+                      >
+                        {getReportType(report.id)}
+                      </span>
+                    </td>
+
+
+                    {/* REPORTED DATE */}
+                    <td>
+                      <div className="pv-date-cell">
+                        <CalendarDays size={16} />
+                        <span>{report.date}</span>
+                      </div>
+                    </td>
+
+
+                    {/* FOLLOW-UP */}
+                    <td>
+                      <span
+                        className={`pv-followup ${
+                          report.followUp === 'Required'
+                            ? 'required'
+                            : 'not-required'
+                        }`}
+                      >
+                        <span className="pv-status-dot" />
+                        {report.followUp}
+                      </span>
+                    </td>
+
+
+                    {/* REPORTING */}
+                    <td>
+                      <span
+                        className={`pv-reporting-status ${
+                          report.reporting
+                            .toLowerCase()
+                            .replace(/\s+/g, '-')
+                        }`}
+                      >
+                        {report.reporting}
+                      </span>
+                    </td>
+
+
+                    {/* ACTION */}
+                    <td>
+                      <button
+                        className="pv-view-case"
+                        onClick={() =>
+                          setSelectedReport(report)
+                        }
+                        title="View safety case"
+                      >
+                        <Eye size={18} />
+                        <span>View</span>
+                      </button>
+                    </td>
+
+                  </tr>
+
+                ))
 
               )}
 
@@ -384,7 +761,419 @@ function PVReports() {
 
       </div>
 
-    </section>
+
+      {/* =================================================
+          HISTORY / ANALYTICS
+      ================================================= */}
+
+      <div className="pv-history-section">
+
+        <div className="pv-history-heading">
+
+          <div>
+            <div className="pv-section-kicker">
+              ANALYTICS
+            </div>
+
+            <h2>Safety Case History</h2>
+
+            <p>
+              Monitor case patterns and historical reporting activity.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div className="pv-history-grid">
+
+          {/* =================================================
+              PIE CHART
+          ================================================= */}
+
+          <div className="pv-chart-card">
+
+            <div className="pv-chart-header">
+
+              <div className="pv-chart-icon danger-icon">
+                <PieChart size={21} />
+              </div>
+
+              <div>
+                <h3>Seriousness Distribution</h3>
+
+                <p>
+                  Serious vs non-serious cases
+                </p>
+              </div>
+
+            </div>
+
+
+            <div className="pv-pie-content">
+
+              <div
+                className="pv-pie-chart"
+                style={{
+                  background:
+                    filteredReports.length === 0
+                      ? '#e8e3d8'
+                      : `conic-gradient(
+                          #dc4c4c 0deg ${seriousPercentage}deg,
+                          #6d63c7 ${seriousPercentage}deg 360deg
+                        )`,
+                }}
+              >
+
+                <div className="pv-pie-center">
+                  <strong>
+                    {filteredReports.length}
+                  </strong>
+
+                  <span>
+                    Cases
+                  </span>
+                </div>
+
+              </div>
+
+
+              <div className="pv-pie-legend">
+
+                <div>
+                  <span className="legend-dot serious" />
+
+                  <div>
+                    <strong>
+                      Serious
+                    </strong>
+
+                    <small>
+                      {seriousCount} cases
+                    </small>
+                  </div>
+                </div>
+
+
+                <div>
+                  <span className="legend-dot non-serious" />
+
+                  <div>
+                    <strong>
+                      Non-Serious
+                    </strong>
+
+                    <small>
+                      {nonSeriousCount} cases
+                    </small>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* =================================================
+              BAR CHART
+          ================================================= */}
+
+          <div className="pv-chart-card">
+
+            <div className="pv-chart-header">
+
+              <div className="pv-chart-icon purple-icon">
+                <BarChart3 size={21} />
+              </div>
+
+              <div>
+                <h3>Monthly Case History</h3>
+
+                <p>
+                  Safety cases recorded over time
+                </p>
+              </div>
+
+            </div>
+
+
+            <div className="pv-bar-chart">
+
+              <div className="pv-y-axis">
+                <span>25</span>
+                <span>20</span>
+                <span>15</span>
+                <span>10</span>
+                <span>5</span>
+                <span>0</span>
+              </div>
+
+
+              <div className="pv-bars-area">
+
+                <div className="pv-chart-grid-line line-1" />
+                <div className="pv-chart-grid-line line-2" />
+                <div className="pv-chart-grid-line line-3" />
+                <div className="pv-chart-grid-line line-4" />
+                <div className="pv-chart-grid-line line-5" />
+
+                <div className="pv-bars">
+
+                  {monthlyData.map((item) => {
+
+                    const height =
+                      (item.value /
+                        maxMonthlyValue) *
+                      100
+
+                    return (
+                      <div
+                        className="pv-bar-column"
+                        key={item.month}
+                      >
+
+                        <div className="pv-bar-value">
+                          {item.value}
+                        </div>
+
+                        <div
+                          className="pv-bar"
+                          style={{
+                            height: `${height}%`,
+                          }}
+                        />
+
+                        <span>
+                          {item.month}
+                        </span>
+
+                      </div>
+                    )
+                  })}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          CASE DETAILS MODAL
+      ================================================= */}
+
+      {selectedReport && (
+
+        <div
+          className="pv-modal-overlay"
+          onClick={() =>
+            setSelectedReport(null)
+          }
+        >
+
+          <div
+            className="pv-case-modal"
+            onClick={(e) =>
+              e.stopPropagation()
+            }
+          >
+
+            <div className="pv-modal-header">
+
+              <div>
+
+                <span className="pv-modal-eyebrow">
+                  SAFETY CASE
+                </span>
+
+                <h2>
+                  {selectedReport.id}
+                </h2>
+
+                <p>
+                  Complete case information
+                </p>
+
+              </div>
+
+              <button
+                className="pv-modal-close"
+                onClick={() =>
+                  setSelectedReport(null)
+                }
+                aria-label="Close"
+              >
+                <X size={21} />
+              </button>
+
+            </div>
+
+
+            <div className="pv-modal-content">
+
+              <div className="pv-detail-highlight">
+
+                <div>
+                  <span>Case Type</span>
+                  <strong>
+                    {getReportType(selectedReport.id)}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Reported</span>
+                  <strong>
+                    {selectedReport.date}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Reporting</span>
+                  <strong>
+                    {selectedReport.reporting}
+                  </strong>
+                </div>
+
+              </div>
+
+
+              <div className="pv-modal-section-title">
+                Case Information
+              </div>
+
+              <div className="pv-modal-grid">
+
+                <div className="pv-detail-item">
+                  <label>Study</label>
+                  <strong>
+                    {selectedReport.study}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Participant ID</label>
+                  <strong>
+                    {selectedReport.participant}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Event</label>
+                  <strong>
+                    {selectedReport.event}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Event Type</label>
+                  <strong>
+                    {getReportType(selectedReport.id)}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Severity</label>
+                  <strong
+                    className={`modal-severity ${getSeverityClass(
+                      selectedReport.severity
+                    )}`}
+                  >
+                    {selectedReport.severity}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Seriousness</label>
+                  <strong>
+                    {selectedReport.seriousness}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Status</label>
+                  <strong
+                    className={`modal-status ${getStatusClass(
+                      selectedReport.status
+                    )}`}
+                  >
+                    {selectedReport.status}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Reported Date</label>
+                  <strong>
+                    {selectedReport.date}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Follow-up</label>
+                  <strong>
+                    {selectedReport.followUp}
+                  </strong>
+                </div>
+
+                <div className="pv-detail-item">
+                  <label>Reporting Status</label>
+                  <strong>
+                    {selectedReport.reporting}
+                  </strong>
+                </div>
+
+              </div>
+
+
+              <div className="pv-case-note">
+
+                <ShieldAlert size={19} />
+
+                <div>
+                  <strong>
+                    Safety case information
+                  </strong>
+
+                  <p>
+                    Severity, seriousness and case status are
+                    available here in the detailed report and
+                    are intentionally not shown in the main
+                    registry table.
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div className="pv-modal-footer">
+
+              <button
+                className="pv-modal-close-button"
+                onClick={() =>
+                  setSelectedReport(null)
+                }
+              >
+                Close Case
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
+
+    </div>
   )
 }
 

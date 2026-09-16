@@ -1,0 +1,2231 @@
+/* =========================================================
+   IEC MEETINGS
+   Ethics Committee Governance
+   Matches Study Oversight visual language
+========================================================= */
+
+.iec-meetings-page {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 28px 30px 40px;
+
+  background:
+    radial-gradient(
+      circle at 88% 8%,
+      rgba(255, 224, 92, 0.34),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 8% 95%,
+      rgba(255, 255, 255, 0.88),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      #eef0f2 0%,
+      #f3f3ef 52%,
+      #fff0b6 100%
+    );
+
+  color: #222;
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.iec-meetings-header {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.iec-meetings-header > div:first-child {
+  min-width: 0;
+}
+
+.iec-meetings-eyebrow {
+  margin-bottom: 7px;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: #8a7620;
+}
+
+.iec-meetings-header h1 {
+  margin: 0;
+
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+
+  color: #222;
+}
+
+.iec-meetings-header p {
+  max-width: 720px;
+  margin: 8px 0 0;
+
+  font-size: 13px;
+  line-height: 1.65;
+
+  color: #777;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.iec-meeting-create-btn,
+.iec-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 38px;
+  padding: 0 15px;
+
+  border: 1px solid #292929;
+  border-radius: 11px;
+
+  background: #292929;
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.iec-meeting-create-btn:hover,
+.iec-primary-btn:hover {
+  background: #111;
+  border-color: #111;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(25, 25, 20, 0.12);
+}
+
+.iec-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 38px;
+  padding: 0 15px;
+
+  border: 1px solid #d7d4c9;
+  border-radius: 11px;
+
+  background: #fafaf6;
+  color: #292929;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.iec-secondary-btn:hover {
+  background: #292929;
+  border-color: #292929;
+  color: #fff;
+}
+
+
+/* =========================================================
+   KPI CARDS
+========================================================= */
+
+.iec-meeting-kpi-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.iec-meeting-kpi-card {
+  min-width: 0;
+  min-height: 102px;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  padding: 17px;
+
+  border: 1px solid #dfddd5;
+  border-radius: 19px;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  box-shadow:
+    0 10px 30px rgba(40, 40, 30, 0.055),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  box-sizing: border-box;
+}
+
+.iec-meeting-kpi-card > div:last-child {
+  min-width: 0;
+}
+
+.iec-meeting-kpi-icon {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+}
+
+.iec-meeting-kpi-icon.blue {
+  background: #e7e7e4;
+  color: #4f4f4b;
+}
+
+.iec-meeting-kpi-icon.green {
+  background: #dcebdc;
+  color: #38653d;
+}
+
+.iec-meeting-kpi-icon.yellow {
+  background: #f6df78;
+  color: #705900;
+}
+
+.iec-meeting-kpi-icon.purple {
+  background: #e5e2dc;
+  color: #55514a;
+}
+
+.iec-meeting-kpi-card span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 600;
+
+  color: #777;
+}
+
+.iec-meeting-kpi-card strong {
+  display: block;
+
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 750;
+
+  color: #222;
+}
+
+.iec-meeting-kpi-card small {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 10px;
+  line-height: 1.35;
+
+  color: #999;
+}
+
+
+/* =========================================================
+   SECTION TABS
+========================================================= */
+
+.iec-meeting-section-tabs {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin-bottom: 16px;
+  padding: 5px;
+
+  overflow-x: auto;
+
+  border: 1px solid #dfddd5;
+  border-radius: 17px;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  scrollbar-width: thin;
+}
+
+.iec-meeting-section-tabs button {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  min-height: 35px;
+  padding: 0 13px;
+
+  border: 1px solid transparent;
+  border-radius: 11px;
+
+  background: transparent;
+  color: #777;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 650;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.iec-meeting-section-tabs button:hover {
+  background: #fff;
+  color: #222;
+}
+
+.iec-meeting-section-tabs button.active {
+  background: #292929;
+  color: #fff;
+  border-color: #292929;
+}
+
+
+/* =========================================================
+   MAIN CONTENT CARD
+========================================================= */
+
+.iec-meeting-content-card {
+  width: 100%;
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  border: 1px solid #dfddd5;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.78);
+
+  box-shadow:
+    0 10px 32px rgba(40, 40, 30, 0.055),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  margin-bottom: 18px;
+}
+
+.iec-meeting-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 20px 20px 17px;
+
+  border-bottom: 1px solid #e5e3dc;
+}
+
+.iec-meeting-card-header > div:first-child {
+  min-width: 0;
+}
+
+.iec-meeting-card-header h2 {
+  margin: 0;
+
+  font-size: 17px;
+  line-height: 1.3;
+  font-weight: 700;
+
+  color: #292929;
+}
+
+.iec-meeting-card-header p {
+  margin: 5px 0 0;
+
+  font-size: 11px;
+  line-height: 1.55;
+
+  color: #888;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.iec-meeting-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+
+  flex-shrink: 0;
+}
+
+.iec-meeting-search {
+  width: 210px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 0 11px;
+
+  border: 1px solid #d9d6cc;
+  border-radius: 999px;
+
+  background: #fff;
+
+  box-sizing: border-box;
+}
+
+.iec-meeting-search svg {
+  flex: 0 0 auto;
+  color: #8a8a84;
+}
+
+.iec-meeting-search input {
+  width: 100%;
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #333;
+
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.iec-meeting-search input::placeholder {
+  color: #aaa;
+}
+
+.iec-meeting-filter {
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 0 9px;
+
+  border: 1px solid #d7d4ca;
+  border-radius: 10px;
+
+  background: #fafaf6;
+
+  box-sizing: border-box;
+}
+
+.iec-meeting-filter svg {
+  color: #777;
+}
+
+.iec-meeting-filter select {
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+  color: #555;
+
+  font-family: inherit;
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   MEETING LIST
+========================================================= */
+
+.iec-meeting-list {
+  width: 100%;
+  padding: 10px 14px 14px;
+  box-sizing: border-box;
+}
+
+.iec-meeting-row {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 120px 125px;
+  align-items: center;
+  gap: 18px;
+
+  padding: 17px 13px;
+
+  border-bottom: 1px solid #e8e6df;
+
+  box-sizing: border-box;
+}
+
+.iec-meeting-row:last-child {
+  border-bottom: 0;
+}
+
+.iec-meeting-row:hover {
+  background: rgba(250, 249, 243, 0.7);
+  border-radius: 14px;
+}
+
+
+/* =========================================================
+   DATE BOX
+========================================================= */
+
+.iec-meeting-date-box {
+  width: 62px;
+  min-height: 68px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #dddacf;
+  border-radius: 14px;
+
+  background: #fafaf6;
+}
+
+.iec-meeting-date-box span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #777;
+}
+
+.iec-meeting-date-box strong {
+  margin-top: 2px;
+
+  font-size: 18px;
+  line-height: 1;
+
+  font-weight: 750;
+
+  color: #292929;
+}
+
+
+/* =========================================================
+   MEETING MAIN INFO
+========================================================= */
+
+.iec-meeting-main-info {
+  min-width: 0;
+}
+
+.iec-meeting-title-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.iec-meeting-title-line h3 {
+  min-width: 0;
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+
+  color: #292929;
+}
+
+.iec-meeting-main-info > p {
+  max-width: 650px;
+
+  margin: 8px 0 0;
+
+  font-size: 11px;
+  line-height: 1.6;
+
+  color: #777;
+}
+
+.iec-meeting-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-top: 8px;
+}
+
+.iec-meeting-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  font-size: 10px;
+  line-height: 1.4;
+
+  color: #888;
+}
+
+.iec-meeting-meta svg {
+  color: #8b8981;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.iec-meeting-status,
+.iec-quorum-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  min-height: 23px;
+  padding: 0 8px;
+
+  border-radius: 999px;
+
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 750;
+
+  white-space: nowrap;
+}
+
+.iec-meeting-status.scheduled,
+.iec-meeting-status.ready,
+.iec-meeting-status.confirmed {
+  background: #dcebdc;
+  color: #38653d;
+}
+
+.iec-meeting-status.completed {
+  background: #e3e3e1;
+  color: #555;
+}
+
+.iec-meeting-status.pending {
+  background: #f6df78;
+  color: #705900;
+}
+
+.iec-meeting-status.draft {
+  background: #e3e3e1;
+  color: #555;
+}
+
+.iec-quorum-badge.ready {
+  background: #dcebdc;
+  color: #38653d;
+}
+
+.iec-quorum-badge.not-ready {
+  background: #f0dada;
+  color: #9b2d2d;
+}
+
+
+/* =========================================================
+   QUORUM COLUMN
+========================================================= */
+
+.iec-meeting-quorum {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+
+  min-width: 0;
+}
+
+.iec-meeting-quorum > span {
+  font-size: 10px;
+  font-weight: 650;
+  color: #888;
+}
+
+
+/* =========================================================
+   ROW ACTIONS
+========================================================= */
+
+.iec-meeting-row-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.iec-meeting-row-action button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  min-height: 32px;
+  padding: 0 10px;
+
+  border: 1px solid #d7d4ca;
+  border-radius: 9px;
+
+  background: #fafaf6;
+  color: #444;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.iec-meeting-row-action button:hover {
+  background: #292929;
+  border-color: #292929;
+  color: #fff;
+}
+
+.iec-meeting-row-action button:last-child {
+  width: 32px;
+  padding: 0;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.iec-empty-state {
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  text-align: center;
+
+  color: #999;
+}
+
+.iec-empty-state svg {
+  margin-bottom: 9px;
+  color: #aaa;
+}
+
+.iec-empty-state h3 {
+  margin: 0;
+
+  font-size: 14px;
+  color: #555;
+}
+
+.iec-empty-state p {
+  margin: 5px 0 0;
+
+  font-size: 11px;
+  color: #999;
+}
+
+
+/* =========================================================
+   AGENDA HEADER
+========================================================= */
+
+.iec-agenda-header-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  flex-shrink: 0;
+}
+
+.iec-agenda-header-status > span {
+  font-size: 11px;
+  font-weight: 750;
+
+  color: #777;
+}
+
+
+/* =========================================================
+   AGENDA BANNER
+========================================================= */
+
+.iec-agenda-meeting-banner {
+  display: grid;
+  grid-template-columns: 45px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+
+  margin: 16px 20px;
+
+  padding: 14px;
+
+  border: 1px solid #dddacf;
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(250, 250, 246, 0.96),
+      rgba(255, 240, 182, 0.34)
+    );
+}
+
+.iec-agenda-banner-icon {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #f6df78;
+  color: #705900;
+}
+
+.iec-agenda-meeting-banner > div:nth-child(2) {
+  min-width: 0;
+}
+
+.iec-agenda-meeting-banner strong {
+  display: block;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  color: #292929;
+}
+
+.iec-agenda-meeting-banner span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 10px;
+  line-height: 1.4;
+
+  color: #888;
+}
+
+.iec-agenda-banner-quorum {
+  text-align: right;
+}
+
+
+/* =========================================================
+   AGENDA LIST
+========================================================= */
+
+.iec-agenda-list {
+  padding: 0 20px;
+}
+
+.iec-agenda-item {
+  display: grid;
+  grid-template-columns: 34px 75px minmax(0, 1fr) auto 32px;
+  align-items: center;
+  gap: 11px;
+
+  min-height: 57px;
+
+  border-bottom: 1px solid #e8e6df;
+}
+
+.iec-agenda-item:last-child {
+  border-bottom: 0;
+}
+
+.iec-agenda-number {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #e9e8e3;
+  color: #555;
+
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.iec-agenda-time {
+  font-size: 10px;
+  font-weight: 650;
+  color: #888;
+}
+
+.iec-agenda-item-content {
+  min-width: 0;
+}
+
+.iec-agenda-item-content strong {
+  display: block;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  color: #333;
+}
+
+.iec-agenda-item-content span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 9px;
+
+  color: #999;
+}
+
+.iec-agenda-view-btn {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d7d4ca;
+  border-radius: 9px;
+
+  background: #fafaf6;
+  color: #555;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.iec-agenda-view-btn:hover {
+  background: #292929;
+  color: #fff;
+  border-color: #292929;
+}
+
+.iec-agenda-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+
+  padding: 16px 20px 19px;
+}
+
+
+/* =========================================================
+   QUORUM OVERVIEW
+========================================================= */
+
+.iec-quorum-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(250px, 1fr);
+  gap: 15px;
+
+  padding: 17px 20px;
+}
+
+.iec-quorum-progress-card {
+  padding: 17px;
+
+  border: 1px solid #dddacf;
+  border-radius: 16px;
+
+  background: #fafaf6;
+}
+
+.iec-quorum-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.iec-quorum-progress-header > div {
+  min-width: 0;
+}
+
+.iec-quorum-progress-header span {
+  display: block;
+
+  font-size: 10px;
+  font-weight: 650;
+
+  color: #888;
+}
+
+.iec-quorum-progress-header strong {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 16px;
+  font-weight: 750;
+
+  color: #292929;
+}
+
+.iec-quorum-progress-header > svg {
+  flex: 0 0 auto;
+  color: #38653d;
+}
+
+.iec-quorum-progress {
+  width: 100%;
+  height: 8px;
+
+  margin-top: 16px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #e3e1d9;
+}
+
+.iec-quorum-progress span {
+  display: block;
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: #c7a900;
+}
+
+.iec-quorum-progress-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-top: 8px;
+}
+
+.iec-quorum-progress-footer span {
+  font-size: 9px;
+  color: #999;
+}
+
+.iec-quorum-progress-footer strong {
+  font-size: 10px;
+  color: #38653d;
+}
+
+.iec-attendance-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.iec-attendance-summary > div {
+  min-height: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+
+  border: 1px solid #e1dfd7;
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.65);
+
+  text-align: center;
+}
+
+.iec-attendance-summary strong {
+  font-size: 23px;
+  line-height: 1;
+
+  color: #292929;
+}
+
+.iec-attendance-summary span {
+  margin-top: 6px;
+
+  font-size: 9px;
+
+  color: #888;
+}
+
+
+/* =========================================================
+   MEMBER TABLE
+========================================================= */
+
+.iec-member-table-wrapper {
+  width: calc(100% - 40px);
+
+  margin: 0 20px 20px;
+
+  overflow-x: auto;
+
+  border: 1px solid #e1dfd7;
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.iec-member-table {
+  width: 100%;
+  min-width: 680px;
+
+  border-collapse: collapse;
+}
+
+.iec-member-table th {
+  padding: 11px 13px;
+
+  border-bottom: 1px solid #e1dfd7;
+
+  background: #f7f6f0;
+
+  text-align: left;
+
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  color: #888;
+}
+
+.iec-member-table td {
+  padding: 12px 13px;
+
+  border-bottom: 1px solid #ebe9e2;
+
+  font-size: 10px;
+
+  color: #555;
+}
+
+.iec-member-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.iec-member-table tbody tr:hover {
+  background: #faf9f4;
+}
+
+.iec-member-cell {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.iec-member-avatar {
+  width: 31px;
+  height: 31px;
+  flex: 0 0 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #e8e7e1;
+  color: #555;
+
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.iec-member-cell strong {
+  display: block;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  color: #333;
+}
+
+.iec-member-cell span {
+  display: block;
+
+  margin-top: 2px;
+
+  font-size: 8px;
+
+  color: #999;
+}
+
+.iec-attendance-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  min-height: 23px;
+  padding: 0 8px;
+
+  border-radius: 999px;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.iec-attendance-status.confirmed {
+  background: #dcebdc;
+  color: #38653d;
+}
+
+.iec-attendance-status.pending {
+  background: #f6df78;
+  color: #705900;
+}
+
+.iec-attendance-status.declined {
+  background: #f0dada;
+  color: #9b2d2d;
+}
+
+.iec-member-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.iec-member-actions button {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d7d4ca;
+  border-radius: 8px;
+
+  background: #fafaf6;
+  color: #555;
+
+  cursor: pointer;
+
+  transition: 0.18s ease;
+}
+
+.iec-member-actions button:first-child:hover {
+  background: #dcebdc;
+  border-color: #b9d2bb;
+  color: #38653d;
+}
+
+.iec-member-actions button:last-child:hover {
+  background: #f0dada;
+  border-color: #dfbebe;
+  color: #9b2d2d;
+}
+
+.iec-small-action {
+  min-height: 28px;
+  padding: 0 10px;
+
+  border: 1px solid #d7d4ca;
+  border-radius: 8px;
+
+  background: #fafaf6;
+  color: #555;
+
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.iec-small-action:hover {
+  background: #292929;
+  border-color: #292929;
+  color: #fff;
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.iec-history-list {
+  padding: 8px 20px 20px;
+}
+
+.iec-history-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 13px;
+
+  padding: 15px 5px;
+
+  border-bottom: 1px solid #e8e6df;
+}
+
+.iec-history-row:last-child {
+  border-bottom: 0;
+}
+
+.iec-history-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #e3e3e1;
+  color: #555;
+}
+
+.iec-history-main {
+  min-width: 0;
+}
+
+.iec-history-main > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.iec-history-main strong {
+  font-size: 11px;
+  font-weight: 700;
+  color: #333;
+}
+
+.iec-history-main > div > span {
+  font-size: 9px;
+  color: #999;
+}
+
+.iec-history-main p {
+  margin: 4px 0 0;
+
+  font-size: 9px;
+
+  color: #999;
+}
+
+.iec-history-stats {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.iec-history-stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 9px;
+
+  color: #888;
+}
+
+.iec-history-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.iec-history-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  min-height: 31px;
+  padding: 0 9px;
+
+  border: 1px solid #d7d4ca;
+  border-radius: 9px;
+
+  background: #fafaf6;
+  color: #555;
+
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition: 0.18s ease;
+}
+
+.iec-history-actions button:hover {
+  background: #292929;
+  border-color: #292929;
+  color: #fff;
+}
+
+
+/* =========================================================
+   BOTTOM GOVERNANCE CARDS
+========================================================= */
+
+.iec-meeting-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+
+  margin-top: 18px;
+}
+
+.iec-meeting-info-card {
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 43px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px;
+
+  border: 1px solid #dfddd5;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.75);
+
+  box-shadow: 0 8px 24px rgba(40, 40, 30, 0.045);
+
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.iec-meeting-info-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #d3d0c5;
+
+  box-shadow: 0 12px 28px rgba(40, 40, 30, 0.075);
+}
+
+.iec-info-card-icon {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+}
+
+.iec-info-card-icon.blue {
+  background: #e7e7e4;
+  color: #4f4f4b;
+}
+
+.iec-info-card-icon.green {
+  background: #dcebdc;
+  color: #38653d;
+}
+
+.iec-meeting-info-card > div:nth-child(2) {
+  min-width: 0;
+}
+
+.iec-meeting-info-card h3 {
+  margin: 0;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  color: #333;
+}
+
+.iec-meeting-info-card p {
+  margin: 4px 0 0;
+
+  font-size: 9px;
+  line-height: 1.55;
+
+  color: #888;
+}
+
+.iec-meeting-info-card > svg {
+  color: #999;
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.iec-meeting-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(20, 20, 15, 0.42);
+
+  box-sizing: border-box;
+
+  animation: iecModalFade 0.18s ease;
+}
+
+@keyframes iecModalFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.iec-meeting-modal {
+  width: min(720px, 100%);
+  max-height: calc(100vh - 48px);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border: 1px solid #d8d5ca;
+  border-radius: 22px;
+
+  background: #f8f8f4;
+
+  box-shadow:
+    0 24px 70px rgba(25, 25, 20, 0.22),
+    0 4px 20px rgba(25, 25, 20, 0.08);
+
+  animation: iecModalUp 0.2s ease;
+}
+
+@keyframes iecModalUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.iec-meeting-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 20px;
+
+  border-bottom: 1px solid #e2dfd6;
+}
+
+.iec-modal-eyebrow {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+
+  color: #8a7620;
+}
+
+.iec-meeting-modal-header h2 {
+  margin: 0;
+
+  font-size: 19px;
+  line-height: 1.3;
+  font-weight: 750;
+
+  color: #292929;
+}
+
+.iec-meeting-modal-header p {
+  margin: 5px 0 0;
+
+  font-size: 10px;
+
+  color: #888;
+}
+
+.iec-modal-close {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d7d4ca;
+  border-radius: 10px;
+
+  background: #fafaf6;
+  color: #555;
+
+  cursor: pointer;
+
+  transition: 0.18s ease;
+}
+
+.iec-modal-close:hover {
+  background: #292929;
+  border-color: #292929;
+  color: #fff;
+}
+
+.iec-meeting-modal-body {
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.iec-modal-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.iec-modal-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  padding: 12px;
+
+  border: 1px solid #e0ddd4;
+  border-radius: 13px;
+
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.iec-modal-detail > svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+
+  color: #777;
+}
+
+.iec-modal-detail span {
+  display: block;
+
+  font-size: 9px;
+  color: #999;
+}
+
+.iec-modal-detail strong {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 10px;
+  line-height: 1.45;
+
+  color: #333;
+}
+
+.iec-modal-description {
+  margin-top: 15px;
+  padding: 15px;
+
+  border: 1px solid #e0ddd4;
+  border-radius: 14px;
+
+  background: #fff;
+}
+
+.iec-modal-description h3 {
+  margin: 0;
+
+  font-size: 11px;
+  font-weight: 750;
+
+  color: #333;
+}
+
+.iec-modal-description p {
+  margin: 6px 0 0;
+
+  font-size: 10px;
+  line-height: 1.6;
+
+  color: #777;
+}
+
+.iec-modal-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+.iec-modal-summary > div {
+  padding: 13px;
+
+  border: 1px solid #dfddd5;
+  border-radius: 13px;
+
+  background: #fafaf6;
+}
+
+.iec-modal-summary strong {
+  display: block;
+
+  font-size: 18px;
+  color: #292929;
+}
+
+.iec-modal-summary span {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 8px;
+  line-height: 1.4;
+
+  color: #999;
+}
+
+.iec-meeting-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+
+  padding: 14px 20px;
+
+  border-top: 1px solid #e2dfd6;
+
+  background: #f4f4ef;
+}
+
+
+/* =========================================================
+   CREATE MEETING FORM
+========================================================= */
+
+.iec-create-modal {
+  width: min(620px, 100%);
+}
+
+.iec-create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.iec-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.iec-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.iec-form-field label {
+  font-size: 10px;
+  font-weight: 700;
+
+  color: #555;
+}
+
+.iec-form-field input,
+.iec-form-field select {
+  width: 100%;
+  height: 38px;
+
+  box-sizing: border-box;
+
+  padding: 0 10px;
+
+  border: 1px solid #d7d4ca;
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #fff;
+  color: #333;
+
+  font-family: inherit;
+  font-size: 10px;
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.iec-form-field input::placeholder {
+  color: #aaa;
+}
+
+.iec-form-field input:focus,
+.iec-form-field select:focus {
+  border-color: #aaa58f;
+
+  box-shadow:
+    0 0 0 3px rgba(199, 169, 0, 0.09);
+}
+
+.iec-form-field select {
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+  .iec-meetings-page {
+    padding: 24px 22px 34px;
+  }
+
+  .iec-meeting-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .iec-meeting-row {
+    grid-template-columns: 65px minmax(0, 1fr) 110px;
+  }
+
+  .iec-meeting-row-action {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+
+    margin-top: -4px;
+  }
+
+  .iec-quorum-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .iec-attendance-summary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+  .iec-meetings-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .iec-meeting-create-btn {
+    width: auto;
+  }
+
+  .iec-meeting-card-header {
+    flex-direction: column;
+  }
+
+  .iec-meeting-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .iec-meeting-search {
+    flex: 1;
+    width: auto;
+  }
+
+  .iec-meeting-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .iec-history-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .iec-history-stats,
+  .iec-history-actions {
+    grid-column: 2;
+  }
+
+  .iec-history-actions {
+    justify-content: flex-start;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+  .iec-meetings-page {
+    padding: 20px 14px 30px;
+  }
+
+  .iec-meetings-header h1 {
+    font-size: 25px;
+  }
+
+  .iec-meetings-header p {
+    font-size: 12px;
+  }
+
+  .iec-meeting-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .iec-meeting-section-tabs {
+    border-radius: 14px;
+  }
+
+  .iec-meeting-card-header {
+    padding: 16px;
+  }
+
+  .iec-meeting-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .iec-meeting-search {
+    width: 100%;
+    flex: none;
+  }
+
+  .iec-meeting-filter {
+    width: 100%;
+  }
+
+  .iec-meeting-filter select {
+    flex: 1;
+  }
+
+  .iec-meeting-list {
+    padding: 7px 10px 12px;
+  }
+
+  .iec-meeting-row {
+    display: grid;
+    grid-template-columns: 55px minmax(0, 1fr);
+    gap: 12px;
+
+    padding: 15px 7px;
+  }
+
+  .iec-meeting-date-box {
+    width: 55px;
+    min-height: 62px;
+  }
+
+  .iec-meeting-date-box strong {
+    font-size: 16px;
+  }
+
+  .iec-meeting-main-info {
+    grid-column: 2;
+  }
+
+  .iec-meeting-quorum {
+    grid-column: 2;
+    margin-top: 2px;
+  }
+
+  .iec-meeting-row-action {
+    grid-column: 2;
+
+    justify-content: flex-start;
+
+    margin-top: 0;
+  }
+
+  .iec-agenda-meeting-banner {
+    grid-template-columns: 42px minmax(0, 1fr);
+    margin: 12px;
+  }
+
+  .iec-agenda-banner-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .iec-agenda-banner-quorum {
+    grid-column: 2;
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  .iec-agenda-list {
+    padding: 0 12px;
+  }
+
+  .iec-agenda-item {
+    grid-template-columns: 30px 65px minmax(0, 1fr) 30px;
+    gap: 7px;
+    padding: 11px 0;
+  }
+
+  .iec-agenda-item > .iec-meeting-status {
+    display: none;
+  }
+
+  .iec-agenda-time {
+    font-size: 9px;
+  }
+
+  .iec-agenda-footer {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 13px 12px 16px;
+  }
+
+  .iec-agenda-footer button {
+    width: 100%;
+  }
+
+  .iec-quorum-overview {
+    padding: 12px;
+  }
+
+  .iec-attendance-summary {
+    gap: 6px;
+  }
+
+  .iec-attendance-summary > div {
+    min-height: 82px;
+    padding: 8px;
+  }
+
+  .iec-attendance-summary strong {
+    font-size: 19px;
+  }
+
+  .iec-member-table-wrapper {
+    width: calc(100% - 24px);
+    margin: 0 12px 15px;
+  }
+
+  .iec-history-list {
+    padding: 5px 12px 15px;
+  }
+
+  .iec-modal-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .iec-modal-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .iec-meeting-modal-overlay {
+    padding: 12px;
+  }
+
+  .iec-meeting-modal {
+    max-height: calc(100vh - 24px);
+    border-radius: 18px;
+  }
+
+  .iec-meeting-modal-header,
+  .iec-meeting-modal-body {
+    padding: 16px;
+  }
+
+  .iec-meeting-modal-footer {
+    padding: 12px 16px;
+  }
+
+  .iec-form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+  .iec-meetings-page {
+    padding: 16px 10px 24px;
+  }
+
+  .iec-meetings-header h1 {
+    font-size: 23px;
+  }
+
+  .iec-meeting-kpi-card {
+    min-height: 92px;
+    padding: 14px;
+  }
+
+  .iec-meeting-kpi-icon {
+    width: 39px;
+    height: 39px;
+    flex-basis: 39px;
+  }
+
+  .iec-meeting-kpi-card strong {
+    font-size: 20px;
+  }
+
+  .iec-meeting-section-tabs button {
+    padding: 0 10px;
+    font-size: 10px;
+  }
+
+  .iec-meeting-title-line h3 {
+    font-size: 12px;
+  }
+
+  .iec-meeting-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .iec-meeting-bottom-grid {
+    gap: 10px;
+  }
+
+  .iec-meeting-info-card {
+    grid-template-columns: 38px minmax(0, 1fr) 17px;
+    gap: 9px;
+    padding: 13px;
+  }
+
+  .iec-info-card-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .iec-meeting-info-card h3 {
+    font-size: 11px;
+  }
+
+  .iec-meeting-info-card p {
+    font-size: 8px;
+  }
+
+  .iec-meeting-modal-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .iec-meeting-modal-footer button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY / SAFE BOX SIZING
+========================================================= */
+
+.iec-meetings-page *,
+.iec-meetings-page *::before,
+.iec-meetings-page *::after {
+  box-sizing: border-box;
+}
+
+.iec-meetings-page button:focus-visible,
+.iec-meetings-page input:focus-visible,
+.iec-meetings-page select:focus-visible {
+  outline: 2px solid #c7a900;
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   QUICK GOVERNANCE CARDS - CLICKABLE
+========================================================= */
+
+.iec-meeting-info-card {
+  width: 100%;
+  border: 1px solid #dfddd5;
+  font-family: inherit;
+  text-align: left;
+  appearance: none;
+}
+
+.iec-meeting-info-card:hover {
+  cursor: pointer;
+}
+
+.iec-meeting-info-card:focus-visible {
+  outline: 2px solid #c7a900;
+  outline-offset: 2px;
+}

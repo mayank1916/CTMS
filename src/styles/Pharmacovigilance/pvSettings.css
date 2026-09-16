@@ -1,258 +1,678 @@
+/* =========================================================
+   PHARMACOVIGILANCE - SETTINGS
+   Premium Crextio-Style UI
+   Warm Ivory + Soft Yellow + Charcoal
+   Fully Responsive
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
 .pv-settings-page {
-  padding: 28px;
-  background: #c6d4c0;
+  width: 100%;
   min-height: 100%;
+
+  padding: 38px 34px 60px;
+
+  box-sizing: border-box;
+
+  background: transparent;
+
+  color: #292929;
 }
 
-/* Header */
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .pv-settings-header {
   display: flex;
+
+  align-items: flex-end;
+
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+
+  gap: 25px;
+
+  margin-bottom: 30px;
+}
+
+.pv-settings-header > div:first-child {
+  min-width: 0;
 }
 
 .pv-settings-header h1 {
-  margin: 0 0 6px;
-  font-size: 28px;
-  color: #172033;
+  margin: 0 0 8px;
+
+  color: #171717;
+
+  font-size: 40px;
+
+  line-height: 1.05;
+
+  font-weight: 500;
+
+  letter-spacing: -0.045em;
 }
 
 .pv-settings-header p {
   margin: 0;
-  color: #6b7280;
-  font-size: 14px;
+
+  color: #77756f;
+
+  font-size: 15px;
+
+  line-height: 1.6;
+
+  font-weight: 450;
 }
 
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
 .pv-settings-save-btn {
+  min-height: 48px;
+
+  padding: 0 20px;
+
   border: none;
-  background: #2563eb;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  display: flex;
+
+  border-radius: 25px;
+
+  background: #303030;
+
+  color: #ffffff;
+
+  display: inline-flex;
+
   align-items: center;
-  gap: 7px;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  font-family: inherit;
+
   font-size: 13px;
-  font-weight: 600;
+
+  font-weight: 650;
+
   cursor: pointer;
+
+  white-space: nowrap;
+
+  box-shadow:
+    0 6px 15px rgba(45, 45, 45, 0.08);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .pv-settings-save-btn:hover {
-  background: #1d4ed8;
+  background: #1c1c1c;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 20px rgba(45, 45, 45, 0.13);
 }
 
-/* Cards */
+.pv-settings-save-btn svg {
+  width: 17px;
+
+  height: 17px;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
 
 .pv-settings-card {
-  background: #f9f1df;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  margin-bottom: 18px;
+  position: relative;
+
+  margin-bottom: 22px;
+
+  border: none;
+
+  border-radius: 29px;
+
   overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffef8 0%,
+      #f7f5ed 100%
+    );
+
+  box-shadow:
+    0 8px 26px rgba(45, 45, 45, 0.055);
 }
 
+
+/* =========================================================
+   PROFILE CARD - WARM YELLOW
+   ========================================================= */
+
+.pv-settings-card:first-of-type {
+  background:
+    linear-gradient(
+      135deg,
+      #fffef8 0%,
+      #fff0ae 100%
+    );
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
 .pv-settings-card-header {
-  padding: 20px;
-  border-bottom: 1px solid #eef0f3;
+  padding: 25px 27px;
+
+  border-bottom: 1px solid rgba(48, 48, 48, 0.07);
+
   display: flex;
+
   align-items: center;
-  gap: 13px;
+
+  gap: 15px;
 }
 
 .pv-settings-card-header h2 {
-  margin: 0 0 4px;
-  font-size: 16px;
-  color: #172033;
+  margin: 0 0 5px;
+
+  color: #252525;
+
+  font-size: 22px;
+
+  line-height: 1.2;
+
+  font-weight: 550;
+
+  letter-spacing: -0.025em;
 }
 
 .pv-settings-card-header p {
   margin: 0;
-  color: #98a2b3;
-  font-size: 12px;
+
+  color: #817f78;
+
+  font-size: 13px;
+
+  line-height: 1.5;
 }
 
-/* Section Icons */
+
+/* =========================================================
+   SECTION ICONS
+   ========================================================= */
 
 .pv-settings-section-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 9px;
+  width: 52px;
+
+  height: 52px;
+
+  flex-shrink: 0;
+
+  border-radius: 17px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 }
 
-.pv-settings-section-icon.profile {
-  background: #e8f0ff;
-  color: #2563eb;
+.pv-settings-section-icon svg {
+  width: 24px;
+
+  height: 24px;
 }
+
+
+/* Profile */
+
+.pv-settings-section-icon.profile {
+  background: #303030;
+
+  color: #ffd34f;
+}
+
+
+/* Notifications */
 
 .pv-settings-section-icon.notifications {
-  background: #fff4d6;
-  color: #d97706;
+  background: #ffe17b;
+
+  color: #4f4526;
 }
+
+
+/* Security */
 
 .pv-settings-section-icon.security {
-  background: #dcfce7;
-  color: #16a34a;
+  background: #dfeadd;
+
+  color: #426146;
 }
 
-/* Form */
+
+/* =========================================================
+   FORM
+   ========================================================= */
 
 .pv-settings-form {
-  padding: 20px;
+  padding: 27px;
+
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 22px;
 }
+
+
+/* =========================================================
+   FORM FIELD
+   ========================================================= */
 
 .pv-settings-field {
   display: flex;
+
   flex-direction: column;
-  gap: 7px;
+
+  gap: 8px;
+
+  min-width: 0;
 }
 
 .pv-settings-field label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #344054;
+  color: #4d4b45;
+
+  font-size: 13px;
+
+  line-height: 1.3;
+
+  font-weight: 700;
 }
 
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
 .pv-settings-input-wrapper {
-  height: 40px;
-  border: 1px solid #dfe3ea;
-  border-radius: 7px;
+  min-height: 51px;
+
+  padding: 0 15px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(48, 48, 48, 0.10);
+
+  border-radius: 26px;
+
+  background: rgba(255, 255, 255, 0.68);
+
   display: flex;
+
   align-items: center;
-  padding: 0 11px;
-  gap: 8px;
-  color: #98a2b3;
+
+  gap: 10px;
+
+  color: #8b8982;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.pv-settings-input-wrapper:hover {
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .pv-settings-input-wrapper:focus-within {
-  border-color: #2563eb;
+  background: #ffffff;
+
+  border-color: #d8bd51;
+
+  box-shadow:
+    0 0 0 4px rgba(255, 211, 79, 0.14);
+}
+
+.pv-settings-input-wrapper svg {
+  width: 18px;
+
+  height: 18px;
+
+  flex-shrink: 0;
+
+  color: #77746c;
 }
 
 .pv-settings-input-wrapper input {
-  border: none;
-  outline: none;
   width: 100%;
-  color: #344054;
-  font-size: 13px;
+
+  min-width: 0;
+
+  border: none;
+
+  outline: none;
+
   background: transparent;
+
+  color: #303030;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 550;
 }
 
-/* Notification Options */
+.pv-settings-input-wrapper input::placeholder {
+  color: #a09e98;
+}
+
+
+/* =========================================================
+   NOTIFICATION OPTIONS
+   ========================================================= */
 
 .pv-settings-options {
-  padding: 5px 20px;
+  padding: 6px 27px 12px;
 }
 
+
+/* =========================================================
+   NOTIFICATION OPTION
+   ========================================================= */
+
 .pv-settings-option {
-  min-height: 68px;
+  min-height: 84px;
+
+  padding: 16px 0;
+
+  box-sizing: border-box;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
-  gap: 20px;
-  border-bottom: 1px solid #eef0f3;
+
+  gap: 25px;
+
+  border-bottom: 1px solid rgba(48, 48, 48, 0.08);
 }
 
 .pv-settings-option:last-child {
   border-bottom: none;
 }
 
+.pv-settings-option > div:first-child {
+  min-width: 0;
+}
+
 .pv-settings-option h3 {
-  margin: 0 0 4px;
-  color: #344054;
-  font-size: 13px;
+  margin: 0 0 6px;
+
+  color: #393833;
+
+  font-size: 15px;
+
+  line-height: 1.35;
+
+  font-weight: 700;
 }
 
 .pv-settings-option p {
   margin: 0;
-  color: #98a2b3;
-  font-size: 11px;
+
+  max-width: 760px;
+
+  color: #88857e;
+
+  font-size: 13px;
+
+  line-height: 1.55;
 }
 
-/* Toggle */
+
+/* =========================================================
+   TOGGLE
+   ========================================================= */
 
 .pv-toggle {
-  width: 42px;
-  height: 23px;
-  padding: 2px;
-  border: none;
-  border-radius: 20px;
-  background: #d1d5db;
-  cursor: pointer;
-  transition: 0.2s;
+  position: relative;
+
+  width: 50px;
+
+  height: 28px;
+
+  padding: 3px;
+
   flex-shrink: 0;
+
+  border: none;
+
+  border-radius: 20px;
+
+  background: #c9c8c2;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .pv-toggle span {
-  width: 19px;
-  height: 19px;
-  background: white;
-  border-radius: 50%;
+  width: 22px;
+
+  height: 22px;
+
   display: block;
-  transition: 0.2s;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.2s ease;
 }
 
 .pv-toggle.active {
-  background: #2563eb;
+  background: #303030;
+
+  box-shadow:
+    0 0 0 3px rgba(255, 211, 79, 0.18);
 }
 
 .pv-toggle.active span {
-  transform: translateX(19px);
+  transform: translateX(22px);
 }
 
-/* Security */
+
+/* =========================================================
+   SECURITY ROW
+   ========================================================= */
 
 .pv-security-row {
-  padding: 20px;
+  padding: 25px 27px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
+  gap: 25px;
+}
+
+.pv-security-row > div:first-child {
+  min-width: 0;
 }
 
 .pv-security-row h3 {
-  margin: 0 0 5px;
-  font-size: 13px;
-  color: #344054;
+  margin: 0 0 6px;
+
+  color: #393833;
+
+  font-size: 15px;
+
+  line-height: 1.35;
+
+  font-weight: 700;
 }
 
 .pv-security-row p {
   margin: 0;
-  font-size: 11px;
-  color: #98a2b3;
+
+  color: #88857e;
+
+  font-size: 13px;
+
+  line-height: 1.55;
 }
 
+
+/* =========================================================
+   CHANGE PASSWORD BUTTON
+   ========================================================= */
+
 .pv-change-password-btn {
-  border: 1px solid #dfe3ea;
-  background: white;
-  color: #344054;
-  padding: 9px 14px;
-  border-radius: 7px;
-  font-size: 12px;
-  font-weight: 600;
+  min-height: 45px;
+
+  padding: 0 18px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(48, 48, 48, 0.12);
+
+  border-radius: 23px;
+
+  background: rgba(255, 255, 255, 0.76);
+
+  color: #3d3b36;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 650;
+
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .pv-change-password-btn:hover {
-  background: #f8fafc;
+  background: #ffffff;
+
+  border-color: rgba(48, 48, 48, 0.20);
+
+  transform: translateY(-1px);
 }
 
-/* Responsive */
 
-@media (max-width: 700px) {
+/* =========================================================
+   SUBTLE CARD DETAILS
+   ========================================================= */
+
+.pv-settings-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 150px;
+
+  height: 150px;
+
+  right: -75px;
+
+  bottom: -75px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 211, 79, 0.08);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   FOCUS STATES
+   ========================================================= */
+
+.pv-settings-page
+button:focus-visible,
+.pv-settings-page
+input:focus-visible {
+  outline: 3px solid rgba(255, 211, 79, 0.40);
+
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
   .pv-settings-page {
-    padding: 18px;
+    padding: 32px 26px 50px;
+  }
+
+  .pv-settings-header h1 {
+    font-size: 36px;
+  }
+
+  .pv-settings-form {
+    gap: 18px;
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+  .pv-settings-page {
+    padding: 27px 20px 45px;
   }
 
   .pv-settings-header {
-    flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
+
+    flex-direction: column;
+
+    gap: 18px;
+  }
+
+  .pv-settings-save-btn {
+    width: 100%;
   }
 
   .pv-settings-form {
@@ -260,12 +680,266 @@
   }
 
   .pv-settings-option {
-    padding: 12px 0;
+    min-height: auto;
+
+    padding: 18px 0;
+
+    align-items: flex-start;
+  }
+
+  .pv-settings-option > div:first-child {
+    flex: 1;
   }
 
   .pv-security-row {
-    flex-direction: column;
     align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .pv-change-password-btn {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .pv-settings-page {
+    padding: 23px 15px 38px;
+  }
+
+
+  /* Header */
+
+  .pv-settings-header {
+    margin-bottom: 23px;
+  }
+
+  .pv-settings-header h1 {
+    font-size: 31px;
+
+    letter-spacing: -0.04em;
+  }
+
+  .pv-settings-header p {
+    font-size: 14px;
+  }
+
+
+  /* Cards */
+
+  .pv-settings-card {
+    margin-bottom: 17px;
+
+    border-radius: 23px;
+  }
+
+
+  /* Card header */
+
+  .pv-settings-card-header {
+    padding: 20px;
+  }
+
+  .pv-settings-card-header h2 {
+    font-size: 20px;
+  }
+
+  .pv-settings-card-header p {
+    font-size: 12px;
+  }
+
+  .pv-settings-section-icon {
+    width: 47px;
+
+    height: 47px;
+
+    border-radius: 15px;
+  }
+
+  .pv-settings-section-icon svg {
+    width: 22px;
+
+    height: 22px;
+  }
+
+
+  /* Form */
+
+  .pv-settings-form {
+    padding: 20px;
+
+    gap: 18px;
+  }
+
+  .pv-settings-field label {
+    font-size: 13px;
+  }
+
+  .pv-settings-input-wrapper {
+    min-height: 50px;
+  }
+
+
+  /* Notifications */
+
+  .pv-settings-options {
+    padding: 4px 20px 10px;
+  }
+
+  .pv-settings-option {
     gap: 15px;
+  }
+
+  .pv-settings-option h3 {
+    font-size: 14px;
+  }
+
+  .pv-settings-option p {
+    font-size: 12px;
+  }
+
+
+  /* Security */
+
+  .pv-security-row {
+    padding: 20px;
+  }
+
+  .pv-security-row h3 {
+    font-size: 14px;
+  }
+
+  .pv-security-row p {
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+  .pv-settings-page {
+    padding: 19px 11px 32px;
+  }
+
+  .pv-settings-header h1 {
+    font-size: 28px;
+  }
+
+  .pv-settings-header p {
+    font-size: 13px;
+
+    line-height: 1.5;
+  }
+
+  .pv-settings-save-btn {
+    min-height: 46px;
+  }
+
+  .pv-settings-card {
+    border-radius: 21px;
+  }
+
+  .pv-settings-card-header {
+    padding: 18px;
+  }
+
+  .pv-settings-card-header h2 {
+    font-size: 19px;
+  }
+
+  .pv-settings-form {
+    padding: 18px;
+  }
+
+  .pv-settings-options {
+    padding-left: 18px;
+
+    padding-right: 18px;
+  }
+
+  .pv-security-row {
+    padding: 18px;
+  }
+
+  .pv-toggle {
+    width: 47px;
+
+    height: 27px;
+  }
+
+  .pv-toggle span {
+    width: 21px;
+
+    height: 21px;
+  }
+
+  .pv-toggle.active span {
+    transform: translateX(20px);
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+  .pv-settings-page {
+    padding-left: 9px;
+
+    padding-right: 9px;
+  }
+
+  .pv-settings-header h1 {
+    font-size: 26px;
+  }
+
+  .pv-settings-card-header {
+    align-items: flex-start;
+
+    gap: 11px;
+  }
+
+  .pv-settings-card-header h2 {
+    font-size: 18px;
+  }
+
+  .pv-settings-option {
+    align-items: flex-start;
+  }
+
+  .pv-settings-option p {
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pv-settings-page *,
+  .pv-settings-page *::before,
+  .pv-settings-page *::after {
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
   }
 }

@@ -1,8 +1,7 @@
 /* =========================================================
-   PHARMACOVIGILANCE
-   REGULATORY REPORTS
+   PHARMACOVIGILANCE - SAFETY AUDIT TRAIL
 
-   CREXTIO / NIXTIO INSPIRED UI
+   PREMIUM CREXTIO-STYLE UI
    Warm Ivory + Soft Yellow + Charcoal
 
    Responsive:
@@ -13,10 +12,10 @@
 
 
 /* =========================================================
-   ROOT PAGE
+   PAGE
    ========================================================= */
 
-.pv-regulatory-page {
+.pv-audit-page {
   width: 100%;
   min-height: 100%;
 
@@ -24,15 +23,9 @@
 
   box-sizing: border-box;
 
-  /*
-    IMPORTANT:
-    Keep the page transparent because the parent
-    Pharmacovigilance shell supplies the outer background.
-  */
-
   background: transparent;
 
-  color: #222222;
+  color: #292929;
 }
 
 
@@ -40,7 +33,7 @@
    HEADER
    ========================================================= */
 
-.pv-regulatory-header {
+.pv-audit-header {
   display: flex;
 
   align-items: flex-end;
@@ -52,7 +45,7 @@
   margin-bottom: 30px;
 }
 
-.pv-regulatory-title-area {
+.pv-audit-title-row {
   display: flex;
 
   align-items: center;
@@ -67,15 +60,16 @@
    TITLE ICON
    ========================================================= */
 
-.pv-regulatory-title-icon {
+.pv-audit-title-icon {
   width: 64px;
+
   height: 64px;
 
   flex-shrink: 0;
 
   border-radius: 21px;
 
-  background: #f8f5ea;
+  background: #f8f5e9;
 
   color: #303030;
 
@@ -86,46 +80,22 @@
   justify-content: center;
 
   box-shadow:
-    0 7px 18px rgba(46, 46, 46, 0.06);
+    0 7px 20px rgba(45, 45, 45, 0.055);
 }
 
-.pv-regulatory-title-icon svg {
-  width: 28px;
-  height: 28px;
-}
+.pv-audit-title-icon svg {
+  width: 29px;
 
-
-/* =========================================================
-   EYEBROWS
-   ========================================================= */
-
-.pv-page-eyebrow,
-.pv-section-eyebrow,
-.pv-table-eyebrow {
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: #77736a;
-
-  font-size: 11px;
-
-  line-height: 1.2;
-
-  font-weight: 800;
-
-  letter-spacing: 0.12em;
-
-  text-transform: uppercase;
+  height: 29px;
 }
 
 
 /* =========================================================
-   PAGE TITLE
+   HEADER TEXT
    ========================================================= */
 
-.pv-regulatory-header h1 {
-  margin: 0;
+.pv-audit-header h1 {
+  margin: 0 0 7px;
 
   color: #171717;
 
@@ -138,12 +108,10 @@
   letter-spacing: -0.045em;
 }
 
-.pv-regulatory-header p {
-  max-width: 760px;
+.pv-audit-header p {
+  margin: 0;
 
-  margin: 9px 0 0;
-
-  color: #777777;
+  color: #77756f;
 
   font-size: 15px;
 
@@ -154,150 +122,48 @@
 
 
 /* =========================================================
-   PRIMARY BUTTON
+   HEADER BADGE
    ========================================================= */
 
-.pv-regulatory-primary-btn {
-  min-height: 52px;
+.pv-audit-header-badge {
+  min-height: 39px;
 
-  padding: 0 23px;
+  padding: 0 14px;
 
-  flex-shrink: 0;
+  border-radius: 21px;
 
-  border: none;
+  background: #e7eee5;
 
-  border-radius: 27px;
-
-  background: #303030;
-
-  color: #ffffff;
+  color: #3f6343;
 
   display: inline-flex;
 
   align-items: center;
 
-  justify-content: center;
+  gap: 7px;
 
-  gap: 9px;
-
-  font-family: inherit;
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 8px 18px rgba(48, 48, 48, 0.12);
-
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.pv-regulatory-primary-btn:hover {
-  background: #202020;
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 12px 24px rgba(48, 48, 48, 0.17);
-}
-
-.pv-regulatory-primary-btn:active {
-  transform: translateY(0);
-}
-
-
-/* =========================================================
-   OVERVIEW
-   ========================================================= */
-
-.pv-regulatory-overview {
-  min-height: 78px;
-
-  padding: 12px 21px;
-
-  margin-bottom: 23px;
-
-  border-radius: 26px;
-
-  border: none;
-
-  background:
-    linear-gradient(
-      100deg,
-      #f7f6f1 0%,
-      #fdf9e8 58%,
-      #fff4c9 100%
-    );
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 22px;
-
-  box-sizing: border-box;
-
-  box-shadow:
-    0 7px 22px rgba(45, 45, 45, 0.045);
-}
-
-.pv-overview-label {
-  color: #303030;
-
-  font-size: 14px;
+  font-size: 12px;
 
   font-weight: 700;
 
   white-space: nowrap;
+
+  box-shadow:
+    0 4px 12px rgba(55, 75, 55, 0.04);
 }
 
-.pv-overview-divider {
-  width: 1px;
+.pv-audit-header-badge svg {
+  width: 16px;
 
-  height: 28px;
-
-  flex-shrink: 0;
-
-  background: rgba(48, 48, 48, 0.12);
-}
-
-.pv-overview-item {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  color: #77736b;
-
-  font-size: 13px;
-
-  font-weight: 500;
-}
-
-.pv-overview-item svg {
-  color: #5d5a52;
-}
-
-.pv-overview-item strong {
-  color: #303030;
-
-  font-size: 17px;
-
-  font-weight: 700;
+  height: 16px;
 }
 
 
 /* =========================================================
-   STAT CARDS
+   STATS
    ========================================================= */
 
-.pv-regulatory-stats {
+.pv-audit-stats {
   display: grid;
 
   grid-template-columns:
@@ -308,7 +174,12 @@
   margin-bottom: 23px;
 }
 
-.pv-regulatory-stat-card {
+
+/* =========================================================
+   STAT CARD
+   ========================================================= */
+
+.pv-audit-stat-card {
   position: relative;
 
   min-height: 145px;
@@ -337,60 +208,14 @@
     box-shadow 0.2s ease;
 }
 
-.pv-regulatory-stat-card:hover {
+.pv-audit-stat-card:hover {
   transform: translateY(-3px);
 
   box-shadow:
     0 12px 28px rgba(45, 45, 45, 0.09);
 }
 
-
-/* =========================================================
-   STAT BACKGROUNDS
-   ========================================================= */
-
-.pv-regulatory-stat-card.pending {
-  background:
-    linear-gradient(
-      135deg,
-      #fffdf5,
-      #fff0ad
-    );
-}
-
-.pv-regulatory-stat-card.submitted {
-  background:
-    linear-gradient(
-      135deg,
-      #f5f5f5,
-      #ececef
-    );
-}
-
-.pv-regulatory-stat-card.deadline {
-  background:
-    linear-gradient(
-      135deg,
-      #fffdf4,
-      #fff6cf
-    );
-}
-
-.pv-regulatory-stat-card.overdue {
-  background:
-    linear-gradient(
-      135deg,
-      #f4f4f4,
-      #e9e9e9
-    );
-}
-
-
-/* =========================================================
-   STAT DECORATIVE CIRCLE
-   ========================================================= */
-
-.pv-regulatory-stat-card::after {
+.pv-audit-stat-card::after {
   content: "";
 
   position: absolute;
@@ -399,9 +224,9 @@
 
   height: 105px;
 
-  right: -43px;
+  right: -42px;
 
-  top: -43px;
+  top: -42px;
 
   border-radius: 50%;
 
@@ -412,13 +237,54 @@
 
 
 /* =========================================================
-   STAT ICONS
+   STAT CARD BACKGROUNDS
    ========================================================= */
 
-.pv-regulatory-stat-icon {
-  width: 55px;
+.pv-audit-stat-card.total {
+  background:
+    linear-gradient(
+      135deg,
+      #fffef8 0%,
+      #fff0a9 100%
+    );
+}
 
-  height: 55px;
+.pv-audit-stat-card.today {
+  background:
+    linear-gradient(
+      135deg,
+      #fffef7 0%,
+      #ffe4a0 100%
+    );
+}
+
+.pv-audit-stat-card.updates {
+  background:
+    linear-gradient(
+      135deg,
+      #faf8ff 0%,
+      #e9e2f5 100%
+    );
+}
+
+.pv-audit-stat-card.submissions {
+  background:
+    linear-gradient(
+      135deg,
+      #f7faf5 0%,
+      #e2eade 100%
+    );
+}
+
+
+/* =========================================================
+   STAT ICON
+   ========================================================= */
+
+.pv-audit-stat-icon {
+  width: 56px;
+
+  height: 56px;
 
   flex-shrink: 0;
 
@@ -435,50 +301,50 @@
   z-index: 2;
 }
 
-.pv-regulatory-stat-icon svg {
-  width: 25px;
+.pv-audit-stat-icon svg {
+  width: 26px;
 
-  height: 25px;
+  height: 26px;
 }
 
 
-/* Pending */
+/* Total */
 
-.pv-regulatory-stat-card.pending
-.pv-regulatory-stat-icon {
+.pv-audit-stat-card.total
+.pv-audit-stat-icon {
   background: #ffd34f;
 
   color: #303030;
 }
 
 
-/* Submitted */
+/* Today */
 
-.pv-regulatory-stat-card.submitted
-.pv-regulatory-stat-icon {
+.pv-audit-stat-card.today
+.pv-audit-stat-icon {
   background: #303030;
 
-  color: #ffffff;
+  color: #ffd34f;
 }
 
 
-/* Deadline */
+/* Updates */
 
-.pv-regulatory-stat-card.deadline
-.pv-regulatory-stat-icon {
-  background: #fff0ae;
+.pv-audit-stat-card.updates
+.pv-audit-stat-icon {
+  background: #ddd2ef;
 
-  color: #303030;
+  color: #624b83;
 }
 
 
-/* Overdue */
+/* Submissions */
 
-.pv-regulatory-stat-card.overdue
-.pv-regulatory-stat-icon {
-  background: #303030;
+.pv-audit-stat-card.submissions
+.pv-audit-stat-icon {
+  background: #d6e3d4;
 
-  color: #ffffff;
+  color: #3f6343;
 }
 
 
@@ -486,20 +352,20 @@
    STAT CONTENT
    ========================================================= */
 
-.pv-regulatory-stat-content {
-  min-width: 0;
-
+.pv-audit-stat-card > div:last-child {
   position: relative;
 
   z-index: 2;
+
+  min-width: 0;
 }
 
-.pv-regulatory-stat-card span {
+.pv-audit-stat-card span {
   display: block;
 
   margin-bottom: 7px;
 
-  color: #74736e;
+  color: #74726c;
 
   font-size: 14px;
 
@@ -508,12 +374,12 @@
   font-weight: 600;
 }
 
-.pv-regulatory-stat-card strong {
+.pv-audit-stat-card strong {
   display: block;
 
-  color: #242424;
+  color: #252525;
 
-  font-size: 34px;
+  font-size: 35px;
 
   line-height: 0.95;
 
@@ -522,12 +388,12 @@
   letter-spacing: -0.04em;
 }
 
-.pv-regulatory-stat-card small {
+.pv-audit-stat-card small {
   display: block;
 
   margin-top: 8px;
 
-  color: #8a8984;
+  color: #898780;
 
   font-size: 12px;
 
@@ -536,33 +402,83 @@
 
 
 /* =========================================================
-   STAT ARROW
+   ALCOA NOTICE
    ========================================================= */
 
-.pv-stat-arrow {
-  position: absolute;
+.pv-audit-alcoa-notice {
+  display: flex;
 
-  right: 18px;
+  align-items: flex-start;
 
-  bottom: 18px;
+  gap: 13px;
 
-  width: 29px;
+  padding: 19px 20px;
 
-  height: 29px;
+  margin-bottom: 23px;
 
-  border-radius: 50%;
+  border: none;
 
-  background: rgba(255, 255, 255, 0.7);
+  border-radius: 23px;
 
-  color: #444444;
+  background:
+    linear-gradient(
+      135deg,
+      #fff8d6,
+      #f8f5e9
+    );
+
+  box-shadow:
+    0 6px 20px rgba(45, 45, 45, 0.04);
+}
+
+.pv-audit-alcoa-icon {
+  width: 43px;
+
+  height: 43px;
+
+  flex-shrink: 0;
+
+  border-radius: 14px;
+
+  background: #303030;
+
+  color: #ffd34f;
 
   display: flex;
 
   align-items: center;
 
   justify-content: center;
+}
 
-  z-index: 3;
+.pv-audit-alcoa-icon svg {
+  width: 21px;
+
+  height: 21px;
+}
+
+.pv-audit-alcoa-notice strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #3b382c;
+
+  font-size: 14px;
+
+  line-height: 1.3;
+
+  font-weight: 750;
+}
+
+.pv-audit-alcoa-notice p {
+  margin: 0;
+
+  color: #756f5c;
+
+  font-size: 13px;
+
+  line-height: 1.6;
 }
 
 
@@ -570,7 +486,7 @@
    FILTER CARD
    ========================================================= */
 
-.pv-regulatory-filter-card {
+.pv-audit-filter-card {
   padding: 25px;
 
   margin-bottom: 23px;
@@ -584,44 +500,6 @@
 
   box-shadow:
     0 7px 24px rgba(45, 45, 45, 0.045);
-
-  box-sizing: border-box;
-}
-
-.pv-filter-heading {
-  display: flex;
-
-  align-items: flex-start;
-
-  justify-content: space-between;
-
-  gap: 20px;
-
-  margin-bottom: 17px;
-}
-
-.pv-filter-heading h2 {
-  margin: 0;
-
-  color: #242424;
-
-  font-size: 21px;
-
-  line-height: 1.2;
-
-  font-weight: 500;
-
-  letter-spacing: -0.025em;
-}
-
-.pv-filter-heading p {
-  margin: 6px 0 0;
-
-  color: #85827b;
-
-  font-size: 13px;
-
-  line-height: 1.5;
 }
 
 
@@ -629,7 +507,7 @@
    SEARCH
    ========================================================= */
 
-.pv-regulatory-search {
+.pv-audit-search {
   min-height: 52px;
 
   padding: 0 16px;
@@ -658,16 +536,20 @@
     box-shadow 0.2s ease;
 }
 
-.pv-regulatory-search:focus-within {
+.pv-audit-search:focus-within {
   background: #ffffff;
 
-  border-color: #d9bf54;
+  border-color: #d8bd51;
 
   box-shadow:
     0 0 0 4px rgba(255, 211, 79, 0.15);
 }
 
-.pv-regulatory-search input {
+.pv-audit-search svg {
+  flex-shrink: 0;
+}
+
+.pv-audit-search input {
   flex: 1;
 
   min-width: 0;
@@ -687,11 +569,11 @@
   font-weight: 500;
 }
 
-.pv-regulatory-search input::placeholder {
+.pv-audit-search input::placeholder {
   color: #9a9994;
 }
 
-.pv-regulatory-search button {
+.pv-audit-search button {
   width: 32px;
 
   height: 32px;
@@ -715,7 +597,7 @@
   cursor: pointer;
 }
 
-.pv-regulatory-search button:hover {
+.pv-audit-search button:hover {
   background: #e9e9e7;
 }
 
@@ -724,7 +606,7 @@
    FILTERS
    ========================================================= */
 
-.pv-regulatory-filters {
+.pv-audit-filters {
   display: flex;
 
   align-items: center;
@@ -734,7 +616,7 @@
   flex-wrap: wrap;
 }
 
-.pv-regulatory-filters select {
+.pv-audit-filters select {
   min-height: 43px;
 
   padding: 0 35px 0 15px;
@@ -762,17 +644,22 @@
     border-color 0.2s ease;
 }
 
-.pv-regulatory-filters select:hover {
+.pv-audit-filters select:hover {
   background: #ffffff;
 }
 
-.pv-regulatory-filters select:focus {
+.pv-audit-filters select:focus {
   background: #ffffff;
 
   border-color: #d8bd51;
 }
 
-.pv-regulatory-clear {
+
+/* =========================================================
+   CLEAR BUTTON
+   ========================================================= */
+
+.pv-audit-clear {
   min-height: 43px;
 
   padding: 0 17px;
@@ -794,22 +681,22 @@
   cursor: pointer;
 
   transition:
-    transform 0.2s ease,
-    background 0.2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
-.pv-regulatory-clear:hover {
-  background: #1e1e1e;
+.pv-audit-clear:hover {
+  background: #1d1d1d;
 
   transform: translateY(-1px);
 }
 
 
 /* =========================================================
-   REPORT TABLE
+   TABLE CARD
    ========================================================= */
 
-.pv-regulatory-table-card {
+.pv-audit-table-card {
   border: none;
 
   border-radius: 29px;
@@ -832,7 +719,7 @@
    TABLE HEADER
    ========================================================= */
 
-.pv-regulatory-table-header {
+.pv-audit-table-header {
   min-height: 105px;
 
   padding: 25px 27px;
@@ -850,8 +737,8 @@
   box-sizing: border-box;
 }
 
-.pv-regulatory-table-header h2 {
-  margin: 0;
+.pv-audit-table-header h2 {
+  margin: 0 0 6px;
 
   color: #202020;
 
@@ -864,9 +751,7 @@
   letter-spacing: -0.035em;
 }
 
-.pv-regulatory-table-header p {
-  margin: 7px 0 0;
-
+.pv-audit-table-header > div:first-child span {
   color: #85827b;
 
   font-size: 13px;
@@ -876,48 +761,39 @@
 
 
 /* =========================================================
-   TABLE EYEBROW
+   INTEGRITY PILL
    ========================================================= */
 
-.pv-table-eyebrow {
-  margin-bottom: 6px;
-
-  color: #8b7a3d;
-
-  font-size: 10px;
-}
-
-
-/* =========================================================
-   TABLE INFORMATION PILL
-   ========================================================= */
-
-.pv-regulatory-info {
+.pv-audit-integrity {
   min-height: 40px;
 
   padding: 0 14px;
 
   border-radius: 22px;
 
-  background: #303030;
+  background: #e4ece2;
 
-  color: #ffffff;
+  color: #3f6243;
 
-  display: flex;
+  display: inline-flex;
 
   align-items: center;
 
-  gap: 8px;
+  justify-content: center;
+
+  gap: 7px;
 
   font-size: 12px;
 
-  font-weight: 600;
+  font-weight: 700;
 
   white-space: nowrap;
 }
 
-.pv-regulatory-info svg {
-  color: #ffd34f;
+.pv-audit-integrity svg {
+  width: 16px;
+
+  height: 16px;
 }
 
 
@@ -925,7 +801,7 @@
    TABLE WRAPPER
    ========================================================= */
 
-.pv-regulatory-table-wrapper {
+.pv-audit-table-wrapper {
   width: 100%;
 
   overflow-x: auto;
@@ -938,27 +814,10 @@
    TABLE
    ========================================================= */
 
-.pv-regulatory-table {
+.pv-audit-table {
   width: 100%;
 
-  /*
-    9 columns
-
-    Report ID
-    Case
-    Study
-    Authority
-    Report Type
-    Deadline
-    Submission
-    Status
-    Action
-
-    Follow-up and Acknowledgement are intentionally
-    not displayed in this table.
-  */
-
-  min-width: 1180px;
+  min-width: 1450px;
 
   border-collapse: separate;
 
@@ -967,13 +826,14 @@
 
 
 /* =========================================================
-   TABLE HEAD
+   TABLE HEADER
    ========================================================= */
 
-.pv-regulatory-table th {
+.pv-audit-table th {
   padding: 15px 17px;
 
-  background: rgba(48, 48, 48, 0.045);
+  background:
+    rgba(48, 48, 48, 0.045);
 
   border-bottom: 1px solid rgba(48, 48, 48, 0.08);
 
@@ -996,10 +856,10 @@
 
 
 /* =========================================================
-   TABLE CELLS
+   TABLE BODY
    ========================================================= */
 
-.pv-regulatory-table td {
+.pv-audit-table td {
   padding: 19px 17px;
 
   border-bottom: 1px solid rgba(48, 48, 48, 0.065);
@@ -1017,178 +877,308 @@
   white-space: nowrap;
 }
 
-.pv-regulatory-table tbody tr {
+.pv-audit-table tbody tr {
   transition:
     background 0.18s ease;
 }
 
-.pv-regulatory-table tbody tr:hover {
+.pv-audit-table tbody tr:hover {
   background:
     rgba(255, 211, 79, 0.075);
 }
 
-.pv-regulatory-table tbody tr:last-child td {
+.pv-audit-table tbody tr:last-child td {
   border-bottom: none;
 }
 
 
 /* =========================================================
-   REPORT ID
+   TIME
    ========================================================= */
 
-.pv-reg-report-id {
+.pv-audit-time strong {
+  display: block;
+
   color: #303030;
 
   font-size: 14px;
 
-  font-weight: 750;
-
-  letter-spacing: -0.01em;
-}
-
-
-/* =========================================================
-   CASE ID
-   ========================================================= */
-
-.pv-reg-case-id {
-  color: #3f3e3a;
-
-  font-size: 14px;
+  line-height: 1.35;
 
   font-weight: 700;
 }
 
+.pv-audit-time span {
+  display: block;
 
-/* =========================================================
-   STUDY
-   ========================================================= */
+  margin-top: 4px;
 
-.pv-reg-study {
-  color: #595853;
+  color: #918f88;
 
-  font-size: 14px;
+  font-size: 12px;
 
-  font-weight: 550;
+  line-height: 1.3;
 }
 
 
 /* =========================================================
-   AUTHORITY
+   CASE
    ========================================================= */
 
-.pv-reg-authority {
-  min-height: 31px;
+.pv-audit-case {
+  color: #4d493c;
 
-  padding: 0 11px;
-
-  border-radius: 17px;
-
-  background: #e8e8e6;
-
-  color: #3f3e3b;
-
-  display: inline-flex;
-
-  align-items: center;
-
-  font-size: 12px;
+  font-size: 14px;
 
   font-weight: 750;
 }
 
 
 /* =========================================================
-   REPORT TYPE
+   USER
    ========================================================= */
 
-.pv-reg-report-type {
-  color: #5c5b56;
+.pv-audit-user {
+  display: flex;
 
-  font-size: 13px;
+  align-items: center;
 
-  font-weight: 550;
+  gap: 9px;
 }
 
+.pv-audit-user-avatar {
+  width: 36px;
 
-/* =========================================================
-   DEADLINE
-   ========================================================= */
+  height: 36px;
 
-.pv-reg-deadline {
-  color: #55544f;
+  flex-shrink: 0;
 
-  font-size: 13px;
+  border-radius: 50%;
 
-  font-weight: 650;
-}
+  background: #fff0a8;
 
-.pv-reg-deadline.overdue {
-  color: #a93636;
+  color: #303030;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 12px;
 
   font-weight: 800;
 }
 
+.pv-audit-user-avatar svg {
+  width: 17px;
 
-/* =========================================================
-   SUBMISSION DATE
-   ========================================================= */
+  height: 17px;
+}
 
-.pv-reg-submission-date {
-  color: #686762;
+.pv-audit-user strong {
+  display: block;
+
+  color: #3f3e3a;
 
   font-size: 13px;
 
-  font-weight: 550;
+  line-height: 1.35;
+
+  font-weight: 700;
+}
+
+.pv-audit-user span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #929089;
+
+  font-size: 11px;
+
+  line-height: 1.3;
 }
 
 
 /* =========================================================
-   STATUS
+   ACTION
    ========================================================= */
 
-.pv-reg-status {
-  min-height: 32px;
+.pv-audit-action {
+  color: #4c4b46;
 
-  padding: 0 12px;
+  font-size: 13px;
 
-  border-radius: 17px;
+  font-weight: 650;
 
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   FIELD
+   ========================================================= */
+
+.pv-audit-field {
+  color: #67655f;
+
+  font-size: 13px;
+
+  font-weight: 550;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   OLD VALUE
+   ========================================================= */
+
+.pv-audit-old-value {
+  display: inline-block;
+
+  max-width: 230px;
+
+  padding: 7px 10px;
+
+  border-radius: 9px;
+
+  background: #f2dddd;
+
+  color: #963939;
+
+  font-size: 12px;
+
+  line-height: 1.35;
+
+  font-weight: 600;
+
+  white-space: normal;
+}
+
+
+/* =========================================================
+   NEW VALUE
+   ========================================================= */
+
+.pv-audit-new-value {
   display: inline-flex;
 
   align-items: center;
 
   gap: 6px;
 
+  color: #416446;
+
+  font-weight: 700;
+}
+
+.pv-audit-new-value > svg {
+  width: 15px;
+
+  height: 15px;
+}
+
+.pv-audit-new-value span {
+  display: inline-block;
+
+  max-width: 230px;
+
+  padding: 7px 10px;
+
+  border-radius: 9px;
+
+  background: #dfeade;
+
+  color: #416446;
+
   font-size: 12px;
+
+  line-height: 1.35;
+
+  white-space: normal;
+}
+
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.pv-audit-category {
+  min-height: 32px;
+
+  padding: 0 11px;
+
+  border-radius: 17px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  font-size: 11px;
 
   font-weight: 750;
 
   white-space: nowrap;
 }
 
-.pv-reg-status.pending {
-  background: #ffd95f;
 
-  color: #303030;
+/* Update */
+
+.pv-audit-category.update {
+  background: #fff0a7;
+
+  color: #5f5228;
 }
 
-.pv-reg-status.submitted {
-  background: #303030;
 
-  color: #ffffff;
+/* Submission */
+
+.pv-audit-category.submission {
+  background: #dfeade;
+
+  color: #3e6543;
 }
 
-.pv-reg-status.acknowledged {
-  background: #dfe8df;
 
-  color: #36553b;
+/* Creation */
+
+.pv-audit-category.creation {
+  background: #e8e0f2;
+
+  color: #624b80;
 }
 
-.pv-reg-status.overdue {
-  background: #e9d6d6;
 
-  color: #8d3333;
+/* Follow-up */
+
+.pv-audit-category.followup {
+  background: #ffe4ad;
+
+  color: #805b1d;
+}
+
+
+/* Document */
+
+.pv-audit-category.document {
+  background: #e4e9e7;
+
+  color: #4e625a;
+}
+
+
+/* Review */
+
+.pv-audit-category.review {
+  background: #e8e0f2;
+
+  color: #624b80;
 }
 
 
@@ -1196,8 +1186,8 @@
    VIEW BUTTON
    ========================================================= */
 
-.pv-reg-view-btn {
-  min-height: 38px;
+.pv-audit-view-btn {
+  min-height: 39px;
 
   padding: 0 14px;
 
@@ -1215,7 +1205,7 @@
 
   justify-content: center;
 
-  gap: 6px;
+  gap: 7px;
 
   font-family: inherit;
 
@@ -1225,58 +1215,42 @@
 
   cursor: pointer;
 
+  white-space: nowrap;
+
   transition:
     background 0.2s ease,
     transform 0.2s ease;
 }
 
-.pv-reg-view-btn:hover {
-  background: #1e1e1e;
+.pv-audit-view-btn:hover {
+  background: #1d1d1d;
 
   transform: translateY(-2px);
+
+  text-decoration: none;
 }
 
 
 /* =========================================================
-   EMPTY STATE
+   NO RESULTS
    ========================================================= */
 
-.pv-reg-no-results {
+.pv-audit-no-results {
   padding: 75px 30px !important;
 
   text-align: center !important;
-}
 
-.pv-reg-no-results > div {
-  display: flex;
+  color: #929089 !important;
 
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 9px;
-
-  color: #96948e;
-}
-
-.pv-reg-no-results strong {
-  color: #45443f;
-
-  font-size: 17px;
-
-  font-weight: 650;
-}
-
-.pv-reg-no-results span {
-  font-size: 13px;
+  font-size: 15px !important;
 }
 
 
 /* =========================================================
-   DEADLINE SECTION
+   TIMELINE CARD
    ========================================================= */
 
-.pv-regulatory-deadline-card {
+.pv-audit-timeline-card {
   padding: 27px;
 
   margin-top: 23px;
@@ -1288,15 +1262,20 @@
   background:
     linear-gradient(
       135deg,
-      #fff7d1,
-      #f8f6ed
+      #fffef8,
+      #f7f6f1
     );
 
   box-shadow:
     0 8px 25px rgba(45, 45, 45, 0.05);
 }
 
-.pv-regulatory-deadline-header {
+
+/* =========================================================
+   TIMELINE HEADER
+   ========================================================= */
+
+.pv-audit-timeline-header {
   display: flex;
 
   align-items: flex-start;
@@ -1305,11 +1284,13 @@
 
   gap: 20px;
 
-  margin-bottom: 20px;
+  margin-bottom: 22px;
+
+  color: #303030;
 }
 
-.pv-regulatory-deadline-header h2 {
-  margin: 0;
+.pv-audit-timeline-header h2 {
+  margin: 0 0 6px;
 
   color: #242424;
 
@@ -1322,179 +1303,212 @@
   letter-spacing: -0.03em;
 }
 
-.pv-regulatory-deadline-header p {
-  max-width: 700px;
+.pv-audit-timeline-header p {
+  margin: 0;
 
-  margin: 7px 0 0;
-
-  color: #7d7b74;
+  color: #85827b;
 
   font-size: 13px;
 
-  line-height: 1.55;
+  line-height: 1.5;
 }
 
-.pv-deadline-header-icon {
-  width: 48px;
+.pv-audit-timeline-header > svg {
+  width: 27px;
 
-  height: 48px;
+  height: 27px;
+
+  color: #303030;
+}
+
+
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
+.pv-audit-timeline {
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   TIMELINE ITEM
+   ========================================================= */
+
+.pv-audit-timeline-item {
+  position: relative;
+
+  display: flex;
+
+  gap: 14px;
+
+  padding-bottom: 20px;
+}
+
+.pv-audit-timeline-item:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  left: 19px;
+
+  top: 43px;
+
+  bottom: 0;
+
+  width: 2px;
+
+  background: #dfddd6;
+}
+
+
+/* =========================================================
+   TIMELINE ICON
+   ========================================================= */
+
+.pv-audit-timeline-icon {
+  width: 40px;
+
+  height: 40px;
 
   flex-shrink: 0;
 
-  border-radius: 17px;
-
-  background: #ffd34f;
-
-  color: #303030;
+  border-radius: 14px;
 
   display: flex;
 
   align-items: center;
 
   justify-content: center;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+.pv-audit-timeline-icon svg {
+  width: 19px;
+
+  height: 19px;
+}
+
+
+/* Update */
+
+.pv-audit-timeline-icon.update {
+  background: #fff0a7;
+
+  color: #665725;
+}
+
+
+/* Submission */
+
+.pv-audit-timeline-icon.submission {
+  background: #dfeade;
+
+  color: #3f6543;
+}
+
+
+/* Creation */
+
+.pv-audit-timeline-icon.creation {
+  background: #e8e0f2;
+
+  color: #624b80;
+}
+
+
+/* Follow-up */
+
+.pv-audit-timeline-icon.followup {
+  background: #ffe4ad;
+
+  color: #805b1d;
+}
+
+
+/* Document */
+
+.pv-audit-timeline-icon.document {
+  background: #e4e9e7;
+
+  color: #4e625a;
+}
+
+
+/* Review */
+
+.pv-audit-timeline-icon.review {
+  background: #e8e0f2;
+
+  color: #624b80;
 }
 
 
 /* =========================================================
-   DEADLINE LIST
+   TIMELINE CONTENT
    ========================================================= */
 
-.pv-reg-deadline-list {
-  display: flex;
+.pv-audit-timeline-content {
+  flex: 1;
 
-  flex-direction: column;
+  min-width: 0;
 
-  gap: 10px;
+  padding-top: 2px;
 }
 
-.pv-reg-deadline-item {
-  min-height: 70px;
-
-  padding: 11px 15px;
-
-  border: none;
-
-  border-radius: 21px;
-
-  background:
-    rgba(255, 255, 255, 0.76);
-
+.pv-audit-timeline-top {
   display: flex;
 
   align-items: center;
 
   justify-content: space-between;
 
-  gap: 20px;
-
-  box-sizing: border-box;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  gap: 15px;
 }
 
-.pv-reg-deadline-item:hover {
-  background: #ffffff;
-
-  transform: translateX(2px);
-}
-
-.pv-reg-deadline-item.overdue {
-  background:
-    rgba(255, 235, 235, 0.82);
-}
-
-.pv-reg-deadline-left {
-  display: flex;
-
-  align-items: center;
-
-  gap: 13px;
-
-  min-width: 0;
-}
-
-.pv-reg-deadline-icon {
-  width: 43px;
-
-  height: 43px;
-
-  flex-shrink: 0;
-
-  border-radius: 15px;
-
-  background: #303030;
-
-  color: #ffd34f;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-}
-
-.pv-reg-deadline-item.overdue
-.pv-reg-deadline-icon {
-  background: #e8cccc;
-
-  color: #8f3434;
-}
-
-.pv-reg-deadline-left strong {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color: #303030;
+.pv-audit-timeline-top strong {
+  color: #383733;
 
   font-size: 14px;
 
+  line-height: 1.4;
+
   font-weight: 700;
 }
 
-.pv-reg-deadline-left span {
-  color: #85827b;
+.pv-audit-timeline-top span {
+  color: #929089;
 
   font-size: 12px;
 
-  font-weight: 500;
+  white-space: nowrap;
 }
 
-.pv-reg-deadline-date {
-  min-width: 125px;
+.pv-audit-timeline-content p {
+  margin: 5px 0 0;
 
-  text-align: right;
-}
-
-.pv-reg-deadline-date span {
-  display: block;
-
-  margin-bottom: 3px;
-
-  color: #99968f;
-
-  font-size: 9px;
-
-  font-weight: 800;
-
-  letter-spacing: 0.08em;
-
-  text-transform: uppercase;
-}
-
-.pv-reg-deadline-date strong {
-  color: #3a3935;
+  color: #77746d;
 
   font-size: 13px;
+
+  line-height: 1.55;
+}
+
+.pv-audit-timeline-content p span {
+  color: #62572d;
 
   font-weight: 700;
 }
 
-.pv-reg-deadline-item.overdue
-.pv-reg-deadline-date strong {
-  color: #9b3535;
+.pv-audit-timeline-content p strong {
+  color: #4b4943;
+
+  font-weight: 700;
 }
 
 
@@ -1502,7 +1516,7 @@
    MODAL OVERLAY
    ========================================================= */
 
-.pv-reg-modal-overlay {
+.pv-audit-modal-overlay {
   position: fixed;
 
   inset: 0;
@@ -1530,8 +1544,8 @@
    MODAL
    ========================================================= */
 
-.pv-reg-modal {
-  width: min(930px, 100%);
+.pv-audit-modal {
+  width: min(850px, 100%);
 
   max-height: 92vh;
 
@@ -1552,10 +1566,10 @@
     0 30px 80px rgba(0, 0, 0, 0.24);
 
   animation:
-    pvRegModalIn 0.22s ease both;
+    pvAuditModalIn 0.22s ease both;
 }
 
-@keyframes pvRegModalIn {
+@keyframes pvAuditModalIn {
 
   from {
     opacity: 0;
@@ -1579,7 +1593,7 @@
    MODAL HEADER
    ========================================================= */
 
-.pv-reg-modal-header {
+.pv-audit-modal-header {
   padding: 26px 28px;
 
   border-bottom: 1px solid rgba(48, 48, 48, 0.07);
@@ -1600,7 +1614,7 @@
   gap: 20px;
 }
 
-.pv-reg-modal-header span {
+.pv-audit-modal-header span {
   display: block;
 
   margin-bottom: 7px;
@@ -1616,12 +1630,12 @@
   text-transform: uppercase;
 }
 
-.pv-reg-modal-header h2 {
+.pv-audit-modal-header h2 {
   margin: 0 0 5px;
 
   color: #202020;
 
-  font-size: 26px;
+  font-size: 27px;
 
   line-height: 1.1;
 
@@ -1630,7 +1644,7 @@
   letter-spacing: -0.03em;
 }
 
-.pv-reg-modal-header small {
+.pv-audit-modal-header small {
   color: #77756f;
 
   font-size: 13px;
@@ -1638,7 +1652,12 @@
   font-weight: 550;
 }
 
-.pv-reg-modal-header button {
+
+/* =========================================================
+   MODAL CLOSE
+   ========================================================= */
+
+.pv-audit-modal-header button {
   width: 42px;
 
   height: 42px;
@@ -1666,7 +1685,7 @@
     transform 0.2s ease;
 }
 
-.pv-reg-modal-header button:hover {
+.pv-audit-modal-header button:hover {
   background: #171717;
 
   transform: rotate(3deg);
@@ -1677,7 +1696,7 @@
    MODAL BODY
    ========================================================= */
 
-.pv-reg-modal-body {
+.pv-audit-modal-body {
   padding: 28px;
 
   max-height:
@@ -1686,67 +1705,35 @@
   overflow-y: auto;
 }
 
-.pv-reg-modal-section {
+
+/* =========================================================
+   MODAL SECTION
+   ========================================================= */
+
+.pv-audit-modal-section {
   margin-bottom: 29px;
 }
 
-
-/* =========================================================
-   MODAL SECTION TITLE
-   ========================================================= */
-
-.pv-modal-section-title {
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  margin-bottom: 15px;
-}
-
-.pv-modal-section-icon {
-  width: 40px;
-
-  height: 40px;
-
-  flex-shrink: 0;
-
-  border-radius: 14px;
-
-  background: #ffd34f;
+.pv-audit-modal-section h3 {
+  margin: 0 0 15px;
 
   color: #303030;
 
-  display: flex;
+  font-size: 19px;
 
-  align-items: center;
-
-  justify-content: center;
-}
-
-.pv-modal-section-title h3 {
-  margin: 0 0 3px;
-
-  color: #303030;
-
-  font-size: 18px;
+  line-height: 1.2;
 
   font-weight: 650;
-}
 
-.pv-modal-section-title span {
-  color: #89867f;
-
-  font-size: 12px;
+  letter-spacing: -0.02em;
 }
 
 
 /* =========================================================
-   MODAL INFORMATION GRID
+   MODAL GRID
    ========================================================= */
 
-.pv-reg-modal-grid {
+.pv-audit-modal-grid {
   display: grid;
 
   grid-template-columns:
@@ -1755,8 +1742,8 @@
   gap: 11px;
 }
 
-.pv-reg-modal-grid > div {
-  min-height: 73px;
+.pv-audit-modal-grid > div {
+  min-height: 76px;
 
   padding: 15px 16px;
 
@@ -1770,164 +1757,7 @@
   box-sizing: border-box;
 }
 
-.pv-reg-modal-grid span {
-  display: block;
-
-  margin-bottom: 6px;
-
-  color: #99968f;
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.04em;
-}
-
-.pv-reg-modal-grid strong {
-  color: #34332f;
-
-  font-size: 14px;
-
-  line-height: 1.4;
-
-  font-weight: 700;
-}
-
-
-/* =========================================================
-   WORKFLOW
-   ========================================================= */
-
-.pv-reg-workflow {
-  padding: 18px;
-
-  border: none;
-
-  border-radius: 20px;
-
-  background:
-    rgba(255, 255, 255, 0.72);
-}
-
-.pv-reg-workflow-step {
-  display: flex;
-
-  align-items: center;
-
-  gap: 13px;
-
-  min-height: 52px;
-}
-
-.pv-reg-step-icon {
-  width: 38px;
-
-  height: 38px;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-}
-
-.pv-reg-workflow-step.completed
-.pv-reg-step-icon {
-  background: #dce9dc;
-
-  color: #355e3b;
-}
-
-.pv-reg-workflow-step.current
-.pv-reg-step-icon {
-  background: #303030;
-
-  color: #ffd34f;
-}
-
-.pv-reg-workflow-step.upcoming
-.pv-reg-step-icon {
-  background: #e7e7e5;
-
-  color: #8c8a84;
-}
-
-.pv-reg-workflow-step.followup
-.pv-reg-step-icon {
-  background: #ffd34f;
-
-  color: #303030;
-}
-
-.pv-reg-workflow-step strong {
-  display: block;
-
-  margin-bottom: 3px;
-
-  color: #303030;
-
-  font-size: 14px;
-
-  font-weight: 700;
-}
-
-.pv-reg-workflow-step span {
-  color: #89867f;
-
-  font-size: 12px;
-}
-
-.pv-reg-workflow-line {
-  width: 2px;
-
-  height: 22px;
-
-  margin-left: 18px;
-
-  background: #dededb;
-}
-
-.pv-reg-workflow-line.completed-line {
-  background: #7ea580;
-}
-
-
-/* =========================================================
-   MODAL STATUS
-   ========================================================= */
-
-.pv-reg-modal-status-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 11px;
-
-  margin-bottom: 18px;
-}
-
-.pv-reg-modal-status-grid > div {
-  min-height: 76px;
-
-  padding: 15px;
-
-  border: none;
-
-  border-radius: 18px;
-
-  background:
-    rgba(255, 255, 255, 0.74);
-}
-
-.pv-reg-modal-status-grid > div > span:first-child {
+.pv-audit-modal-grid span {
   display: block;
 
   margin-bottom: 7px;
@@ -1938,23 +1768,144 @@
 
   font-weight: 700;
 
+  letter-spacing: 0.04em;
+
   text-transform: uppercase;
 }
 
-.pv-reg-modal-status-grid strong {
-  color: #303030;
+.pv-audit-modal-grid strong {
+  color: #34332f;
 
   font-size: 14px;
+
+  line-height: 1.45;
 
   font-weight: 700;
 }
 
 
 /* =========================================================
-   FOLLOW-UP NOTICE
+   CHANGE BOX
    ========================================================= */
 
-.pv-reg-followup-notice {
+.pv-audit-change-box {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 18px;
+
+  border: none;
+
+  border-radius: 21px;
+
+  background:
+    rgba(255, 255, 255, 0.72);
+}
+
+
+/* =========================================================
+   CHANGE VALUE
+   ========================================================= */
+
+.pv-audit-change-value {
+  min-width: 0;
+
+  padding: 15px;
+
+  border-radius: 17px;
+}
+
+.pv-audit-change-value.old {
+  background: #f4dfdf;
+}
+
+.pv-audit-change-value.new {
+  background: #e1ebdf;
+}
+
+.pv-audit-change-value span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #85827b;
+
+  font-size: 10px;
+
+  font-weight: 750;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+}
+
+.pv-audit-change-value strong {
+  display: block;
+
+  color: #44423c;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  font-weight: 700;
+
+  overflow-wrap: anywhere;
+}
+
+.pv-audit-change-value.old strong {
+  color: #963939;
+}
+
+.pv-audit-change-value.new strong {
+  color: #416446;
+}
+
+
+/* =========================================================
+   CHANGE ARROW
+   ========================================================= */
+
+.pv-audit-change-arrow {
+  width: 42px;
+
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #303030;
+
+  color: #ffd34f;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.pv-audit-change-arrow svg {
+  width: 18px;
+
+  height: 18px;
+}
+
+
+/* =========================================================
+   REASON
+   ========================================================= */
+
+.pv-audit-reason {
   display: flex;
 
   align-items: flex-start;
@@ -1967,46 +1918,140 @@
 
   border-radius: 19px;
 
-  background:
-    #fff0ad;
+  background: #fff0b0;
+
+  color: #5d512d;
 }
 
-.pv-followup-notice-icon {
-  width: 39px;
+.pv-audit-reason > svg {
+  width: 22px;
 
-  height: 39px;
+  height: 22px;
 
   flex-shrink: 0;
 
-  border-radius: 13px;
-
-  background: #303030;
-
-  color: #ffd34f;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
+  color: #5c4e24;
 }
 
-.pv-reg-followup-notice strong {
+.pv-audit-reason p {
+  margin: 0;
+
+  color: #6f6444;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   METADATA
+   ========================================================= */
+
+.pv-audit-metadata {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 11px;
+}
+
+.pv-audit-metadata > div {
+  min-height: 70px;
+
+  padding: 14px 15px;
+
+  border: none;
+
+  border-radius: 17px;
+
+  background:
+    rgba(255, 255, 255, 0.72);
+}
+
+.pv-audit-metadata span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #99968f;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+}
+
+.pv-audit-metadata strong {
+  color: #55534d;
+
+  font-size: 13px;
+
+  line-height: 1.45;
+
+  font-weight: 650;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   INTEGRITY NOTICE
+   ========================================================= */
+
+.pv-audit-integrity-notice {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 18px;
+
+  border: none;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e4eee2,
+      #eef3eb
+    );
+
+  color: #416446;
+}
+
+.pv-audit-integrity-notice > svg {
+  width: 23px;
+
+  height: 23px;
+
+  flex-shrink: 0;
+}
+
+.pv-audit-integrity-notice strong {
   display: block;
 
   margin-bottom: 5px;
 
-  color: #3e3825;
+  color: #3c5e40;
 
   font-size: 14px;
+
+  line-height: 1.35;
 
   font-weight: 750;
 }
 
-.pv-reg-followup-notice p {
+.pv-audit-integrity-notice p {
   margin: 0;
 
-  color: #6d6344;
+  color: #5c705e;
 
   font-size: 12px;
 
@@ -2018,7 +2063,7 @@
    MODAL FOOTER
    ========================================================= */
 
-.pv-reg-modal-footer {
+.pv-audit-modal-footer {
   padding: 15px 28px;
 
   border-top: 1px solid rgba(48, 48, 48, 0.07);
@@ -2028,10 +2073,10 @@
   justify-content: flex-end;
 }
 
-.pv-reg-modal-footer button {
+.pv-audit-modal-footer button {
   min-height: 42px;
 
-  padding: 0 20px;
+  padding: 0 19px;
 
   border: none;
 
@@ -2054,8 +2099,8 @@
     transform 0.2s ease;
 }
 
-.pv-reg-modal-footer button:hover {
-  background: #191919;
+.pv-audit-modal-footer button:hover {
+  background: #1a1a1a;
 
   transform: translateY(-1px);
 }
@@ -2065,28 +2110,28 @@
    SCROLLBARS
    ========================================================= */
 
-.pv-regulatory-table-wrapper::-webkit-scrollbar,
-.pv-reg-modal-body::-webkit-scrollbar {
+.pv-audit-table-wrapper::-webkit-scrollbar,
+.pv-audit-modal-body::-webkit-scrollbar {
   width: 7px;
 
   height: 7px;
 }
 
-.pv-regulatory-table-wrapper::-webkit-scrollbar-track,
-.pv-reg-modal-body::-webkit-scrollbar-track {
+.pv-audit-table-wrapper::-webkit-scrollbar-track,
+.pv-audit-modal-body::-webkit-scrollbar-track {
   background: rgba(48, 48, 48, 0.04);
 }
 
-.pv-regulatory-table-wrapper::-webkit-scrollbar-thumb,
-.pv-reg-modal-body::-webkit-scrollbar-thumb {
-  background: #c5c4bf;
+.pv-audit-table-wrapper::-webkit-scrollbar-thumb,
+.pv-audit-modal-body::-webkit-scrollbar-thumb {
+  background: #c6c4bd;
 
   border-radius: 20px;
 }
 
-.pv-regulatory-table-wrapper::-webkit-scrollbar-thumb:hover,
-.pv-reg-modal-body::-webkit-scrollbar-thumb:hover {
-  background: #aaa9a4;
+.pv-audit-table-wrapper::-webkit-scrollbar-thumb:hover,
+.pv-audit-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #aaa8a1;
 }
 
 
@@ -2096,17 +2141,13 @@
 
 @media (max-width: 1250px) {
 
-  .pv-regulatory-page {
+  .pv-audit-page {
     padding: 32px 27px 52px;
   }
 
-  .pv-regulatory-stats {
+  .pv-audit-stats {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
-  }
-
-  .pv-regulatory-table {
-    min-width: 1140px;
   }
 }
 
@@ -2117,11 +2158,11 @@
 
 @media (max-width: 900px) {
 
-  .pv-regulatory-page {
+  .pv-audit-page {
     padding: 28px 22px 45px;
   }
 
-  .pv-regulatory-header {
+  .pv-audit-header {
     align-items: flex-start;
 
     flex-direction: column;
@@ -2129,49 +2170,42 @@
     gap: 20px;
   }
 
-  .pv-regulatory-primary-btn {
-    width: 100%;
+  .pv-audit-header-badge {
+    align-self: flex-start;
   }
 
-  .pv-regulatory-overview {
-    flex-wrap: wrap;
-
-    align-items: center;
-
-    gap: 15px;
-  }
-
-  .pv-overview-divider {
-    display: none;
-  }
-
-  .pv-regulatory-table-header {
-    align-items: flex-start;
-
-    flex-direction: column;
-  }
-
-  .pv-regulatory-info {
-    width: fit-content;
-  }
-
-  .pv-regulatory-filters {
+  .pv-audit-filters {
     display: grid;
 
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
   }
 
-  .pv-regulatory-filters select,
-  .pv-regulatory-clear {
+  .pv-audit-filters select,
+  .pv-audit-clear {
     width: 100%;
   }
 
-  .pv-reg-modal-grid {
-    grid-template-columns: 1fr;
+  .pv-audit-table-header {
+    align-items: flex-start;
+
+    flex-direction: column;
   }
 
-  .pv-reg-modal-status-grid {
+  .pv-audit-integrity {
+    width: fit-content;
+  }
+
+  .pv-audit-timeline-top {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+  .pv-audit-modal-grid,
+  .pv-audit-metadata {
     grid-template-columns: 1fr;
   }
 }
@@ -2183,20 +2217,20 @@
 
 @media (max-width: 700px) {
 
-  .pv-regulatory-page {
+  .pv-audit-page {
     padding: 23px 16px 38px;
   }
 
 
   /* Header */
 
-  .pv-regulatory-title-area {
+  .pv-audit-title-row {
     align-items: flex-start;
 
     gap: 13px;
   }
 
-  .pv-regulatory-title-icon {
+  .pv-audit-title-icon {
     width: 53px;
 
     height: 53px;
@@ -2204,55 +2238,32 @@
     border-radius: 17px;
   }
 
-  .pv-regulatory-title-icon svg {
+  .pv-audit-title-icon svg {
     width: 24px;
 
     height: 24px;
   }
 
-  .pv-regulatory-header h1 {
+  .pv-audit-header h1 {
     font-size: 31px;
   }
 
-  .pv-regulatory-header p {
+  .pv-audit-header p {
     font-size: 14px;
 
     line-height: 1.55;
   }
 
 
-  /* Overview */
+  /* KPI */
 
-  .pv-regulatory-overview {
-    min-height: auto;
-
-    padding: 18px;
-
-    border-radius: 23px;
-
-    flex-direction: column;
-
-    align-items: stretch;
-
-    gap: 13px;
-  }
-
-  .pv-overview-item {
-    width: 100%;
-
-    justify-content: space-between;
-  }
-
-
-  /* Statistics */
-
-  .pv-regulatory-stats {
+  .pv-audit-stats {
     grid-template-columns: 1fr;
 
     gap: 13px;
   }
 
-  .pv-regulatory-stat-card {
+  .pv-audit-stat-card {
     min-height: 130px;
 
     padding: 21px;
@@ -2260,7 +2271,7 @@
     border-radius: 23px;
   }
 
-  .pv-regulatory-stat-icon {
+  .pv-audit-stat-icon {
     width: 52px;
 
     height: 52px;
@@ -2268,143 +2279,110 @@
     border-radius: 17px;
   }
 
-  .pv-regulatory-stat-card strong {
+  .pv-audit-stat-card strong {
     font-size: 32px;
   }
 
 
-  /* Filters */
+  /* ALCOA */
 
-  .pv-regulatory-filter-card {
+  .pv-audit-alcoa-notice {
+    padding: 17px;
+
+    border-radius: 20px;
+  }
+
+  .pv-audit-alcoa-notice p {
+    font-size: 12px;
+  }
+
+
+  /* Filter */
+
+  .pv-audit-filter-card {
     padding: 20px;
 
     border-radius: 23px;
   }
 
-  .pv-filter-heading {
-    flex-direction: column;
-
-    gap: 8px;
-  }
-
-  .pv-filter-heading h2 {
-    font-size: 20px;
-  }
-
-  .pv-regulatory-filters {
+  .pv-audit-filters {
     grid-template-columns: 1fr;
   }
 
-  .pv-regulatory-search {
+  .pv-audit-search {
     min-height: 51px;
   }
 
 
   /* Table */
 
-  .pv-regulatory-table-card {
+  .pv-audit-table-card {
     border-radius: 24px;
   }
 
-  .pv-regulatory-table-header {
+  .pv-audit-table-header {
     padding: 21px;
   }
 
-  .pv-regulatory-table-header h2 {
+  .pv-audit-table-header h2 {
     font-size: 21px;
   }
 
-  .pv-regulatory-info {
+  .pv-audit-integrity {
     width: 100%;
 
-    min-height: 38px;
-
     justify-content: center;
-
-    padding: 8px 12px;
-
-    white-space: normal;
-
-    text-align: center;
 
     box-sizing: border-box;
   }
 
-  .pv-regulatory-table {
-    min-width: 1060px;
+  .pv-audit-table {
+    min-width: 1320px;
   }
 
 
-  /* Deadline */
+  /* Timeline */
 
-  .pv-regulatory-deadline-card {
-    padding: 20px;
+  .pv-audit-timeline-card {
+    padding: 21px;
 
     border-radius: 24px;
   }
 
-  .pv-regulatory-deadline-header {
-    gap: 12px;
-  }
-
-  .pv-regulatory-deadline-header h2 {
+  .pv-audit-timeline-header h2 {
     font-size: 21px;
-  }
-
-  .pv-reg-deadline-item {
-    align-items: flex-start;
-
-    flex-direction: column;
-
-    gap: 11px;
-
-    padding: 15px;
-  }
-
-  .pv-reg-deadline-date {
-    width: 100%;
-
-    min-width: 0;
-
-    padding-left: 56px;
-
-    text-align: left;
   }
 
 
   /* Modal */
 
-  .pv-reg-modal-overlay {
+  .pv-audit-modal-overlay {
     padding: 9px;
   }
 
-  .pv-reg-modal {
+  .pv-audit-modal {
     max-height: 96vh;
 
     border-radius: 24px;
   }
 
-  .pv-reg-modal-header {
+  .pv-audit-modal-header {
     padding: 20px;
   }
 
-  .pv-reg-modal-header h2 {
-    font-size: 22px;
+  .pv-audit-modal-header h2 {
+    font-size: 23px;
   }
 
-  .pv-reg-modal-body {
+  .pv-audit-modal-body {
     padding: 20px;
 
     max-height:
       calc(96vh - 140px);
   }
 
-  .pv-reg-modal-footer {
+  .pv-audit-modal-footer {
     padding: 13px 20px;
-  }
-
-  .pv-reg-modal-footer button {
-    width: 100%;
   }
 }
 
@@ -2415,14 +2393,14 @@
 
 @media (max-width: 480px) {
 
-  .pv-regulatory-page {
+  .pv-audit-page {
     padding: 19px 12px 32px;
   }
 
 
   /* Header */
 
-  .pv-regulatory-title-icon {
+  .pv-audit-title-icon {
     width: 48px;
 
     height: 48px;
@@ -2430,41 +2408,18 @@
     border-radius: 15px;
   }
 
-  .pv-regulatory-header h1 {
+  .pv-audit-header h1 {
     font-size: 28px;
   }
 
-  .pv-regulatory-header p {
+  .pv-audit-header p {
     font-size: 13px;
-  }
-
-  .pv-regulatory-primary-btn {
-    min-height: 49px;
-
-    font-size: 13px;
-  }
-
-
-  /* Overview */
-
-  .pv-regulatory-overview {
-    padding: 17px;
-
-    border-radius: 20px;
-  }
-
-  .pv-overview-item {
-    font-size: 12px;
-  }
-
-  .pv-overview-item strong {
-    font-size: 16px;
   }
 
 
   /* KPI */
 
-  .pv-regulatory-stat-card {
+  .pv-audit-stat-card {
     min-height: 122px;
 
     padding: 18px;
@@ -2472,7 +2427,7 @@
     border-radius: 20px;
   }
 
-  .pv-regulatory-stat-icon {
+  .pv-audit-stat-icon {
     width: 48px;
 
     height: 48px;
@@ -2480,97 +2435,109 @@
     border-radius: 15px;
   }
 
-  .pv-regulatory-stat-card span {
+  .pv-audit-stat-card span {
     font-size: 13px;
   }
 
-  .pv-regulatory-stat-card strong {
+  .pv-audit-stat-card strong {
     font-size: 30px;
   }
 
 
-  /* Filters */
+  /* Notice */
 
-  .pv-regulatory-filter-card {
+  .pv-audit-alcoa-notice {
+    padding: 15px;
+  }
+
+  .pv-audit-alcoa-icon {
+    width: 39px;
+
+    height: 39px;
+
+    border-radius: 12px;
+  }
+
+
+  /* Filter */
+
+  .pv-audit-filter-card {
     padding: 18px;
 
     border-radius: 20px;
-  }
-
-  .pv-regulatory-search input {
-    font-size: 14px;
   }
 
 
   /* Table */
 
-  .pv-regulatory-table-header {
+  .pv-audit-table-header {
     padding: 18px;
   }
 
-  .pv-regulatory-table-header h2 {
+  .pv-audit-table-header h2 {
     font-size: 20px;
   }
 
-  .pv-regulatory-table {
-    min-width: 1030px;
+  .pv-audit-table {
+    min-width: 1220px;
   }
 
 
-  /* Deadline */
+  /* Timeline */
 
-  .pv-regulatory-deadline-card {
+  .pv-audit-timeline-card {
     padding: 18px;
 
     border-radius: 20px;
   }
 
-  .pv-regulatory-deadline-header h2 {
+  .pv-audit-timeline-header h2 {
     font-size: 20px;
   }
 
-  .pv-deadline-header-icon {
-    width: 43px;
-
-    height: 43px;
-
-    border-radius: 14px;
+  .pv-audit-timeline-content p {
+    font-size: 12px;
   }
 
 
   /* Modal */
 
-  .pv-reg-modal-header,
-  .pv-reg-modal-body {
+  .pv-audit-modal-header {
     padding: 17px;
   }
 
-  .pv-reg-modal-header button {
+  .pv-audit-modal-body {
+    padding: 17px;
+  }
+
+  .pv-audit-modal-header button {
     width: 39px;
 
     height: 39px;
   }
 
-  .pv-reg-modal-header h2 {
+  .pv-audit-modal-header h2 {
     font-size: 20px;
   }
 
-  .pv-modal-section-title h3 {
+  .pv-audit-modal-section h3 {
     font-size: 17px;
   }
 
-  .pv-reg-modal-grid > div {
-    min-height: 68px;
+  .pv-audit-change-box {
+    padding: 14px;
+  }
 
+  .pv-audit-change-value {
     padding: 13px;
   }
 
-  .pv-reg-workflow {
-    padding: 15px;
+  .pv-audit-modal-footer {
+    padding: 12px 17px;
   }
 
-  .pv-reg-modal-footer {
-    padding: 12px 17px;
+  .pv-audit-modal-footer button {
+    width: 100%;
   }
 }
 
@@ -2581,32 +2548,32 @@
 
 @media (max-width: 380px) {
 
-  .pv-regulatory-page {
+  .pv-audit-page {
     padding-left: 9px;
 
     padding-right: 9px;
   }
 
-  .pv-regulatory-header h1 {
+  .pv-audit-header h1 {
     font-size: 26px;
   }
 
-  .pv-regulatory-title-icon {
+  .pv-audit-title-icon {
     width: 44px;
 
     height: 44px;
   }
 
-  .pv-regulatory-stat-card {
+  .pv-audit-stat-card {
     padding: 17px;
   }
 
-  .pv-regulatory-filter-card,
-  .pv-regulatory-deadline-card {
+  .pv-audit-filter-card,
+  .pv-audit-timeline-card {
     padding: 16px;
   }
 
-  .pv-regulatory-table-header {
+  .pv-audit-table-header {
     padding: 17px;
   }
 }
@@ -2616,11 +2583,11 @@
    ACCESSIBILITY
    ========================================================= */
 
-.pv-regulatory-page
+.pv-audit-page
 button:focus-visible,
-.pv-regulatory-page
+.pv-audit-page
 select:focus-visible,
-.pv-regulatory-page
+.pv-audit-page
 input:focus-visible {
   outline: 3px solid rgba(255, 211, 79, 0.42);
 
@@ -2634,9 +2601,9 @@ input:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
 
-  .pv-regulatory-page *,
-  .pv-regulatory-page *::before,
-  .pv-regulatory-page *::after {
+  .pv-audit-page *,
+  .pv-audit-page *::before,
+  .pv-audit-page *::after {
     animation-duration: 0.01ms !important;
 
     animation-iteration-count: 1 !important;

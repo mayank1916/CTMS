@@ -1,0 +1,298 @@
+/* =====================================================
+   NIDAN INVESTIGATOR LOGOUT PAGE
+   Matches Dashboard UI Design
+===================================================== */
+
+.logout-page {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(circle at top right, rgba(238, 210, 109, 0.35), transparent 28%),
+    linear-gradient(135deg, #eef0f4 0%, #e9eaee 48%, #f4e7aa 100%);
+}
+
+/* Background glow */
+
+.logout-background-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.45;
+}
+
+.shape-one {
+  width: 280px;
+  height: 280px;
+  background: #ffffff;
+  top: -80px;
+  left: -60px;
+}
+
+.shape-two {
+  width: 350px;
+  height: 350px;
+  background: #f6dc72;
+  bottom: -120px;
+  right: -100px;
+}
+
+/* Main Container */
+
+.logout-container {
+  width: 100%;
+  max-width: 620px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card */
+
+.logout-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 28px;
+  padding: 42px;
+  box-shadow:
+    0 25px 80px rgba(44, 52, 72, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* Brand */
+
+.logout-top-brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.logout-brand-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: #24272d;
+  color: #f6d66a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-top-brand h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #1d232f;
+}
+
+.logout-top-brand span {
+  font-size: 12px;
+  color: #7b8190;
+  letter-spacing: 0.4px;
+}
+
+/* Divider */
+
+.logout-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #d8dce5,
+    transparent
+  );
+  margin: 30px 0;
+}
+
+/* Success Icon */
+
+.logout-success-icon {
+  width: 108px;
+  height: 108px;
+  margin: 0 auto 24px;
+  border-radius: 32px;
+  background: linear-gradient(135deg, #fff6cf, #f3dc77);
+  color: #20242c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 12px 30px rgba(220, 190, 70, 0.28);
+}
+
+/* Content */
+
+.logout-content {
+  text-align: center;
+}
+
+.logout-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  color: #9b7a19;
+  margin-bottom: 12px;
+}
+
+.logout-content h1 {
+  margin: 0;
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #20242c;
+}
+
+.logout-content p {
+  max-width: 470px;
+  margin: 18px auto 24px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #687080;
+}
+
+/* Info Box */
+
+.logout-info-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #f7f8fa;
+  border: 1px solid #e5e7eb;
+  color: #4f5868;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.logout-info-box svg {
+  flex-shrink: 0;
+  color: #b58a17;
+}
+
+/* Footer */
+
+.logout-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eceef2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: #8a909d;
+}
+
+.logout-status {
+  color: #4f8a5b;
+  font-weight: 700;
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+  .logout-page {
+    padding: 28px 16px;
+  }
+
+  .logout-card {
+    padding: 34px 26px;
+    border-radius: 24px;
+  }
+
+  .logout-content h1 {
+    font-size: 30px;
+  }
+
+  .logout-content p {
+    font-size: 15px;
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 520px) {
+  .logout-page {
+    padding: 18px 12px;
+    align-items: center;
+  }
+
+  .logout-card {
+    padding: 26px 18px;
+    border-radius: 20px;
+  }
+
+  .logout-top-brand {
+    justify-content: center;
+    text-align: left;
+  }
+
+  .logout-brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+  }
+
+  .logout-top-brand h3 {
+    font-size: 19px;
+  }
+
+  .logout-top-brand span {
+    font-size: 10px;
+  }
+
+  .logout-divider {
+    margin: 22px 0;
+  }
+
+  .logout-success-icon {
+    width: 88px;
+    height: 88px;
+    border-radius: 26px;
+    margin-bottom: 20px;
+  }
+
+  .logout-success-icon svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .logout-content h1 {
+    font-size: 26px;
+  }
+
+  .logout-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 14px;
+  }
+
+  .logout-info-box {
+    font-size: 13px;
+    padding: 14px;
+    align-items: flex-start;
+  }
+
+  .logout-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 11px;
+    gap: 8px;
+  }
+}

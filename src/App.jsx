@@ -1,129 +1,147 @@
-// import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+// // ===============================
+// // ACTOR DASHBOARDS
+// // ===============================
 
-// import Login from "./pages/Authentication/Login";
+// import InvestigatorDashboard from './pages/Investigator/InvestigatorDashboard'
+// import StudyCoordinator from './pages/StudyCoordinator/StudyCoordinator'
+// import EthicsCommittee from './pages/EthicsCommittee/EthicsCommittee'
+// import Pharmacovigilance from './pages/Pharmacovigilance/Pharmacovigilance'
 
-// import Signup from "./pages/Authentication/signup";
+// // ===============================
+// // AUTHENTICATION PAGES
+// // ===============================
 
-// import Logout from "./pages/Authentication/Logout";
+// import Login from './pages/Authentication/Login'
+// import Signup from './pages/Authentication/Signup'
+// import Logout from './pages/Authentication/Logout'
 
-// import MfaSetup from "./pages/Authentication/MfaSetup";
 
-// import ProtectedRoute from "./components/ProtectedRoute";
+// function App() {
 
-// import Unauthorized from "./components/Unauthorized";
+//   // Choose ONE page only
 
-// import InvestigatorDashboard from "./pages/Investigator/InvestigatorDashboard";
+//   // return <InvestigatorDashboard />
 
-// import StudyCoordinator from "./pages/StudyCoordinator/StudyCoordinator";
+//   // return <StudyCoordinator />
 
-// import EthicsCommittee from "./pages/EthicsCommittee/EthicsCommittee";
+//   // return <EthicsCommittee />
 
+//   // return <Pharmacovigilance />
+
+//   // return <Login />
+
+//   return <Signup />
+
+//   // return <Logout />
+// }
+
+// export default App
+
+
+
+
+
+
+
+
+import { Routes, Route, Navigate } from "react-router-dom";
+
+// ========================================
+// LANDING PAGE
+// ========================================
+
+import LandingPage from "./pages/Landing/LandingPage";
+
+// ========================================
+// AUTHENTICATION PAGES
+// ========================================
+
+import Login from "./pages/Authentication/Login";
+import Signup from "./pages/Authentication/Signup";
+import Logout from "./pages/Authentication/Logout";
+
+// ========================================
+// ACTOR DASHBOARDS
+// ========================================
+
+import InvestigatorDashboard from "./pages/Investigator/InvestigatorDashboard";
+import StudyCoordinator from "./pages/StudyCoordinator/StudyCoordinator";
+import EthicsCommittee from "./pages/EthicsCommittee/EthicsCommittee";
 import Pharmacovigilance from "./pages/Pharmacovigilance/Pharmacovigilance";
 
-// ============================================================
-// APP
-// ============================================================
 
 function App() {
-  return <Pharmacovigilance />;
+  return (
+    <Routes>
+
+      {/* ========================================
+          LANDING PAGE
+          Opens when website starts
+      ======================================== */}
+
+      <Route
+        path="/"
+        element={<LandingPage />}
+      />
 
 
+      {/* ========================================
+          AUTHENTICATION
+      ======================================== */}
 
-  //   <BrowserRouter>
-  //     <Routes>
-  //       {/* ============================================
-  //                 PUBLIC AUTHENTICATION ROUTES
-  //             ============================================ */}
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-  //       <Route path="/login" element={<Login />} />
+      <Route
+        path="/signup"
+        element={<Signup />}
+      />
 
-  //       <Route path="/signup" element={<Signup />} />
+      <Route
+        path="/logout"
+        element={<Logout />}
+      />
 
-  //       {/* ============================================
-  //                 MFA SETUP
 
-  //                 This is intentionally NOT wrapped inside
-  //                 ProtectedRoute.
+      {/* ========================================
+          ACTOR DASHBOARDS
+      ======================================== */}
 
-  //                 It uses a temporary MFA setup token.
-  //             ============================================ */}
+      <Route
+        path="/investigator"
+        element={<InvestigatorDashboard />}
+      />
 
-  //       <Route path="/mfa-setup" element={<MfaSetup />} />
+      <Route
+        path="/study-coordinator"
+        element={<StudyCoordinator />}
+      />
 
-  //       <Route path="/logout" element={<Logout />} />
+      <Route
+        path="/ethics-committee"
+        element={<EthicsCommittee />}
+      />
 
-  //       {/* ============================================
-  //                 INVESTIGATOR
-  //             ============================================ */}
+      <Route
+        path="/pharmacovigilance"
+        element={<Pharmacovigilance />}
+      />
 
-  //       <Route
-  //         path="/investigator"
-  //         element={
-  //           <ProtectedRoute allowedRoles={["investigator"]}>
-  //             <InvestigatorDashboard />
-  //           </ProtectedRoute>
-  //         }
-  //       />
 
-  //       {/* ============================================
-  //                 STUDY COORDINATOR
-  //             ============================================ */}
+      {/* ========================================
+          UNKNOWN URL
+          Send user back to Landing Page
+      ======================================== */}
 
-  //       <Route
-  //         path="/studycoordinator"
-  //         element={
-  //           <ProtectedRoute allowedRoles={["studycoordinator"]}>
-  //             <StudyCoordinator />
-  //           </ProtectedRoute>
-  //         }
-  //       />
+      <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+      />
 
-  //       {/* ============================================
-  //                 ETHICS COMMITTEE
-  //             ============================================ */}
-
-  //       <Route
-  //         path="/ethicscommittee"
-  //         element={
-  //           <ProtectedRoute allowedRoles={["ethicscommittee"]}>
-  //             <EthicsCommittee />
-  //           </ProtectedRoute>
-  //         }
-  //       />
-
-  //       {/* ============================================
-  //                 PHARMACOVIGILANCE
-  //             ============================================ */}
-
-  //       <Route
-  //         path="/pharmacovigilance"
-  //         element={
-  //           <ProtectedRoute allowedRoles={["pharmacovigilance"]}>
-  //             <Pharmacovigilance />
-  //           </ProtectedRoute>
-  //         }
-  //       />
-
-  //       {/* ============================================
-  //                 UNAUTHORIZED
-  //             ============================================ */}
-
-  //       <Route path="/unauthorized" element={<Unauthorized />} />
-
-  //       {/* ============================================
-  //                 DEFAULT ROUTE
-  //             ============================================ */}
-
-  //       <Route path="/" element={<Navigate to="/login" replace />} />
-
-  //       {/* ============================================
-  //                 UNKNOWN ROUTES
-  //             ============================================ */}
-
-  //       <Route path="*" element={<Navigate to="/login" replace />} />
-  //     </Routes>
-  //   </BrowserRouter>
-  // );
+    </Routes>
+  );
 }
 
 export default App;

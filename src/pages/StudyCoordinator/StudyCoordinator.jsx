@@ -1,4 +1,26 @@
 import { useState } from 'react'
+import {
+  FlaskConical,
+  Users,
+  CalendarDays,
+  CheckCircle2,
+  FileText,
+  Bell,
+  Settings,
+  LogOut,
+  Search,
+  ArrowUpRight,
+  Clock3,
+  AlertTriangle,
+  CircleCheck,
+  Activity,
+  ChevronRight,
+  ClipboardCheck,
+  UserRound,
+  Stethoscope,
+  Menu,
+  X
+} from 'lucide-react'
 
 import CoordinatorStudies from './CoordinatorStudies'
 import CoordinatorParticipants from './CoordinatorParticipants'
@@ -15,6 +37,7 @@ import '../../styles/StudyCoordinator/studyCoordinator.css'
 function StudyCoordinator() {
 
   const [activeTab, setActiveTab] = useState('Dashboard')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const [tasks, setTasks] = useState([
     {
@@ -59,36 +82,34 @@ function StudyCoordinator() {
     }
   ])
 
+
   const navigation = [
     {
       name: 'Dashboard',
-      icon: '🏠'
+      icon: Activity
     },
     {
       name: 'Studies',
-      icon: '🧪'
+      icon: FlaskConical
     },
     {
       name: 'Participants',
-      icon: '👥'
+      icon: Users
     },
     {
       name: 'Visits',
-      icon: '📅'
+      icon: CalendarDays
     },
     {
       name: 'Tasks',
-      icon: '✅'
+      icon: ClipboardCheck
     },
     {
       name: 'Documents',
-      icon: '📁'
-    },
-    {
-      name: 'Notifications',
-      icon: '🔔'
+      icon: FileText
     }
   ]
+
 
   const pendingTasks = tasks.filter(
     (task) => !task.completed
@@ -110,289 +131,418 @@ function StudyCoordinator() {
   }
 
 
+  const goTo = (tab) => {
+    setActiveTab(tab)
+    setMobileMenuOpen(false)
+  }
+
+
   const Dashboard = () => {
 
     return (
-      <div className="coordinator-dashboard">
 
-        {/* HEADER */}
+      <div className="sc-dashboard">
 
-        <div className="dashboard-header">
+        {/* =====================================================
+            WELCOME SECTION
+        ===================================================== */}
+
+        <section className="sc-welcome">
 
           <div>
-            <h1>Study Coordinator Dashboard</h1>
 
-            <p>
-              Manage clinical studies, participants and trial activities
+            <p className="sc-eyebrow">
+              CLINICAL TRIAL MANAGEMENT SYSTEM
             </p>
+
+            <h1>
+              Welcome in, <span>Study Coordinator</span>
+            </h1>
+
+            <p className="sc-welcome-text">
+              Manage clinical studies, participants and trial
+              activities from one place.
+            </p>
+
           </div>
 
-          <div className="dashboard-date">
-            📅 02 September 2026
+          <div className="sc-date-card">
+            <CalendarDays size={17} />
+            <span>02 September 2026</span>
           </div>
 
-        </div>
+        </section>
 
 
-        {/* KPI CARDS */}
+        {/* =====================================================
+            KPI METRICS
+        ===================================================== */}
 
-        <div className="kpi-grid">
+        <section className="sc-metrics">
 
-          <div className="kpi-card">
+          <div className="sc-metric">
 
-            <div className="kpi-icon blue">
-              🧪
+            <div className="sc-metric-icon purple">
+              <FlaskConical size={20} />
             </div>
 
             <div>
-              <h3>8</h3>
-              <p>Active Studies</p>
+              <strong>8</strong>
+              <span>Active Studies</span>
+            </div>
+
+            <div className="sc-metric-change positive">
+              +12%
             </div>
 
           </div>
 
 
-          <div className="kpi-card">
+          <div className="sc-metric">
 
-            <div className="kpi-icon green">
-              👥
+            <div className="sc-metric-icon blue">
+              <Users size={20} />
             </div>
 
             <div>
-              <h3>156</h3>
-              <p>Participants</p>
+              <strong>156</strong>
+              <span>Participants</span>
+            </div>
+
+            <div className="sc-metric-change positive">
+              +24%
             </div>
 
           </div>
 
 
-          <div className="kpi-card">
+          <div className="sc-metric">
 
-            <div className="kpi-icon orange">
-              📅
+            <div className="sc-metric-icon green">
+              <CalendarDays size={20} />
             </div>
 
             <div>
-              <h3>12</h3>
-              <p>Upcoming Visits</p>
+              <strong>12</strong>
+              <span>Upcoming Visits</span>
+            </div>
+
+            <div className="sc-metric-change positive">
+              +8%
             </div>
 
           </div>
 
 
-          <div className="kpi-card">
+          <div className="sc-metric">
 
-            <div className="kpi-icon red">
-              ✅
+            <div className="sc-metric-icon pink">
+              <CheckCircle2 size={20} />
             </div>
 
             <div>
-              <h3>{pendingTasks}</h3>
-              <p>Pending Tasks</p>
+              <strong>{pendingTasks}</strong>
+              <span>Pending Tasks</span>
+            </div>
+
+            <div className="sc-metric-change negative">
+              -6%
             </div>
 
           </div>
 
-        </div>
+        </section>
 
 
-        {/* MAIN DASHBOARD GRID */}
+        {/* =====================================================
+            MAIN ANALYTICS AREA
+        ===================================================== */}
 
-        <div className="dashboard-main-grid">
+        <section className="sc-main-grid">
 
-          {/* STUDY OVERVIEW */}
 
-          <div className="dashboard-panel">
+          {/* TRIAL ACTIVITY */}
 
-            <div className="panel-header">
+          <div className="sc-panel sc-activity-panel">
+
+            <div className="sc-panel-header">
 
               <div>
-                <h2>Study Overview</h2>
-                <p>Current study progress</p>
+
+                <p className="sc-panel-label">
+                  STUDY PERFORMANCE
+                </p>
+
+                <h2>Trial activity</h2>
+
+                <span>
+                  Participant and study activity over the week
+                </span>
+
               </div>
 
               <button
-                onClick={() => setActiveTab('Studies')}
+                className="sc-round-button"
+                onClick={() => goTo('Studies')}
+                title="View studies"
               >
-                View All
+                <ArrowUpRight size={18} />
               </button>
 
             </div>
 
 
-            <div className="study-overview-list">
+            <div className="sc-chart-area">
 
-              <div className="overview-study">
+              <div className="sc-chart-summary">
 
-                <div className="overview-study-info">
+                <strong>+18%</strong>
 
-                  <div className="study-mini-icon">
-                    🫀
-                  </div>
+                <span>
+                  Activity is higher than last week
+                </span>
 
-                  <div>
-                    <h3>Cardio Health Study</h3>
-                    <span>CT-2026-001</span>
+              </div>
+
+
+              <div className="sc-chart">
+
+                <div className="sc-chart-y">
+
+                  <span>100</span>
+                  <span>75</span>
+                  <span>50</span>
+                  <span>25</span>
+                  <span>0</span>
+
+                </div>
+
+
+                <div className="sc-chart-content">
+
+                  <div className="sc-chart-grid-line"></div>
+                  <div className="sc-chart-grid-line"></div>
+                  <div className="sc-chart-grid-line"></div>
+                  <div className="sc-chart-grid-line"></div>
+
+
+                  <div className="sc-bars">
+
+                    <div className="sc-bar-group">
+                      <div
+                        className="sc-bar blue-bar"
+                        style={{ height: '42%' }}
+                      ></div>
+                      <span>Mon</span>
+                    </div>
+
+                    <div className="sc-bar-group">
+                      <div
+                        className="sc-bar purple-bar"
+                        style={{ height: '64%' }}
+                      ></div>
+                      <span>Tue</span>
+                    </div>
+
+                    <div className="sc-bar-group">
+                      <div
+                        className="sc-bar blue-bar"
+                        style={{ height: '51%' }}
+                      ></div>
+                      <span>Wed</span>
+                    </div>
+
+                    <div className="sc-bar-group">
+                      <div
+                        className="sc-bar pink-bar"
+                        style={{ height: '78%' }}
+                      ></div>
+                      <span>Thu</span>
+                    </div>
+
+                    <div className="sc-bar-group">
+                      <div
+                        className="sc-bar purple-bar"
+                        style={{ height: '59%' }}
+                      ></div>
+                      <span>Fri</span>
+                    </div>
+
+                    <div className="sc-bar-group">
+                      <div
+                        className="sc-bar blue-bar"
+                        style={{ height: '72%' }}
+                      ></div>
+                      <span>Sat</span>
+                    </div>
+
+                    <div className="sc-bar-group">
+                      <div
+                        className="sc-bar green-bar"
+                        style={{ height: '87%' }}
+                      ></div>
+                      <span>Sun</span>
+                    </div>
+
                   </div>
 
                 </div>
 
-                <div className="progress-section">
+              </div>
 
-                  <div className="progress-label">
-                    <span>Progress</span>
-                    <strong>70%</strong>
-                  </div>
+            </div>
 
-                  <div className="progress-bar">
+          </div>
+
+
+          {/* RECENT STUDIES */}
+
+          <div className="sc-panel sc-studies-panel">
+
+            <div className="sc-panel-header">
+
+              <div>
+
+                <p className="sc-panel-label">
+                  STUDIES
+                </p>
+
+                <h2>Recent studies</h2>
+
+              </div>
+
+              <button
+                className="sc-text-button"
+                onClick={() => goTo('Studies')}
+              >
+                See all
+              </button>
+
+            </div>
+
+
+            <div className="sc-study-list">
+
+
+              <div className="sc-study-item">
+
+                <div className="sc-study-icon purple">
+                  <Stethoscope size={19} />
+                </div>
+
+                <div className="sc-study-info">
+
+                  <strong>
+                    Cardio Health Study
+                  </strong>
+
+                  <span>
+                    CT-2026-001 · Phase III
+                  </span>
+
+                  <div className="sc-mini-progress">
                     <div
-                      className="progress-fill"
                       style={{ width: '70%' }}
                     ></div>
                   </div>
 
                 </div>
 
+                <div className="sc-study-percent">
+                  70%
+                </div>
+
               </div>
 
 
-              <div className="overview-study">
+              <div className="sc-study-item">
 
-                <div className="overview-study-info">
-
-                  <div className="study-mini-icon">
-                    🩺
-                  </div>
-
-                  <div>
-                    <h3>Diabetes Research Trial</h3>
-                    <span>CT-2026-004</span>
-                  </div>
-
+                <div className="sc-study-icon blue">
+                  <Activity size={19} />
                 </div>
 
-                <div className="progress-section">
+                <div className="sc-study-info">
 
-                  <div className="progress-label">
-                    <span>Progress</span>
-                    <strong>62%</strong>
-                  </div>
+                  <strong>
+                    Diabetes Research Trial
+                  </strong>
 
-                  <div className="progress-bar">
+                  <span>
+                    CT-2026-004 · Phase II
+                  </span>
+
+                  <div className="sc-mini-progress">
                     <div
-                      className="progress-fill"
                       style={{ width: '62%' }}
                     ></div>
                   </div>
 
                 </div>
 
+                <div className="sc-study-percent">
+                  62%
+                </div>
+
               </div>
 
 
-              <div className="overview-study">
+              <div className="sc-study-item">
 
-                <div className="overview-study-info">
-
-                  <div className="study-mini-icon">
-                    🔬
-                  </div>
-
-                  <div>
-                    <h3>Oncology Treatment Study</h3>
-                    <span>CT-2026-007</span>
-                  </div>
-
+                <div className="sc-study-icon pink">
+                  <FlaskConical size={19} />
                 </div>
 
-                <div className="progress-section">
+                <div className="sc-study-info">
 
-                  <div className="progress-label">
-                    <span>Progress</span>
-                    <strong>45%</strong>
-                  </div>
+                  <strong>
+                    Oncology Treatment Study
+                  </strong>
 
-                  <div className="progress-bar">
+                  <span>
+                    CT-2026-007 · Phase III
+                  </span>
+
+                  <div className="sc-mini-progress">
                     <div
-                      className="progress-fill"
                       style={{ width: '45%' }}
                     ></div>
                   </div>
 
                 </div>
 
-              </div>
-
-            </div>
-
-          </div>
-
-
-          {/* UPCOMING VISITS */}
-
-          <div className="dashboard-panel">
-
-            <div className="panel-header">
-
-              <div>
-                <h2>Upcoming Visits</h2>
-                <p>Next participant visits</p>
-              </div>
-
-              <button
-                onClick={() => setActiveTab('Visits')}
-              >
-                View All
-              </button>
-
-            </div>
-
-
-            <div className="visits-list">
-
-              <div className="dashboard-visit">
-
-                <div className="visit-date">
-                  <strong>02</strong>
-                  <span>SEP</span>
-                </div>
-
-                <div className="visit-info">
-                  <h3>Participant Visit</h3>
-                  <p>Cardio Health Study</p>
-                  <span>10:00 AM</span>
+                <div className="sc-study-percent">
+                  45%
                 </div>
 
               </div>
 
 
-              <div className="dashboard-visit">
+              <div className="sc-study-item">
 
-                <div className="visit-date">
-                  <strong>03</strong>
-                  <span>SEP</span>
+                <div className="sc-study-icon green">
+                  <Activity size={19} />
                 </div>
 
-                <div className="visit-info">
-                  <h3>Follow-up</h3>
-                  <p>Diabetes Research Trial</p>
-                  <span>11:30 AM</span>
+                <div className="sc-study-info">
+
+                  <strong>
+                    Mental Health Research
+                  </strong>
+
+                  <span>
+                    CT-2026-009 · Phase II
+                  </span>
+
+                  <div className="sc-mini-progress">
+                    <div
+                      style={{ width: '38%' }}
+                    ></div>
+                  </div>
+
                 </div>
 
-              </div>
-
-
-              <div className="dashboard-visit">
-
-                <div className="visit-date">
-                  <strong>04</strong>
-                  <span>SEP</span>
-                </div>
-
-                <div className="visit-info">
-                  <h3>Screening</h3>
-                  <p>Oncology Treatment Study</p>
-                  <span>02:00 PM</span>
+                <div className="sc-study-percent">
+                  38%
                 </div>
 
               </div>
@@ -401,34 +551,47 @@ function StudyCoordinator() {
 
           </div>
 
-        </div>
+        </section>
 
 
-        {/* BOTTOM GRID */}
+        {/* =====================================================
+            LOWER GRID
+        ===================================================== */}
 
-        <div className="dashboard-bottom-grid">
+        <section className="sc-lower-grid">
+
 
           {/* PENDING TASKS */}
 
-          <div className="dashboard-panel">
+          <div className="sc-panel">
 
-            <div className="panel-header">
+            <div className="sc-panel-header">
 
               <div>
-                <h2>Pending Tasks</h2>
-                <p>Tasks requiring your attention</p>
+
+                <p className="sc-panel-label">
+                  WORK QUEUE
+                </p>
+
+                <h2>Pending tasks</h2>
+
+                <span>
+                  Tasks requiring your attention
+                </span>
+
               </div>
 
               <button
-                onClick={() => setActiveTab('Tasks')}
+                className="sc-text-button"
+                onClick={() => goTo('Tasks')}
               >
-                View All
+                See all
               </button>
 
             </div>
 
 
-            <div className="pending-task-list">
+            <div className="sc-task-list">
 
               {tasks
                 .filter((task) => !task.completed)
@@ -436,40 +599,65 @@ function StudyCoordinator() {
                 .map((task) => (
 
                   <div
-                    className="dashboard-task"
+                    className="sc-task"
                     key={task.id}
                   >
 
-                    <input
-                      type="checkbox"
-                      checked={task.completed}
-                      onChange={() => toggleTask(task.id)}
-                    />
+                    <label className="sc-checkbox">
 
-                    <div className="task-info">
+                      <input
+                        type="checkbox"
+                        checked={task.completed}
+                        onChange={() =>
+                          toggleTask(task.id)
+                        }
+                      />
 
-                      <h3>{task.title}</h3>
+                      <span></span>
 
-                      <p>
-                        {task.study} • Due {task.dueDate}
-                      </p>
+                    </label>
+
+
+                    <div className="sc-task-info">
+
+                      <strong>
+                        {task.title}
+                      </strong>
+
+                      <span>
+                        {task.study}
+                      </span>
 
                     </div>
 
-                    <span
-                      className={`task-priority ${task.priority.toLowerCase()}`}
-                    >
-                      {task.priority}
-                    </span>
+
+                    <div className="sc-task-meta">
+
+                      <span
+                        className={`sc-priority ${task.priority.toLowerCase()}`}
+                      >
+                        {task.priority}
+                      </span>
+
+                      <small>
+                        <Clock3 size={12} />
+                        {task.dueDate}
+                      </small>
+
+                    </div>
 
                   </div>
 
                 ))}
 
+
               {pendingTasks === 0 && (
-                <div className="no-pending-tasks">
-                  ✓ All tasks completed
+
+                <div className="sc-empty-state">
+                  <CircleCheck size={22} />
+                  <span>All tasks completed</span>
                 </div>
+
               )}
 
             </div>
@@ -479,134 +667,210 @@ function StudyCoordinator() {
 
           {/* ALERTS */}
 
-          <div className="dashboard-panel">
+          <div className="sc-panel">
 
-            <div className="panel-header">
+            <div className="sc-panel-header">
 
               <div>
-                <h2>Alerts</h2>
-                <p>Important updates</p>
+
+                <p className="sc-panel-label">
+                  ATTENTION
+                </p>
+
+                <h2>Alerts & updates</h2>
+
               </div>
 
               <button
-                onClick={() => setActiveTab('Notifications')}
+                className="sc-text-button"
+                onClick={() => goTo('Notifications')}
               >
-                View All
+                See all
               </button>
 
             </div>
 
 
-            <div className="alerts-list">
+            <div className="sc-alert-list">
 
-              <div className="dashboard-alert warning">
 
-                <div className="alert-icon">
-                  ⚠️
+              <div className="sc-alert warning">
+
+                <div className="sc-alert-icon">
+                  <AlertTriangle size={18} />
                 </div>
 
                 <div>
-                  <h3>Document Review Pending</h3>
-                  <p>
+
+                  <strong>
+                    Document Review Pending
+                  </strong>
+
+                  <span>
                     2 documents require review.
-                  </p>
+                  </span>
+
                 </div>
+
+                <ChevronRight size={16} />
 
               </div>
 
 
-              <div className="dashboard-alert info">
+              <div className="sc-alert info">
 
-                <div className="alert-icon">
-                  ℹ️
+                <div className="sc-alert-icon">
+                  <CalendarDays size={18} />
                 </div>
 
                 <div>
-                  <h3>Upcoming Participant Visits</h3>
-                  <p>
+
+                  <strong>
+                    Upcoming Participant Visits
+                  </strong>
+
+                  <span>
                     3 visits are scheduled this week.
-                  </p>
+                  </span>
+
                 </div>
+
+                <ChevronRight size={16} />
 
               </div>
 
 
-              <div className="dashboard-alert success">
+              <div className="sc-alert success">
 
-                <div className="alert-icon">
-                  ✓
+                <div className="sc-alert-icon">
+                  <CircleCheck size={18} />
                 </div>
 
                 <div>
-                  <h3>Study Milestone Completed</h3>
-                  <p>
+
+                  <strong>
+                    Study Milestone Completed
+                  </strong>
+
+                  <span>
                     Cardio Health Study reached 70%.
-                  </p>
+                  </span>
+
                 </div>
 
+                <ChevronRight size={16} />
+
               </div>
+
 
             </div>
 
           </div>
 
-        </div>
+        </section>
 
 
-        {/* QUICK ACTIONS */}
+        {/* =====================================================
+            QUICK ACTIONS
+        ===================================================== */}
 
-        <div className="quick-actions-panel">
+        <section className="sc-quick-section">
 
-          <div className="panel-header">
+          <div className="sc-panel-header">
 
             <div>
-              <h2>Quick Actions</h2>
-              <p>Frequently used actions</p>
+
+              <p className="sc-panel-label">
+                SHORTCUTS
+              </p>
+
+              <h2>Quick actions</h2>
+
             </div>
 
           </div>
 
 
-          <div className="quick-actions">
+          <div className="sc-quick-actions">
 
-            <button
-              onClick={() => setActiveTab('Studies')}
-            >
-              <span>🧪</span>
-              <strong>Manage Studies</strong>
+
+            <button onClick={() => goTo('Studies')}>
+
+              <div className="sc-quick-icon purple">
+                <FlaskConical size={20} />
+              </div>
+
+              <div>
+                <strong>Manage Studies</strong>
+                <span>View study information</span>
+              </div>
+
+              <ArrowUpRight size={17} />
+
             </button>
 
-            <button
-              onClick={() => setActiveTab('Participants')}
-            >
-              <span>👥</span>
-              <strong>Participants</strong>
+
+            <button onClick={() => goTo('Participants')}>
+
+              <div className="sc-quick-icon blue">
+                <Users size={20} />
+              </div>
+
+              <div>
+                <strong>Participants</strong>
+                <span>Manage participant records</span>
+              </div>
+
+              <ArrowUpRight size={17} />
+
             </button>
 
-            <button
-              onClick={() => setActiveTab('Visits')}
-            >
-              <span>📅</span>
-              <strong>Schedule Visit</strong>
+
+            <button onClick={() => goTo('Visits')}>
+
+              <div className="sc-quick-icon green">
+                <CalendarDays size={20} />
+              </div>
+
+              <div>
+                <strong>Schedule Visit</strong>
+                <span>Manage upcoming visits</span>
+              </div>
+
+              <ArrowUpRight size={17} />
+
             </button>
 
-            <button
-              onClick={() => setActiveTab('Documents')}
-            >
-              <span>📁</span>
-              <strong>Documents</strong>
+
+            <button onClick={() => goTo('Documents')}>
+
+              <div className="sc-quick-icon pink">
+                <FileText size={20} />
+              </div>
+
+              <div>
+                <strong>Documents</strong>
+                <span>Review study documents</span>
+              </div>
+
+              <ArrowUpRight size={17} />
+
             </button>
+
 
           </div>
 
-        </div>
+        </section>
 
       </div>
+
     )
   }
 
 
-  /* CONTENT SWITCH */
+  /* =========================================================
+     CONTENT SWITCH
+     ========================================================= */
 
   const renderContent = () => {
 
@@ -647,6 +911,7 @@ function StudyCoordinator() {
         return <Dashboard />
 
     }
+
   }
 
 
@@ -654,181 +919,217 @@ function StudyCoordinator() {
 
     <div className="study-coordinator-layout">
 
-      {/* SIDEBAR */}
 
-      <aside className="coordinator-sidebar">
+      {/* =====================================================
+          TOP NAVIGATION
+      ===================================================== */}
 
-        <div className="coordinator-logo">
+      <header className="coordinator-topbar">
 
-          <div className="coordinator-logo-icon">
+
+        <div className="coordinator-brand">
+
+          <div className="coordinator-brand-icon">
             C
           </div>
 
           <div>
-            <h2>CTMS</h2>
-            <p>
-              Clinical Trial Management
-            </p>
+
+            <strong>CTMS</strong>
+
+            <span>
+              Clinical Trials
+            </span>
+
           </div>
 
         </div>
 
 
+        {/* DESKTOP NAVIGATION */}
+
         <nav className="coordinator-nav">
 
-          {navigation.map((item) => (
+          {navigation.map((item) => {
 
-            <button
-              key={item.name}
-              className={`coordinator-nav-item ${
-                activeTab === item.name
-                  ? 'active'
-                  : ''
-              }`}
-              onClick={() =>
-                setActiveTab(item.name)
-              }
-            >
+            const Icon = item.icon
 
-              <span className="nav-icon">
-                {item.icon}
-              </span>
+            return (
 
-              <span>
-                {item.name}
-              </span>
+              <button
+                key={item.name}
+                className={`coordinator-nav-item ${
+                  activeTab === item.name
+                    ? 'active'
+                    : ''
+                }`}
+                onClick={() => goTo(item.name)}
+              >
 
-            </button>
+                <Icon size={16} />
 
-          ))}
+                <span>
+                  {item.name}
+                </span>
+
+              </button>
+
+            )
+
+          })}
 
         </nav>
 
 
-        {/* SIDEBAR BOTTOM */}
+        {/* RIGHT SIDE */}
 
-        <div className="coordinator-sidebar-bottom">
-
-          <button
-            className={`coordinator-nav-item ${
-              activeTab === 'Settings'
-                ? 'active'
-                : ''
-            }`}
-            onClick={() =>
-              setActiveTab('Settings')
-            }
-          >
-
-            <span className="nav-icon">
-              ⚙️
-            </span>
-
-            <span>
-              Settings
-            </span>
-
-          </button>
+        <div className="coordinator-topbar-right">
 
 
-          <button
-            className={`coordinator-nav-item logout ${
-              activeTab === 'Logout'
-                ? 'active'
-                : ''
-            }`}
-            onClick={() =>
-              setActiveTab('Logout')
-            }
-          >
+          <div className="coordinator-search">
 
-            <span className="nav-icon">
-              🚪
-            </span>
+            <Search size={16} />
 
-            <span>
-              Logout
-            </span>
-
-          </button>
-
-        </div>
-
-      </aside>
-
-
-      {/* MAIN CONTENT */}
-
-      <main className="coordinator-main">
-
-        {/* TOP BAR */}
-
-        <header className="coordinator-topbar">
-
-          <div className="topbar-left">
-
-            <span className="topbar-title">
-              {activeTab}
-            </span>
+            <input
+              type="text"
+              placeholder="Search..."
+            />
 
           </div>
 
 
-          <div className="topbar-right">
+          <button
+            className="coordinator-icon-button"
+            onClick={() => goTo('Notifications')}
+            title="Notifications"
+          >
 
-            <button
-              className="topbar-notification"
-              onClick={() =>
-                setActiveTab('Notifications')
-              }
-              title="Notifications"
-            >
-              🔔
+            <Bell size={18} />
 
-              <span className="notification-dot">
+            <span className="notification-dot"></span>
+
+          </button>
+
+
+          <button
+            className="coordinator-icon-button settings-button"
+            onClick={() => goTo('Settings')}
+            title="Settings"
+          >
+            <Settings size={18} />
+          </button>
+
+
+          <div
+            className="coordinator-profile"
+            onClick={() => goTo('Settings')}
+          >
+
+            <div className="coordinator-avatar">
+              SC
+            </div>
+
+            <div className="coordinator-profile-info">
+
+              <strong>
+                Study Coordinator
+              </strong>
+
+              <span>
+                Coordinator
               </span>
-
-            </button>
-
-
-            <div className="coordinator-user">
-
-              <div className="coordinator-user-avatar">
-                SC
-              </div>
-
-              <div className="coordinator-user-info">
-
-                <strong>
-                  Study Coordinator
-                </strong>
-
-                <span>
-                  Coordinator
-                </span>
-
-              </div>
 
             </div>
 
           </div>
 
-        </header>
 
+          <button
+            className="mobile-menu-button"
+            onClick={() =>
+              setMobileMenuOpen(!mobileMenuOpen)
+            }
+          >
 
-        {/* PAGE CONTENT */}
+            {mobileMenuOpen
+              ? <X size={21} />
+              : <Menu size={21} />
+            }
 
-        <div className="coordinator-content">
-
-          {renderContent()}
+          </button>
 
         </div>
 
+      </header>
+
+
+      {/* MOBILE NAVIGATION */}
+
+      {mobileMenuOpen && (
+
+        <div className="mobile-navigation">
+
+          {navigation.map((item) => {
+
+            const Icon = item.icon
+
+            return (
+
+              <button
+                key={item.name}
+                className={
+                  activeTab === item.name
+                    ? 'active'
+                    : ''
+                }
+                onClick={() => goTo(item.name)}
+              >
+
+                <Icon size={17} />
+
+                {item.name}
+
+              </button>
+
+            )
+
+          })}
+
+          <button
+            onClick={() => goTo('Settings')}
+          >
+            <Settings size={17} />
+            Settings
+          </button>
+
+          <button
+            className="mobile-logout"
+            onClick={() => goTo('Logout')}
+          >
+            <LogOut size={17} />
+            Logout
+          </button>
+
+        </div>
+
+      )}
+
+
+      {/* =====================================================
+          MAIN CONTENT
+      ===================================================== */}
+
+      <main className="coordinator-main">
+
+        {renderContent()}
+
       </main>
+
 
     </div>
 
   )
 }
+
 
 export default StudyCoordinator

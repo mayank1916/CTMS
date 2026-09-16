@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
 import api from "../../api/api";
@@ -8,8 +7,11 @@ import {
   saveAuth,
   saveMfaSetupToken,
   clearAllAuth,
-  getDashboardPath,
 } from "../../utils/auth";
+
+import { getDashboardPath } from "../../utils/auth";
+
+import "../../styles/Authentication/login.css";
 
 // ============================================================
 // LOGIN
@@ -18,318 +20,423 @@ import {
 export default function Login() {
   const navigate = useNavigate();
 
+  // ==========================================================
+  // FORM STATE
+  // ==========================================================
+
   const [username, setUsername] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [otp, setOtp] = useState("");
 
-  const [mfaRequired, setMfaRequired] = useState(false);
+  // ==========================================================
+  // LOGIN STATE
+  // ==========================================================
 
+  const [showOtp, setShowOtp] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const [loading, setLoading] = useState(false);
-
-  // ========================================================
-  // LOGIN
-  // ========================================================
+  // ==========================================================
+  // NORMAL LOGIN
+  // ==========================================================
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
     setError("");
-
     setLoading(true);
 
     clearAllAuth();
 
     try {
-      const response = await api.post(
-        "/auth/login",
-
-        {
-          username,
-
-          password,
-        },
-      );
+      const response = await api.post("/auth/login", {
+        username,
+        password,
+      });
 
       const data = response.data;
 
-      // =================================================
+      // ======================================================
       // MFA SETUP REQUIRED
-      // =================================================
+      // ======================================================
 
-      if (data.mfa_setup_required) {
+      if (data.mfa_setup_token) {
         saveMfaSetupToken(data.mfa_setup_token);
 
-        navigate(
-          "/mfa-setup",
+        navigate("/mfa-setup", {
+          replace: true,
+        });
 
+        return;
+      }
+
+      // ======================================================
+      // MFA REQUIRED
+      // ======================================================
+
+      if (
+        data.mfa_required ||
+        data.requires_mfa ||
+        data.mfa
+      ) {
+        setShowOtp(true);
+        return;
+      }
+
+      // ======================================================
+      // NORMAL LOGIN SUCCESS
+      // ======================================================
+
+      if (data.access_token) {
+        saveAuth(data.access_token, {
+          username: data.username || username,
+          role: data.role,
+        });
+
+        navigate(
+          getDashboardPath(data.role),
           {
             replace: true,
-          },
+          }
         );
 
         return;
       }
 
-      // =================================================
-      // MFA LOGIN REQUIRED
-      // =================================================
-
-      if (data.mfa_required) {
-        setMfaRequired(true);
-
-        return;
-      }
+      setError(
+        "Login response was invalid. Please try again."
+      );
     } catch (err) {
-      setError(err.response?.data?.detail || "Login failed");
+      setError(
+        err.response?.data?.detail ||
+          err.response?.data?.message ||
+          "Login failed. Please check your credentials."
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  // ========================================================
+  // ==========================================================
   // MFA LOGIN
-  // ========================================================
+  // ==========================================================
 
   const handleMfaLogin = async (event) => {
     event.preventDefault();
 
     setError("");
-
     setLoading(true);
 
     try {
       const response = await api.post(
         "/auth/mfa/login",
-
         {
           username,
-
           password,
-
           otp,
-        },
+        }
       );
 
       const data = response.data;
 
-      // =================================================
-      // SAVE JWT
-      // =================================================
+      // ======================================================
+      // LOGIN SUCCESS
+      // ======================================================
 
-      saveAuth(
-        data.access_token,
-
-        {
-          username: data.username,
-
+      if (data.access_token) {
+        saveAuth(data.access_token, {
+          username: data.username || username,
           role: data.role,
-        },
-      );
+        });
 
-      // =================================================
-      // REDIRECT TO ROLE DASHBOARD
-      // =================================================
+        navigate(
+          getDashboardPath(data.role),
+          {
+            replace: true,
+          }
+        );
 
-      navigate(
-        getDashboardPath(data.role),
+        return;
+      }
 
-        {
-          replace: true,
-        },
+      setError(
+        "Login response was invalid. Please try again."
       );
     } catch (err) {
-      setError(err.response?.data?.detail || "MFA verification failed");
+      setError(
+        err.response?.data?.detail ||
+          err.response?.data?.message ||
+          "Invalid OTP. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  // ========================================================
-  // PASSWORD LOGIN SCREEN
-  // ========================================================
+  // ==========================================================
+  // BACK TO PASSWORD LOGIN
+  // ==========================================================
 
-  if (!mfaRequired) {
-    return (
-      <div
-        style={{
-          minHeight: "100vh",
+  const handleBackToLogin = () => {
+    setShowOtp(false);
+    setOtp("");
+    setError("");
+  };
 
-          display: "flex",
+  // ==========================================================
+  // LOGIN SCREEN
+  // ==========================================================
 
-          justifyContent: "center",
+  return (
+    <div className="login-page">
 
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "380px",
+      {/* =====================================================
+          BACKGROUND SHAPES
+      ====================================================== */}
 
-            padding: "30px",
+      <div className="login-background-shape login-shape-one"></div>
 
-            border: "1px solid #ddd",
+      <div className="login-background-shape login-shape-two"></div>
 
-            borderRadius: "10px",
 
-            boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
-          }}
-        >
-          <h2>CTMS Login</h2>
+      {/* =====================================================
+          LOGIN CARD
+      ====================================================== */}
 
-          <form onSubmit={handleLogin}>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              required
-              style={{
-                width: "100%",
+      <div className="login-card">
 
-                padding: "10px",
+        {/* ===================================================
+            NIDAN BRAND
+        =================================================== */}
 
-                marginBottom: "15px",
-              }}
-            />
+        <div className="login-brand">
 
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-              style={{
-                width: "100%",
+          <img
+            src="/nidan-logo.png"
+            alt="NIDAN Ayurvedic Diagnosis"
+            className="login-logo"
+          />
 
-                padding: "10px",
+          <h1 className="login-brand-title">
+            NIDAN
+          </h1>
 
-                marginBottom: "15px",
-              }}
-            />
+        </div>
+
+
+        {/* ===================================================
+            HEADER
+        =================================================== */}
+
+        <div className="login-header">
+
+          <span className="login-eyebrow">
+            SECURE ACCESS
+          </span>
+
+          <h2>
+            {showOtp
+              ? "Verify your identity"
+              : "Welcome back"}
+          </h2>
+
+          <p>
+            {showOtp
+              ? "Enter the verification code from your authenticator app."
+              : "Sign in to access your clinical trial management workspace."}
+          </p>
+
+        </div>
+
+
+        {/* ===================================================
+            ERROR
+        =================================================== */}
+
+        {error && (
+          <div className="login-error">
+            {error}
+          </div>
+        )}
+
+
+        {/* ===================================================
+            PASSWORD LOGIN
+        =================================================== */}
+
+        {!showOtp && (
+
+          <form
+            className="login-form"
+            onSubmit={handleLogin}
+          >
+
+            {/* USERNAME */}
+
+            <div className="login-field">
+
+              <label htmlFor="login-username">
+                Username
+              </label>
+
+              <input
+                id="login-username"
+                type="text"
+                placeholder="Enter your username"
+                value={username}
+                onChange={(event) =>
+                  setUsername(event.target.value)
+                }
+                autoComplete="username"
+                required
+              />
+
+            </div>
+
+
+            {/* PASSWORD */}
+
+            <div className="login-field">
+
+              <div className="login-label-row">
+
+                <label htmlFor="login-password">
+                  Password
+                </label>
+
+              </div>
+
+              <input
+                id="login-password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(event) =>
+                  setPassword(event.target.value)
+                }
+                autoComplete="current-password"
+                required
+              />
+
+            </div>
+
+
+            {/* SUBMIT */}
 
             <button
               type="submit"
+              className="login-submit-btn"
               disabled={loading}
-              style={{
-                width: "100%",
-
-                padding: "10px",
-              }}
             >
-              {loading ? "Logging in..." : "Login"}
+              {loading
+                ? "Signing in..."
+                : "Sign in"}
             </button>
+
           </form>
 
-          {error && (
-            <p
-              style={{
-                color: "red",
-              }}
-            >
-              {error}
-            </p>
-          )}
-
-          <p>
-            Don't have an account? <Link to="/signup">Create Account</Link>
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  // ========================================================
-  // MFA SCREEN
-  // ========================================================
-
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-
-        display: "flex",
-
-        justifyContent: "center",
-
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "380px",
-
-          padding: "30px",
-
-          border: "1px solid #ddd",
-
-          borderRadius: "10px",
-
-          textAlign: "center",
-        }}
-      >
-        <h2>Multi-Factor Authentication</h2>
-
-        <p>Enter the OTP from your authenticator app.</p>
-
-        <form onSubmit={handleMfaLogin}>
-          <input
-            type="text"
-            placeholder="6-digit OTP"
-            value={otp}
-            onChange={(event) => setOtp(event.target.value)}
-            maxLength="6"
-            required
-            style={{
-              width: "100%",
-
-              padding: "10px",
-
-              marginBottom: "15px",
-            }}
-          />
-
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: "100%",
-
-              padding: "10px",
-            }}
-          >
-            {loading ? "Verifying..." : "Verify OTP"}
-          </button>
-        </form>
-
-        <button
-          onClick={() => {
-            setMfaRequired(false);
-
-            setOtp("");
-
-            setError("");
-          }}
-          style={{
-            marginTop: "15px",
-          }}
-        >
-          Back
-        </button>
-
-        {error && (
-          <p
-            style={{
-              color: "red",
-            }}
-          >
-            {error}
-          </p>
         )}
+
+
+        {/* ===================================================
+            MFA LOGIN
+        =================================================== */}
+
+        {showOtp && (
+
+          <form
+            className="login-form"
+            onSubmit={handleMfaLogin}
+          >
+
+            <div className="login-field">
+
+              <label htmlFor="login-otp">
+                Authentication Code
+              </label>
+
+              <input
+                id="login-otp"
+                type="text"
+                inputMode="numeric"
+                maxLength="6"
+                placeholder="Enter 6-digit code"
+                value={otp}
+                onChange={(event) =>
+                  setOtp(
+                    event.target.value.replace(
+                      /\D/g,
+                      ""
+                    )
+                  )
+                }
+                autoComplete="one-time-code"
+                required
+              />
+
+              <span className="login-field-hint">
+                Enter the 6-digit code from your
+                authenticator app.
+              </span>
+
+            </div>
+
+
+            <button
+              type="submit"
+              className="login-submit-btn"
+              disabled={loading}
+            >
+              {loading
+                ? "Verifying..."
+                : "Verify & Sign in"}
+            </button>
+
+
+            <button
+              type="button"
+              className="login-back-btn"
+              onClick={handleBackToLogin}
+            >
+              Back to login
+            </button>
+
+          </form>
+
+        )}
+
+
+        {/* ===================================================
+            SIGNUP LINK
+        =================================================== */}
+
+        {!showOtp && (
+
+          <div className="login-signup">
+
+            <span>
+              Don't have an account?
+            </span>
+
+            <Link to="/signup">
+              Create an account
+            </Link>
+
+          </div>
+
+        )}
+
+
+        {/* ===================================================
+            SECURITY FOOTER
+        =================================================== */}
+
+        <div className="login-security-note">
+          Secure Clinical Research Platform
+        </div>
+
       </div>
+
     </div>
   );
 }
